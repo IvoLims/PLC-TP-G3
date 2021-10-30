@@ -5,7 +5,7 @@
 ### Entries
 
 A BibTeX entry consists of the **type**, a **citation-key** and a number of **tags** which define various characteristics of the specific BibTeX entry[^format].
-
+<!--
 Type
   : word after @
 
@@ -28,6 +28,31 @@ Note that:
 
 Entries
   : each declares a single reference to a type of publication.
+ -->
+
+<dl>
+<dt>Type</dt>
+<dd>word after @
+</dd>
+</dl>
+<p>We have a total of 17 entry types, where 14 specify the type of publication and 3 have use specific to BibTex.</p>
+<p>Entries used are not case sensitive<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>.</p>
+<p>The documentation says BibTeX-files may contain four different types of entries: <span class="citation" data-cites="string">@string</span>, <span class="citation" data-cites="preamble">@preamble</span>, <span class="citation" data-cites="comment">@comment</span> and Entries (e.g. <span class="citation" data-cites="article">@article</span>, <span class="citation" data-cites="book">@book</span>, etc)<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>. This may make ambigous the difference between type of entry and entry type. Just assume 4 types of entry and 17 entry types, where 14 belong to one type of entry (which is named entry).</p>
+<p>Note that:</p>
+<dl>
+<dt><span class="citation" data-cites="string">@string</span></dt>
+<dd>defines abbreviations which can later be used in a tag.
+</dd>
+<dt><span class="citation" data-cites="preamble">@preamble</span></dt>
+<dd>defines how special text should be formatted.
+</dd>
+<dt><span class="citation" data-cites="comment">@comment</span></dt>
+<dd>for comments not taken in regard by BibTeX.
+</dd>
+<dt>Entries</dt>
+<dd>each declares a single reference to a type of publication.
+</dd>
+</dl>
 
 There are 14 types of publication^[https://www.bibtex.com/e/entry-types/], that is, 14 entries of the type entry:
 
