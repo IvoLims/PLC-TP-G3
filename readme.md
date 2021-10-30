@@ -74,6 +74,12 @@ There are 14 types of publication^[https://www.bibtex.com/e/entry-types/], that 
 @unpublished
 ```
 
+<!-- Citation-key
+  : First word after {
+
+Tag
+  : A BibTeX tag is specified by its **name followed by an equals-sign and the content**. The tag's name **is not case-sensitive**. The **content needs to be enclosed by either curly braces or quotation-marks**. Which form of enclosure is used is depending on the user's taste, and both can be applied together in a single BibTeX entry, but there is one difference between those two methods: **When quotation-marks are used, string concatenation using # is possible, but not when braces are used.**[^format] -->
+
 <dl>
 <dt>Citation-key</dt>
 <dd>First word after {
@@ -83,4 +89,34 @@ There are 14 types of publication^[https://www.bibtex.com/e/entry-types/], that 
 </dd>
 </dl>
 
+Fiels recognized in standard bibtex format[^std]:
+
+```txt {line-numbers}
+address
+annote
+author
+booktitle
+chapter
+crossref
+edition
+editor
+howpublished
+institution
+journal
+key
+month
+note
+number
+organization
+pages
+publisher
+school
+series
+title
+type
+volume
+year
+```
+
 [^format]: http://www.bibtex.org/Format/
+[^std]: https://www.openoffice.org/bibliographic/bibtex-defs.html
