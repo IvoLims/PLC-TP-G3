@@ -74,10 +74,13 @@ There are 14 types of publication^[https://www.bibtex.com/e/entry-types/], that 
 @unpublished
 ```
 
-Citation-key
-  : First word after {
-
-Tag
-  : A BibTeX tag is specified by its **name followed by an equals-sign and the content**. The tag's name **is not case-sensitive**. The **content needs to be enclosed by either curly braces or quotation-marks**. Which form of enclosure is used is depending on the user's taste, and both can be applied together in a single BibTeX entry, but there is one difference between those two methods: **When quotation-marks are used, string concatenation using # is possible, but not when braces are used.**[^format]
+<dl>
+<dt>Citation-key</dt>
+<dd>First word after {
+</dd>
+<dt>Tag</dt>
+<dd>A BibTeX tag is specified by its <strong>name followed by an equals-sign and the content</strong>. The tag&#x2019;s name <strong>is not case-sensitive</strong>. The <strong>content needs to be enclosed by either curly braces or quotation-marks</strong>. Which form of enclosure is used is depending on the user&#x2019;s taste, and both can be applied together in a single BibTeX entry, but there is one difference between those two methods: <strong>When quotation-marks are used, string concatenation using # is possible, but not when braces are used.</strong><a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a>
+</dd>
+</dl>
 
 [^format]: http://www.bibtex.org/Format/
