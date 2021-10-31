@@ -1,4 +1,10 @@
-# Trabalho Prático 1
+# PLC - Processamento de Linguagens e Compiladores (Trabalho Prático 1)
+
+Grupo:
+
+1. Alef Keuffer (A91383)
+2. [Ivo Lima](https://github.com/IvoLims) (A90214)
+3. [Catarina Quintas](https://github.com/CatarinaQuintas) (A91650)
 
 ## BibTex format
 
@@ -61,7 +67,6 @@ There are 14 types of publication^[https://www.bibtex.com/e/entry-types/], that 
 @book
 @booklet
 @conference
-@conference
 @inbook
 @incollection
 @inproceedings
@@ -120,3 +125,12 @@ year
 
 [^format]: http://www.bibtex.org/Format/
 [^std]: https://www.openoffice.org/bibliographic/bibtex-defs.html
+
+## Esboco
+
+1. Categoria
+   - chave, autor, titulo
+   - ...
+2. Categoria
+   - chave, autor, titulo
+   - ...
