@@ -25,7 +25,6 @@ def get_entries(string):
     # https://stackoverflow.com/questions/546433/regular-expression-to-match-balanced-parentheses
     field = re.compile(r'(\w+)\s*=\s*(?:{((?:[^{}]+|{(?:[^{}]+|{[^{}]*})+})+)}|"([^"]+)"|(\d+))')
     for entry in re.finditer(r"@(\w+){(\w+),((?:.*|\n)*),?\n}", string):
-        print(entry.group(2))
         d[entry.group(1).lower(), entry.group(2)] = {
             x[0].lower(): get_valid_group(x, 1, 3)
             for x in field.findall(entry.group(3))
@@ -69,6 +68,9 @@ def get_author_list(data):
         set(invert_names([a for s in data.values() for a in s.get("author", [])]))
     )
 
+
+def invert_name(author_name):
+    return re.sub(r"([^,]+),\s*([^,]+)", r"\2 \1", author_name)
 
 def invert_names(authors):
     '''Exemplo: da Cruz, Daniela -> Daniela da Cruz'''
@@ -142,7 +144,13 @@ def mult_replace(string, replacement_list):
     return string
 
 
-def fix_authors(data):
+def fix_repeated_authors(data):
+    author_blocks = fix_block_func(block_authors_with_two_common_names_v2(get_author_list(data)))
+    author_dict = {author_name:max(s,key=len) for s in author_blocks for author_name in s}
+    for d in data.values():
+        d['author'] = [author_dict[author] for author in d['author']]
+
+def format_authors(data):
     '''Escolhemos remover acentuações e caracteres especiais
        que as representam em latex (e.g. "\\~") do nome dos autores.'''
     for d in data.values():
@@ -150,10 +158,12 @@ def fix_authors(data):
             d["author"] = [s.strip()
                            for s in re.split(r"\band\b", d["author"].replace("\n", " "))
                            if s.strip()]
-            d['author'] = [unbrace(
+            d['author'] = [invert_name(
+                           unbrace(
                            remove_consecutive_spaces(
-                           remove_accents(name)))
+                           remove_accents(name))))
                            for name in d['author']]
+
 
 
 def remove_consecutive_spaces(name):
@@ -303,11 +313,18 @@ def fix_block_func(data):
         res.add(frozenset(q))
     return res
 
+def get_author_dict(data):
+    authors = get_author_list(data)
+    author_blocks = fix_block_func(block_authors_with_two_common_names_v2(get_author_list(data)))
+    return {author_name:max(s,key=len) for s in author_blocks for author_name in s}
+
+
 def test_data_view():
-    data = main3();fix_authors(data); authors = get_author_list(data);authors_abbrev = sorted([transform(name) for name in authors],key=len,reverse=True)
+    data = main3();format_authors(data); authors = get_author_list(data);authors_abbrev = sorted([transform(name) for name in authors],key=len,reverse=True)
+    fix_repeated_authors(data)
     return question_b_view(data)
 
-data = main3();fix_authors(data); authors = get_author_list(data);authors_abbrev = sorted([transform(name) for name in authors],key=len,reverse=True)
+data = main3();format_authors(data); authors = get_author_list(data);authors_abbrev = sorted([transform(name) for name in authors],key=len,reverse=True)
 
 aut = fix_block_func(block_authors_with_two_common_names_v2(authors))
 block_authors_with_two_common_names(authors)
