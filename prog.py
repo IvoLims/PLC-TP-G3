@@ -27,10 +27,16 @@ def get_entries(string):
     for entry in re.finditer(r"@(\w+){(\w+),((?:.*|\n)*),?\n}", string):
         d[entry.group(1).lower(), entry.group(2)] = {
             x[0].lower(): get_valid_group(x, 1, 3)
-            for x in field.findall(entry.group(3))
-        }
+            for x in field.findall(entry.group(3))}
     return d
 
+def get_valid_group(t, begin_or_group, end_or_group):
+    # This exists because we have 3 groups when matching a field content:
+    # The content needs to be enclosed by either curly braces or quotation-marks.
+    # Additionally numbers can stand alone.
+    for i in range(begin_or_group, end_or_group + 1):
+        if v := t[i]:
+            return v
 
 def unbrace(expression):
     """Assumes balanced braces.
@@ -54,30 +60,12 @@ def unbrace(expression):
        is in effect."""
     return expression.translate({ord(x):None for x in '{}'})
 
-def get_valid_group(t, begin_or_group, end_or_group):
-    # This exists because we have 3 groups when matching a field content:
-    # The content needs to be enclosed by either curly braces or quotation-marks.
-    # Additionally numbers can stand alone.
-    for i in range(begin_or_group, end_or_group + 1):
-        if v := t[i]:
-            return v
-
 
 def get_author_list(data):
-    return sorted(
-        set(invert_names([a for s in data.values() for a in s.get("author", [])]))
-    )
-
+    return sorted(set([a for s in data.values() for a in s.get("author", [])]))
 
 def invert_name(author_name):
     return re.sub(r"([^,]+),\s*([^,]+)", r"\2 \1", author_name)
-
-def invert_names(authors):
-    '''Exemplo: da Cruz, Daniela -> Daniela da Cruz'''
-    res = []
-    for name in authors:
-        res.append(re.sub(r"([^,]+),\s*([^,]+)", r"\2 \1", name))
-    return res
 
 # Expression is in any given language. Latex, html expression
 # It's not just a simple string.
@@ -131,11 +119,6 @@ def fix_title(title):
              remove_accents(
              ' '.join(s.strip() for s in title.split('\n')))))))
 
-def apply(arg,func_list):
-    for func in func_list:
-        arg = func(arg)
-    return arg
-
 
 def mult_replace(string, replacement_list):
     '''Uses a list of regex substitutions to modify a string'''
@@ -155,15 +138,13 @@ def format_authors(data):
        que as representam em latex (e.g. "\\~") do nome dos autores.'''
     for d in data.values():
         if "author" in d:
-            d["author"] = [s.strip()
-                           for s in re.split(r"\band\b", d["author"].replace("\n", " "))
-                           if s.strip()]
-            d['author'] = [invert_name(
+            author_lst = [ remove_consecutive_spaces(
+                           str.strip(
+                           invert_name(
                            unbrace(
-                           remove_consecutive_spaces(
-                           remove_accents(name))))
-                           for name in d['author']]
-
+                           remove_accents(name)))))
+                           for name in re.split(r"\band\b", d["author"].replace("\n", " "))]
+            d['author'] = [author for author in author_lst if author]
 
 
 def remove_consecutive_spaces(name):
@@ -188,8 +169,6 @@ def remove_normal_accent(name):
 # 'P. Henriques', - ph
 # 'P. Rangel Henriques', - prh
 # 'P.R. Henriques', - prh
-
-
 
 # hipotetico -- 'J. Varanda'
 # 3 nomes comuns
@@ -226,7 +205,6 @@ def remove_normal_accent(name):
 # F.L. Neves
 
 
-
 def get_crude_abbrev(name):
     '''Transforma um nome de autor nas primeiras letras
        de cada um de seus nomes.
@@ -248,7 +226,7 @@ def is_a_first_last_match(author1,author2):
     '''returns true if first letter of first name
        and first letter of last name of author 1
        matches first letter of first name
-       and first letter of last name of author 2
+       and firfst letter of last name of author 2
        respectively'''
     a1 = get_crude_abbrev(author1)
     a2 = get_crude_abbrev(author2)
@@ -313,18 +291,16 @@ def fix_block_func(data):
         res.add(frozenset(q))
     return res
 
-def get_author_dict(data):
-    authors = get_author_list(data)
-    author_blocks = fix_block_func(block_authors_with_two_common_names_v2(get_author_list(data)))
-    return {author_name:max(s,key=len) for s in author_blocks for author_name in s}
-
 
 def test_data_view():
     data = main3();format_authors(data); authors = get_author_list(data);authors_abbrev = sorted([transform(name) for name in authors],key=len,reverse=True)
     fix_repeated_authors(data)
     return question_b_view(data)
 
-data = main3();format_authors(data); authors = get_author_list(data);authors_abbrev = sorted([transform(name) for name in authors],key=len,reverse=True)
+data = main3()
+format_authors(data)
+fix_repeated_authors(data)
+authors = get_author_list(data)
 
 aut = fix_block_func(block_authors_with_two_common_names_v2(authors))
 block_authors_with_two_common_names(authors)
