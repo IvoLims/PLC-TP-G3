@@ -111,7 +111,7 @@ def question_b_view(data):
         for citation_key in [x[1] for x in data if x[0]==entry_type]:
             title = data[entry_type,citation_key].get('title','')
             authors = data[entry_type,citation_key].get('author','')
-            string_ls.append(html_enclose('p',f"key={citation_key};Title={fix_title(title)};Autores={authors}"))
+            string_ls.append(html_enclose('p',f"Key = {citation_key}<br>Title = {fix_title(title)}<br>Autores={authors}"))
     return '\n'.join(string_ls)
 
 def fix_title(title):
