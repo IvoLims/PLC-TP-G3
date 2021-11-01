@@ -115,7 +115,6 @@ def get_html_pub_type_index(data):
 def str_to_html_math(string):
     return html_add_attr('class','math inline',html_create_span(string))
 
-
 def fix_title(title):
     # Nao e necessario remover acentos.
     # So o fazemos por consistencia com o nome dos autores.
@@ -140,8 +139,6 @@ def mult_replace(string, replacement_list):
     for old, new in replacement_list:
         string = re.sub(old, new, string)
     return string
-
-
 
 def fix_repeated_authors(data):
     author_blocks = fix_block_func(block_authors_with_two_common_names_v2(get_author_list(data)))
@@ -252,8 +249,6 @@ def get_author_pub_graph(data,author):
     return [(author_name,pub_partners.count(author_name))
             for author_name in set(pub_partners)]
 
-
-
 def get_html_author_index(data):
     index = sorted(get_author_index_dict(data).items())
     alphabet_order = sorted(set(c[0][0] for c in index))
@@ -269,9 +264,6 @@ def get_html_author_index(data):
     return ''.join(string_ls)
 
 
-def test_get_html_author_index():
-    return get_html_author_index(data)
-
 def get_crude_abbrev(name):
     '''Transforma um nome de autor nas primeiras letras
        de cada um de seus nomes.
@@ -279,15 +271,6 @@ def get_crude_abbrev(name):
        Por exemplo: Ricardo Henriques → RH'''
     return ''.join(c for c in name if c.isupper())
 
-def transform(authors):
-    '''Retorna das abreviacoes dos autores.'''
-    d = {}
-    for author in authors:
-        crude_abbrev = get_crude_abbrev(author)
-        if crude_abbrev not in d:
-            d[crude_abbrev] = set()
-        d[crude_abbrev].add(author)
-    return d
 
 def is_a_first_last_match(author1,author2):
     '''returns true if first letter of first name
@@ -358,11 +341,6 @@ def fix_block_func(data):
         res.add(frozenset(q))
     return res
 
-
-def test_data_view():
-    data = main3();format_authors(data); authors = get_author_list(data);authors_abbrev = sorted([transform(name) for name in authors],key=len,reverse=True)
-    fix_repeated_authors(data)
-    return get_html_pub_type_index(data)
 
 def get_dot_graph(author):
     g = sorted(get_author_pub_graph,key = lambda x: x[1])
