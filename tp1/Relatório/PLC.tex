@@ -13,7 +13,7 @@
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{float}
-\usepackage{enumitem}
+\usepackage[inline]{enumitem}
 
 \definecolor{mygreen}{rgb}{0,0.6,0}
 \definecolor{mygray}{rgb}{0.5,0.5,0.5}
@@ -54,23 +54,91 @@
 
 \chapter{Introdução}
 
+No âmbito da unidade curricular Processamento de Linguagens e compiladores (PLC),
+foi-nos proposto a realização de um projeto de forma a aprofundar os nossos
+conhecimentos adquiridos na sala de aula, atingindo os seguintes objetivos:
 
-\chapter{Exercício 4 a}
+\begin{itemize}
+    \item Aumentar a capacidade de escrever Expressões Regulares(ER)
+    \item Desenvolver sistematicamente Processadores de Linguagens Regulares, ou Filtros de Texto.
+    \item Familiarizar com o módulo 're' presente no Python.
+\end{itemize}
+  
 
-\subsection{Descrição do Problema}
+Para o efeito, criamos um  processador de Bib\TeX \href{http://www.bibtex.org/}. 
+A Bib\TeX \ é uma ferramenta de formatação usada em documentos em La\TeX.
+Um exemplo desta ferramenta: 
+\begin{lstlisting}
+@techreport{jspell1,
+   author = "J.J. Almeida and Ulisses Pinto",
+   title = "Manual de Utilizador do {JSpell}",
+   year = 1994,
+   type = "Manual",
+   month = "Jul",
+   institution = "umdi",
+   keyword = "morphology, lexical analysis,jspell",
+   abstract = {},
+   url = "http://natura.di.uminho.pt/~jj/pln/jspellman.ps.gz",
+}
+
+\end{lstlisting}
+
+Existe um conjunto de campos obrigatórios e facultativos para que um Bib\TeX \ seja válido, alguns desses campos são: \emph{article}, \emph{book},\emph{inproceedings},\emph{misc},\emph{proceedings} entre outros.
 
 
-\section{Estratégia/Implementação de Resolução}
+
+\newpage
+
+\section{Descrição do Problema}
+\newcommand{\gv}{\emph{GraphViz}}
+\newcommand{\htlm}{\emph{HTML}}
+\newcommand{\dott}{\emph{Dot}}
+\newcommand{\bib}{Bib\TeX}
+
+
+
+A nossa solução deve satisfazer os seguintes requisitos: 
+\begin{enumerate}[label=R\arabic*]
+\item\label{R1} Fazer a contagem das categorias presentes no documento, tais como: \emph{phDThesis}, \emph{Misc}, \emph{InProceeding }, \emph{etc }.
+\item\label{R2}Produzir um documento em formato \htlm \ com
+\begin{enumerate*}[label=(R2.\arabic*)]
+  \item\label{R21} o nome das categorias encontradas e
+  \item\label{R22} respectivas contagens.
+\end{enumerate*}
+\item\label{R3} Filtrar, para cada entrada de cada categoria, a respetiva
+\begin{enumerate*}[label=(R3.\arabic*)]
+  \item\label{R31} chave
+  \item\label{R32} autores,
+  \item\label{R33} e título.
+  \item\label{R34} O resultado final deverá ser incluído no documento \htlm \ gerado \ref{R2}.
+\end{enumerate*}
+\item\label{R4} Criar um índice de autores, que mapeie cada autor nos respectivos registos, de modo a que posteriormente uma ferramenta de procura do Linux possa fazer a pesquisa.
+\item\label{R5} Construir um Grafo que mostre, para um dado autor (definido à partida) todos os autores que publicam normalmente com o autor em causa.
+\item\label{R6}Recorrendo à linguagem \dott \  do \gv, gerar um ficheiro com o grafo de \ref{R5} de modo a que possa, posteriormente, usar uma das ferramentas que processam \dott \  para desenhar o dito grafo de associações de autores.
+\end{enumerate}
+
+
+\section{Estratégia de Resolução}
+
+Nossa estratégia consiste em associar pares de (tipo da publicação, chave) com os campos da entrada e aplicar diversas manipulações sobre essa estrutura para satisfazer os requisitos.
+
+A estratégia para satisfazer \ref{R1} consistiu em ler o arquivo ler linha a linha verificando se a categoria encontrada ja ocorreu no dicionário, se esta já existir, irá ser incrementada, senão será guardada como sendo a primeira ocorrência. 
+
+produzindo no final um ficheiro \htlm \ tendo-se criado uma lista de strings 
+\section{Implementação}
+
 
 \begin{lstlisting}[language=python]
+
+
 import re
 
 def main():
-    # Funcao do Ivo, nao e esboco
+    
     file = open("exemplo-utf8.bib", "r")
     read = True
     dic = {}
-    string_ls = ['<!DOCTYPE  HTML PUBLIC>\n<HTML>\n   <HEAD>\n      <TITLE>Categories in BibTeX</TITLE>\n <script type="text/x-mathjax-config"> MathJax.Hub.Config({"extensions":["tex2jax.js"],"jax":["input/TeX","output/HTML-CSS"],"messageStyle":"none","tex2jax":{"processEnvironments":false,"processEscapes":true,"inlineMath":[["$","$"],["\\(","\\)"]],"displayMath":[["$$","$$"],["\\[","\\]"]]},"TeX":{"extensions":["AMSmath.js","AMSsymbols.js","noErrors.js","noUndefined.js"]},"HTML-CSS":{"availableFonts":["TeX"]}}); </script> <script type="text/javascript" async src="file:////home/useralef/.vscode/extensions/shd101wyy.markdown-preview-enhanced-0.6.1/node_modules/@shd101wyy/mume/dependencies/mathjax/MathJax.js" charset="UTF-8"></script>  </HEAD>\n   <BODY>']
+    string_ls = ['<!DOCTYPE  HTML PUBLIC>\n<HTML>\n   <HEAD>\n      <TITLE>Categories in BibTeX</TITLE>\n </HEAD>\n   <BODY>']
     while read:
       linhaFicheiro = file.readline()
       ncat = re.match(r'^@(.*){',linhaFicheiro)
