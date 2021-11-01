@@ -67,6 +67,8 @@ def get_author_list(data):
     return sorted(set([a for s in data.values() for a in s.get("author", [])]))
 
 def invert_name(author_name):
+    '''Inverte nome do tipo: last_name, first_name.
+       Por exemplo: da Cruz, Daniela → Daniela da Cruz'''
     return re.sub(r"([^,]+),\s*([^,]+)", r"\2 \1", author_name)
 
 # Expression is in any given language. Latex, html expression
