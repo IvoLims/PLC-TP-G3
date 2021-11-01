@@ -104,7 +104,7 @@ def html_add_attr(attr,val,html_expression):
 
 def get_html_pub_type_index(data):
     string_ls = [html_enclose('h2','Publication Type Index')]
-    for entry_type in set(x[0] for x in data):
+    for entry_type in sorted(set(x[0] for x in data)):
         string_ls.append(html_enclose('h3',entry_type))
         for citation_key in [x[1] for x in data if x[0]==entry_type]:
             title = data[entry_type,citation_key].get('title','')
@@ -353,7 +353,7 @@ def get_dot_graph(author,data):
 
 def get_html_pub_type_counts(data):
     string_ls = [html_enclose('h2','Number of Occurrences of Publication Types')]
-    pub_counts = get_pub_type_counts(data)
+    pub_counts = sorted(get_pub_type_counts(data),key=lambda x: x[1],reverse=True)
     time = lambda v: 's' if v > 1 else ''
     for pub_type, count in pub_counts:
         string_ls.append(html_enclose('p',f'Type {pub_type} appears {count} time{time(count)}'))
