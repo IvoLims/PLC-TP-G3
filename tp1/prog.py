@@ -1,11 +1,9 @@
 #!/usr/bin/python
 import re
-import functools
 
 # Pra ganhar mais pontos:
 # https://tex.stackexchange.com/questions/109064/is-there-a-difference-between-and-in-bibtex
 # author = {{National Aeronautics and Space Administration}},
-#
 
 HTML_PREAMBLE = '<!DOCTYPE  HTML PUBLIC>\n<HTML>\n   <HEAD>\n      <TITLE>Categories in BibTeX</TITLE>\n <script type="text/x-mathjax-config"> MathJax.Hub.Config({"extensions":["tex2jax.js"],"jax":["input/TeX","output/HTML-CSS"],"messageStyle":"none","tex2jax":{"processEnvironments":false,"processEscapes":true,"inlineMath":[["$","$"],["\\(","\\)"]],"displayMath":[["$$","$$"],["\\[","\\]"]]},"TeX":{"extensions":["AMSmath.js","AMSsymbols.js","noErrors.js","noUndefined.js"]},"HTML-CSS":{"availableFonts":["TeX"]}}); </script> <script type="text/javascript" async src="file:////home/useralef/.vscode/extensions/shd101wyy.markdown-preview-enhanced-0.6.1/node_modules/@shd101wyy/mume/dependencies/mathjax/MathJax.js" charset="UTF-8"></script>  </HEAD>\n   <BODY>'
 BIB_EXAMPLE_FILENAME = "exemplo-utf8.bib"
@@ -117,11 +115,6 @@ def get_html_pub_type_index(data):
 def str_to_html_math(string):
     return html_add_attr('class','math inline',html_create_span(string))
 
-def compose2(f, g):
-    return lambda *a, **kw: f(g(*a, **kw))
-
-def compose(*fs):
-    return functools.reduce(compose2, fs)
 
 def fix_title(title):
     # Nao e necessario remover acentos.
