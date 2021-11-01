@@ -9,8 +9,8 @@ HTML_PREAMBLE = '<!DOCTYPE  HTML PUBLIC>\n<HTML>\n   <HEAD>\n      <TITLE>Catego
 BIB_EXAMPLE_FILENAME = "exemplo-utf8.bib"
 OUTPUT_FILENAME = 'output.html'
 
-def get_bib_example_str():
-    with open(BIB_EXAMPLE_FILENAME,'r') as file:
+def get_bib_str(filename):
+    with open(filename,'r') as file:
         # Sem essa substituicao iremos entrar em loop
         return re.sub(r'\b}',r' }',file.read())
 
@@ -238,7 +238,7 @@ def get_author_index_dict(data):
                 index[author_name].add(key[1]) #key[1] is the citation-key
     return index
 
-def get_author_pub_graph(data,author):
+def get_author_pub_graph(author,data):
     '''Para R5'''
     pub_partners = []
     for entry in data.values():
@@ -342,13 +342,14 @@ def fix_block_func(data):
     return res
 
 
-def get_dot_graph(author):
-    g = sorted(get_author_pub_graph,key = lambda x: x[1])
+def get_dot_graph(author,data):
+    g = sorted(get_author_pub_graph(author,data),key = lambda x: x[1])
     return f'''graph{{
-    {author} -- {g[-1][0]}[label="{g[-1][1]}"]
-    {author} -- {g[-2][0]}[label="{g[-2][1]}"]
-    {author} -- {g[-3][0]}[label="{g[-3][1]}"]
+    "{author}" -- "{g[-1][0]}"[label="{g[-1][1]}"]
+    "{author}" -- "{g[-2][0]}"[label="{g[-2][1]}"]
+    "{author}" -- "{g[-3][0]}"[label="{g[-3][1]}"]
 }}'''
+
 
 def get_html_pub_type_counts(data):
     string_ls = [html_enclose('h2','Number of Occurrences of Publication Types')]
@@ -358,13 +359,31 @@ def get_html_pub_type_counts(data):
         string_ls.append(html_enclose('p',f'Type {pub_type} appears {count} time{time(count)}'))
     return ''.join(string_ls)
 
-def solve():
+def get_html_dot_svg(author,data):
+    import os
+    DOT_INPUT_FILENAME = 'dot_input'
+    with open(DOT_INPUT_FILENAME,'w') as file:
+        file.write(get_dot_graph(author,data))
+    os.system(f'dot -T svg -O {DOT_INPUT_FILENAME}')
+    with open(DOT_INPUT_FILENAME + '.svg','r') as file:
+        return file.read()
+
+
+def get_html_common_pub_author(author,data):
+    string_ls = [html_enclose('h2','Author Graph')]
+    string_ls.append(get_html_dot_svg(author,data))
+    return ''.join(string_ls)
+
+def solve(author_name,INPUT_FILENAME=BIB_EXAMPLE_FILENAME):
     html_str_ls = [HTML_PREAMBLE]
-    bib_str = get_bib_example_str()
+    bib_str = get_bib_str(INPUT_FILENAME)
+
     entries = get_entries(bib_str)
     format_authors(entries)
     fix_repeated_authors(entries)
-    html_str_ls.append(html_enclose('body',f'{get_html_pub_type_counts(entries)}{get_html_pub_type_index(entries)}{get_html_author_index(entries)}'))
+
+    html_str_ls.append(html_enclose('body',f'{get_html_pub_type_counts(entries)}{get_html_common_pub_author(author_name,entries)}{get_html_pub_type_index(entries)}{get_html_author_index(entries)}'))
+
     with open(OUTPUT_FILENAME,'w') as file:
         file.write('\n'.join(html_str_ls))
 
@@ -377,4 +396,12 @@ def solve():
 # block_authors_with_two_common_names(authors)
 
 if __name__ == '__main__':
-    solve()
+    import sys
+    import os.path
+    filename = sys.argv[1]
+    assert os.path.isfile(sys.argv[1])
+    if len(sys.argv) < 3:
+        author_name = 'Daniela da Cruz'
+    else:
+        author_name = sys.argv[2]
+    solve(author_name,filename)
