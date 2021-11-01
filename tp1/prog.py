@@ -247,6 +247,7 @@ def get_html_author_index(data):
     alphabet_order = sorted(set(c[0][0] for c in index))
     string_ls = [html_enclose('h2','Author Index')]
     i = 0
+    string_ls.append(html_enclose('h3',alphabet_order[i]))
     for author,citation_keys in index:
         if author[0] != alphabet_order[i]:
             i += 1
