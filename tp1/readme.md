@@ -8,6 +8,8 @@ Grupo:
 
 ## BibTex format
 
+<P STYLE="font-variant:small-caps">My name is Hege Refsnes.</p>
+
 ### Entries
 
 A BibTeX entry consists of the **type**, a **citation-key** and a number of **tags** which define various characteristics of the specific BibTeX entry[^format].
@@ -134,3 +136,19 @@ year
 2. Categoria
    - chave, autor, titulo
    - ...
+
+```dot
+digraph G{
+  rankdir=LR
+
+  "Alef Keuffer" -> "Joao Almeida","Francisco Paulo"
+
+  init [style=invis,shape=point]
+  init -> q0
+  q6 [peripheries=2]
+}
+```
+
+Note que $$T_2O$$
+
+Note que $T_2O$

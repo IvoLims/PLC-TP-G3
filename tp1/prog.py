@@ -1,4 +1,5 @@
 import re
+import functools
 
 # Pra ganhar mais pontos:
 # https://tex.stackexchange.com/questions/109064/is-there-a-difference-between-and-in-bibtex
@@ -101,20 +102,32 @@ def question_b_view(data):
         string_ls.append(html_enclose('h2',entry_type))
         for citation_key in [x[1] for x in data if x[0]==entry_type]:
             title = data[entry_type,citation_key].get('title','')
-            authors = data[entry_type,citation_key].get('author','')
+            authors = ', '.join((sorted(data[entry_type,citation_key].get('author',''))))
             string_ls.append(html_enclose('p',f"Key = {citation_key}<br>Title = {fix_title(title)}<br>Autores = {authors}"))
     return '\n'.join(string_ls)
+
+def str_to_html_math(string):
+    return html_add_attr('class','math inline',html_create_span(string))
+
+def compose2(f, g):
+    return lambda *a, **kw: f(g(*a, **kw))
+
+def compose(*fs):
+    return functools.reduce(compose2, fs)
 
 def fix_title(title):
     # Nao e necessario remover acentos.
     # So o fazemos por consistencia com o nome dos autores.
+    # <p><span class="math inline">\(T_2O\)</span></p>
     substitutions = [(r'\\textsc{((?:\\{|[^{])+)}',lambda m: f'{html_to_small_caps(html_create_span(m.group(1)))}'),
-                     (r'\\textsf{((?:\\{|[^{])+)}',lambda m: f'{html_to_sans_serif(html_create_span(m.group(1)))}')]
+                     (r'\\textsf{((?:\\{|[^{])+)}',lambda m: f'{html_to_sans_serif(html_create_span(m.group(1)))}'),
+                     (r'(\$(?:.|\\\$)+\$)', lambda m: f'{str_to_html_math(m.group(1))}')]
+
 
     replace = lambda x: mult_replace(x,substitutions)
 
     return   html_create_span(
-             unbrace(
+             unbrace(#Pode dar problema com expressoes matematicas. Para melhorar devemos fazer if not between $.
              replace(
              remove_latex_special_chars(
              remove_accents(
@@ -176,7 +189,7 @@ def remove_normal_accent(name):
 # 'M. J. Varanda' - mjv
 # 'M. Joao Varanda' - mjv
 # 'Maria Joao Varanda' - mjv
-# 'Maria Joao Varanda Pereira' - mjvp
+# 'Maria Joao V. Pereira' - mjvp
 # hipotetico -- 'Maria Joao Pereira'
 
 # dois nomes comuns
