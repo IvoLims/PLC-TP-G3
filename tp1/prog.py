@@ -220,6 +220,15 @@ def remove_normal_accent(name):
 # L.F. Neves
 # F.L. Neves
 
+def last_name_first(name):
+    '''Recebe um nome normalizado (e.g.
+       Pedro Filipe H. Pereira) e deve
+       retornar "invertido" (e.g.
+       Pereira, P. F. H.'''
+    initials =  '. '.join(get_crude_abbrev(name))[:-2]
+    last_name = name.split()[-1]
+    return f'{last_name}, {initials}'
+
 
 def get_crude_abbrev(name):
     '''Transforma um nome de autor nas primeiras letras
