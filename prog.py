@@ -23,8 +23,9 @@ def get_entries(string):
     # oldregex = r'(\w+)\s*=\s*(?:{((?:.|\n)+)}|"(([^"]|\n)+)"|(\d+))(?:,\n|\n})'
     # up to 2 levels of curly brace nesting based on:
     # https://stackoverflow.com/questions/546433/regular-expression-to-match-balanced-parentheses
+    # @(\w+){(\w+),((?:[^{}]+|{(?:[^{}]*|{[^{}]*})+})+)
     field = re.compile(r'(\w+)\s*=\s*(?:{((?:[^{}]+|{(?:[^{}]+|{[^{}]*})+})+)}|"([^"]+)"|(\d+))')
-    for entry in re.finditer(r"@(\w+){(\w+),((?:.*|\n)*),?\n}", string):
+    for entry in re.finditer(r"@(\w+){(\w+),((?:[^{}]+|{(?:[^{}]*|{[^{}]*})+})+)", string):
         d[entry.group(1).lower(), entry.group(2)] = {
             x[0].lower(): get_valid_group(x, 1, 3)
             for x in field.findall(entry.group(3))}
@@ -101,7 +102,7 @@ def question_b_view(data):
         for citation_key in [x[1] for x in data if x[0]==entry_type]:
             title = data[entry_type,citation_key].get('title','')
             authors = data[entry_type,citation_key].get('author','')
-            string_ls.append(html_enclose('p',f"Key = {citation_key}<br>Title = {fix_title(title)}<br>Autores={authors}"))
+            string_ls.append(html_enclose('p',f"Key = {citation_key}<br>Title = {fix_title(title)}<br>Autores = {authors}"))
     return '\n'.join(string_ls)
 
 def fix_title(title):
