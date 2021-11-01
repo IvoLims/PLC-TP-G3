@@ -1,3 +1,4 @@
+#!/usr/bin/python
 import re
 import functools
 
@@ -6,14 +7,19 @@ import functools
 # author = {{National Aeronautics and Space Administration}},
 #
 
-def main3():
-    with open("simp.bib", "r", encoding="utf8") as file:
-        string = file.read()
-    with open("exemplo-utf8.bib", "r", encoding="utf8") as file:
-        string2 = file.read()
-    # Sem essa substituicao iremos entrar em loop
-    return get_entries(re.sub(r'\b}',r' }',string2))
+HTML_PREAMBLE = '<!DOCTYPE  HTML PUBLIC>\n<HTML>\n   <HEAD>\n      <TITLE>Categories in BibTeX</TITLE>\n <script type="text/x-mathjax-config"> MathJax.Hub.Config({"extensions":["tex2jax.js"],"jax":["input/TeX","output/HTML-CSS"],"messageStyle":"none","tex2jax":{"processEnvironments":false,"processEscapes":true,"inlineMath":[["$","$"],["\\(","\\)"]],"displayMath":[["$$","$$"],["\\[","\\]"]]},"TeX":{"extensions":["AMSmath.js","AMSsymbols.js","noErrors.js","noUndefined.js"]},"HTML-CSS":{"availableFonts":["TeX"]}}); </script> <script type="text/javascript" async src="file:////home/useralef/.vscode/extensions/shd101wyy.markdown-preview-enhanced-0.6.1/node_modules/@shd101wyy/mume/dependencies/mathjax/MathJax.js" charset="UTF-8"></script>  </HEAD>\n   <BODY>'
+BIB_EXAMPLE_FILENAME = "exemplo-utf8.bib"
+OUTPUT_FILENAME = 'output.html'
 
+def get_bib_example_str():
+    with open(BIB_EXAMPLE_FILENAME,'r') as file:
+        # Sem essa substituicao iremos entrar em loop
+        return re.sub(r'\b}',r' }',file.read())
+
+def get_pub_type_counts(data):
+    pub_types_occur = [x[0] for x in data.keys()]
+    pub_types = set(pub_types_occur)
+    return [(pub_type, pub_types_occur.count(pub_type)) for pub_type in pub_types]
 
 def get_entries(string):
     """Creates a dictionary with the following map
@@ -26,7 +32,7 @@ def get_entries(string):
     # https://stackoverflow.com/questions/546433/regular-expression-to-match-balanced-parentheses
     # @(\w+){(\w+),((?:[^{}]+|{(?:[^{}]*|{[^{}]*})+})+)
     field = re.compile(r'(\w+)\s*=\s*(?:{((?:[^{}]+|{(?:[^{}]+|{[^{}]*})+})+)}|"([^"]+)"|(\d+))')
-    for entry in re.finditer(r"@(\w+){(\w+),((?:[^{}]+|{(?:[^{}]*|{[^{}]*})+})+)", string):
+    for entry in re.finditer(r"@(\w+){(.+),((?:[^{}]+|{(?:[^{}]*|{[^{}]*})+})+)", string):
         d[entry.group(1).lower(), entry.group(2)] = {
             x[0].lower(): get_valid_group(x, 1, 3)
             for x in field.findall(entry.group(3))}
@@ -98,8 +104,8 @@ def html_add_attr(attr,val,html_expression):
     # Funcao mais geral
     return re.sub(r'<(\w+)([^>]*)\s*>(.*)</\1>',rf'<\1\2 {attr.upper()}="{val}">\3</\1>',html_expression)
 
-def question_b_view(data):
-    string_ls = [html_enclose('h2','Category Index')]
+def get_html_pub_type_index(data):
+    string_ls = [html_enclose('h2','Publication Type Index')]
     for entry_type in set(x[0] for x in data):
         string_ls.append(html_enclose('h3',entry_type))
         for citation_key in [x[1] for x in data if x[0]==entry_type]:
@@ -242,6 +248,19 @@ def get_author_index_dict(data):
                 index[author_name].add(key[1]) #key[1] is the citation-key
     return index
 
+def get_author_pub_graph(data,author):
+    '''Para R5'''
+    pub_partners = []
+    for entry in data.values():
+        if 'author' in entry and author in entry['author']:
+            for partner in entry['author']:
+                if partner != author:
+                    pub_partners.append(partner)
+    return [(author_name,pub_partners.count(author_name))
+            for author_name in set(pub_partners)]
+
+
+
 def get_html_author_index(data):
     index = sorted(get_author_index_dict(data).items())
     alphabet_order = sorted(set(c[0][0] for c in index))
@@ -350,12 +369,41 @@ def fix_block_func(data):
 def test_data_view():
     data = main3();format_authors(data); authors = get_author_list(data);authors_abbrev = sorted([transform(name) for name in authors],key=len,reverse=True)
     fix_repeated_authors(data)
-    return question_b_view(data)
+    return get_html_pub_type_index(data)
 
-data = main3()
-format_authors(data)
-fix_repeated_authors(data)
-authors = get_author_list(data)
+def get_dot_graph(author):
+    g = sorted(get_author_pub_graph,key = lambda x: x[1])
+    return f'''graph{{
+    {author} -- {g[-1][0]}[label="{g[-1][1]}"]
+    {author} -- {g[-2][0]}[label="{g[-2][1]}"]
+    {author} -- {g[-3][0]}[label="{g[-3][1]}"]
+}}'''
 
-aut = fix_block_func(block_authors_with_two_common_names_v2(authors))
-block_authors_with_two_common_names(authors)
+def get_html_pub_type_counts(data):
+    string_ls = [html_enclose('h2','Number of Occurrences of Publication Types')]
+    pub_counts = get_pub_type_counts(data)
+    time = lambda v: 's' if v > 1 else ''
+    for pub_type, count in pub_counts:
+        string_ls.append(html_enclose('p',f'Type {pub_type} appears {count} time{time(count)}'))
+    return ''.join(string_ls)
+
+def solve():
+    html_str_ls = [HTML_PREAMBLE]
+    bib_str = get_bib_example_str()
+    entries = get_entries(bib_str)
+    format_authors(entries)
+    fix_repeated_authors(entries)
+    html_str_ls.append(html_enclose('body',f'{get_html_pub_type_counts(entries)}{get_html_pub_type_index(entries)}{get_html_author_index(entries)}'))
+    with open(OUTPUT_FILENAME,'w') as file:
+        file.write('\n'.join(html_str_ls))
+
+# data = main3()
+# format_authors(data)
+# fix_repeated_authors(data)
+# authors = get_author_list(data)
+
+# aut = fix_block_func(block_authors_with_two_common_names_v2(authors))
+# block_authors_with_two_common_names(authors)
+
+if __name__ == '__main__':
+    solve()
