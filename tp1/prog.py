@@ -99,9 +99,9 @@ def html_add_attr(attr,val,html_expression):
     return re.sub(r'<(\w+)([^>]*)\s*>(.*)</\1>',rf'<\1\2 {attr.upper()}="{val}">\3</\1>',html_expression)
 
 def question_b_view(data):
-    string_ls = []
+    string_ls = [html_enclose('h2','Category Index')]
     for entry_type in set(x[0] for x in data):
-        string_ls.append(html_enclose('h2',entry_type))
+        string_ls.append(html_enclose('h3',entry_type))
         for citation_key in [x[1] for x in data if x[0]==entry_type]:
             title = data[entry_type,citation_key].get('title','')
             authors = ', '.join((sorted(data[entry_type,citation_key].get('author',''))))
@@ -141,6 +141,7 @@ def mult_replace(string, replacement_list):
     for old, new in replacement_list:
         string = re.sub(old, new, string)
     return string
+
 
 
 def fix_repeated_authors(data):
@@ -229,6 +230,34 @@ def last_name_first(name):
     last_name = name.split()[-1]
     return f'{last_name}, {initials}'
 
+
+def get_author_index_dict(data):
+    index = {}
+    for key, e in data.items():
+        if 'author' in e:
+            for author in e['author']:
+                author_name = last_name_first(author)
+                if author_name not in index:
+                    index[author_name] = set()
+                index[author_name].add(key[1]) #key[1] is the citation-key
+    return index
+
+def get_html_author_index(data):
+    index = sorted(get_author_index_dict(data).items())
+    alphabet_order = sorted(set(c[0][0] for c in index))
+    string_ls = [html_enclose('h2','Author Index')]
+    i = 0
+    for author,citation_keys in index:
+        if author[0] != alphabet_order[i]:
+            i += 1
+            string_ls.append(html_enclose('h3',alphabet_order[i]))
+        citation_keys_str = ', '.join(citation_keys)
+        string_ls.append(html_enclose('p',f'{author}, {citation_keys_str}'))
+    return ''.join(string_ls)
+
+
+def test_get_html_author_index():
+    return get_html_author_index(data)
 
 def get_crude_abbrev(name):
     '''Transforma um nome de autor nas primeiras letras
