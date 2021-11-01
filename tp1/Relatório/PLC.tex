@@ -1,0 +1,121 @@
+
+\documentclass[11pt,a4paper]{report}
+
+\usepackage[portuges]{babel}
+\usepackage[utf8]{inputenc} % define o encoding usado texto fonte (input)--usual "utf8" ou "latin1
+\usepackage{graphicx} %permite incluir graficos, tabelas, figuras
+\usepackage{subcaption}
+\usepackage{listings}
+\usepackage{color}
+\usepackage{multicol}
+\usepackage{indentfirst}
+\usepackage{hyperref}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{float}
+\usepackage{enumitem}
+
+\definecolor{mygreen}{rgb}{0,0.6,0}
+\definecolor{mygray}{rgb}{0.5,0.5,0.5}
+\definecolor{mymauve}{rgb}{0.58,0,0.82}
+
+\lstset{ %
+  backgroundcolor=\color{white},   % choose the background color
+  basicstyle=\footnotesize,        % size of fonts used for the code
+  breaklines=true,                 % automatic line breaking only at whitespace
+  captionpos=b,                    % sets the caption-position to bottom
+  commentstyle=\color{mygreen},    % comment style
+  escapeinside={\%*}{*)},          % if you want to add LaTeX within your code
+  keywordstyle=\color{blue},       % keyword style
+  stringstyle=\color{mymauve},     % string literal style
+}
+
+\title{Processamento de Linguagens e Compiladores - Trabalho Prático 1\\
+       \textbf{Grupo 3}\\ Relatório
+       } %Titulo do documento
+%\title{Um Exemplo de Artigo em \LaTeX}
+\author{Alef Pinto Keuffer\\ (A91383)\and Catarina Martins Sá Quintas\\ (A91650)\and  Ivo Miguel Gomes Lima \\(A90214)
+       } %autores do documento
+\date{\today} %data
+
+\begin{document}
+	\begin{minipage}{0.9\linewidth}
+        \centering
+		\includegraphics[width=0.4\textwidth]{um.jpeg}\par\vspace{1cm}
+                \href{https://www.uminho.pt/PT}
+		{\scshape\LARGE Universidade do Minho} \par
+		\vspace{0.6cm}
+                \href{https://lcc.di.uminho.pt}
+		{\scshape\Large Licenciatura em Ciências da Computação} \par
+		\maketitle
+	\end{minipage}
+
+\tableofcontents % insere Indice
+
+\chapter{Introdução}
+
+
+\chapter{Exercício 4 a}
+
+\subsection{Descrição do Problema}
+
+
+\section{Estratégia/Implementação de Resolução}
+
+\begin{lstlisting}[language=python]
+import re
+
+def main():
+    # Funcao do Ivo, nao e esboco
+    file = open("exemplo-utf8.bib", "r")
+    read = True
+    dic = {}
+    string_ls = ['<!DOCTYPE  HTML PUBLIC>\n<HTML>\n   <HEAD>\n      <TITLE>Categories in BibTeX</TITLE>\n <script type="text/x-mathjax-config"> MathJax.Hub.Config({"extensions":["tex2jax.js"],"jax":["input/TeX","output/HTML-CSS"],"messageStyle":"none","tex2jax":{"processEnvironments":false,"processEscapes":true,"inlineMath":[["$","$"],["\\(","\\)"]],"displayMath":[["$$","$$"],["\\[","\\]"]]},"TeX":{"extensions":["AMSmath.js","AMSsymbols.js","noErrors.js","noUndefined.js"]},"HTML-CSS":{"availableFonts":["TeX"]}}); </script> <script type="text/javascript" async src="file:////home/useralef/.vscode/extensions/shd101wyy.markdown-preview-enhanced-0.6.1/node_modules/@shd101wyy/mume/dependencies/mathjax/MathJax.js" charset="UTF-8"></script>  </HEAD>\n   <BODY>']
+    while read:
+      linhaFicheiro = file.readline()
+      ncat = re.match(r'^@(.*){',linhaFicheiro)
+      if ncat != None:
+        cat_title = ncat.group(1).title()
+        dic[cat_title] = dic.get(cat_title,0) + 1
+      if not linhaFicheiro:
+        read = False
+    file.close()
+
+    time = lambda v: 's' if v > 1 else ''
+
+    for k, v in dic.items():
+      string_ls.append(f'      <P>The category {k} appears {v} time{time(v)}.</P>')
+    string_ls.append(f'   </BODY>\n{prog.test_data_view()}</HTML>')
+
+    with open('output.html','w') as file:
+        file.write('\n'.join(string_ls))
+\end{lstlisting}
+
+\chapter{Exercício 4 b}
+
+\subsection{Descrição do Problema}
+
+
+\section{Estratégia/Implementação de Resolução}
+
+
+\chapter{Exercício 4 c}
+
+\subsection{Descrição do Problema}
+
+
+\section{Estratégia/Implementação de Resolução}
+
+
+\chapter{Exercício 4 d}
+
+\subsection{Descrição do Problema}
+
+
+\section{Estratégia/Implementação de Resolução}
+
+
+\chapter{Conclusão}
+
+
+\end{document}
