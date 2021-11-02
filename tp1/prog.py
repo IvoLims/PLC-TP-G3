@@ -343,12 +343,15 @@ def fix_block_func(data):
 
 
 def get_dot_graph(author,data):
+    import textwrap
     g = sorted(get_author_pub_graph(author,data),key = lambda x: x[1])
-    return f'''graph{{
-    "{author}" -- "{g[-1][0]}"[label="{g[-1][1]}"]
-    "{author}" -- "{g[-2][0]}"[label="{g[-2][1]}"]
-    "{author}" -- "{g[-3][0]}"[label="{g[-3][1]}"]
-}}'''
+    string_ls = ['graph{']
+    string_ls2 = []
+    for partner_author,no_joint_pub in g[-3:]:
+        string_ls2.append(f'"{author}" -- "{partner_author}" [label="{no_joint_pub}"]')
+    string_ls.append(textwrap.indent('\n'.join(string_ls2),'  '))
+    string_ls.append('}')
+    return '\n'.join(string_ls)
 
 
 def get_html_pub_type_counts(data):
