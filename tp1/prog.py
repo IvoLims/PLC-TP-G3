@@ -1,11 +1,11 @@
 #!/usr/bin/python
-import re
+import regex as re
 
 # Pra ganhar mais pontos:
 # https://tex.stackexchange.com/questions/109064/is-there-a-difference-between-and-in-bibtex
 # author = {{National Aeronautics and Space Administration}},
 
-HTML_PROLOGUE = '<!DOCTYPE  html>\n<HTML lang="en">\n<HEAD>\n<meta charset="utf-8">\n      <TITLE>Categories in BibTeX</TITLE>\n <script type="text/x-mathjax-config"> MathJax.Hub.Config({"extensions":["tex2jax.js"],"jax":["input/TeX","output/HTML-CSS"],"messageStyle":"none","tex2jax":{"processEnvironments":false,"processEscapes":true,"inlineMath":[["$","$"]],"displayMath":[["$$","$$"],["\\[","\\]"]]},"TeX":{"extensions":["AMSmath.js","AMSsymbols.js","noErrors.js","noUndefined.js"]},"HTML-CSS":{"availableFonts":["TeX"]}}); </script> <script type="text/javascript" async src="file:////home/useralef/.vscode/extensions/shd101wyy.markdown-preview-enhanced-0.6.1/node_modules/@shd101wyy/mume/dependencies/mathjax/MathJax.js" charset="UTF-8"></script>  </HEAD>\n'
+HTML_PROLOGUE = '<!DOCTYPE  html>\n<HTML lang="en">\n<HEAD>\n<meta charset="utf-8">\n      <TITLE>Categories in BibTeX</TITLE>\n <script type="text/x-mathjax-config"> MathJax.Hub.Config({"extensions":["tex2jax.js"],"jax":["input/TeX","output/HTML-CSS"],"messageStyle":"none","tex2jax":{"processEnvironments":false,"processEscapes":true,"inlineMath":[["$","$"]],"displayMath":[]},"TeX":{"extensions":["AMSmath.js","AMSsymbols.js","noErrors.js","noUndefined.js"]},"HTML-CSS":{"availableFonts":["TeX"]}}); </script> <script type="text/javascript" async src="file:////home/useralef/.vscode/extensions/shd101wyy.markdown-preview-enhanced-0.6.1/node_modules/@shd101wyy/mume/dependencies/mathjax/MathJax.js" charset="UTF-8"></script>  </HEAD>\n'
 HTML_EPILOGUE = '</HTML>'
 BIB_EXAMPLE_FILENAME = "exemplo-utf8.bib"
 OUTPUT_FILENAME = 'output.html'
@@ -23,21 +23,27 @@ def get_pub_type_counts(data):
 def get_entries(string):
     """Creates a dictionary with the following map
        (type of publication,citation-key) → {field:field_value}"""
-    # Pega titulos com chaveta dentro de chaveta, mantendo chavetas.
-    # Elas sao removidas mais tarde.
     d = {}
-    # oldregex = r'(\w+)\s*=\s*(?:{((?:.|\n)+)}|"(([^"]|\n)+)"|(\d+))(?:,\n|\n})'
-    # up to 2 levels of curly brace nesting based on:
+    # Based on:
     # https://stackoverflow.com/questions/546433/regular-expression-to-match-balanced-parentheses
-    # @(\w+){(\w+),((?:[^{}]+|{(?:[^{}]*|{[^{}]*})+})+)
-    field = re.compile(r'(\w+)\s*=\s*(?:{((?:[^{}]+|{(?:[^{}]+|{[^{}]*})+})+)}|"([^"]+)"|(\d+))')
-    #r"@(\w+){(.+),((?:[^{}]+|{(?:[^{}]*|{[^{}]*})+})+)"
-    for entry in re.finditer(r'@(\w+){(.+),((?:.|\n)+),?},?$', string):
-        d[entry.group(1).lower(), entry.group(2)] = {
-            x[0].lower(): get_valid_group(x, 1, 3)
-            for x in field.findall(entry.group(3))}
-    return d
+    RELEVANT_FIELDS = {'author','title'}
+    SPECIAL_TYPES = {'comment','string','preamble'}
+    between_cbrace_ex2 = r'(?={((?:[^{}]+|{(?2)})*)})' #Capture everything inside braces into a group
+    between_cbrace_ex = r'(?:(?<rec>{(?<value>[^{}]+|(?P>rec))*+}))'
 
+    field_match = re.compile(rf'(?<name>\w+)\s*=\s*({between_cbrace_ex}|"(?<value>[^"]+)"|(?<value>\d+))')
+    entry_match = re.compile(rf'@(?<type>\w+)(?<value>{between_cbrace_ex})')
+    key_match = re.compile(r'([^{},~#%\\]+),')
+
+    for entry in entry_match.finditer(string):
+        entry_type = entry['type'].lower()
+        if entry_type not in SPECIAL_TYPES:
+            key = key_match.search(entry['value'])[1]
+            d[entry_type, key] = {
+                field['name'].lower(): field['value']
+                for field in field_match.finditer(entry['value']) if field['name'].lower() in RELEVANT_FIELDS}
+    return d
+#re.compile(r'(\w+)\s*=\s*("(?:[^"]+)"|(?:\d+))')
 def get_valid_group(t, begin_or_group, end_or_group):
     # This exists because we have 3 groups when matching a field content:
     # The content needs to be enclosed by either curly braces or quotation-marks.
@@ -66,7 +72,18 @@ def unbrace(expression):
        to ensure that the letters "A" and "E" will
        always be typeset in uppercase mode even if "sentence style"
        is in effect."""
-    return expression.translate({ord(x):None for x in '{}'})
+    string_ls = []
+    is_between_dollar_sign = False
+    for c in expression:
+        if c == '$':
+            if is_between_dollar_sign:
+                is_between_dollar_sign = False
+            else:
+                is_between_dollar_sign = True
+        if c in '{}' and not is_between_dollar_sign:
+            continue
+        string_ls.append(c)
+    return ''.join(string_ls)
 
 
 def get_author_list(data):
@@ -141,11 +158,7 @@ def mult_replace(string, replacement_list):
         string = re.sub(old, new, string)
     return string
 
-def fix_repeated_authors(data):
-    author_blocks = fix_block_func(block_authors_with_two_common_names_v2(get_author_list(data)))
-    author_dict = {author_name:max(s,key=len) for s in author_blocks for author_name in s}
-    for d in data.values():
-        d['author'] = [author_dict[author] for author in d['author']]
+
 
 def format_authors(data):
     '''Escolhemos remover acentuações e caracteres especiais
@@ -321,10 +334,10 @@ def fix_block_func(data):
        Sem essa funcao, temos blocos {A,B} e {B,C}
        Depois dessa funcao, vamos ter {A,B,C}'''
     res = set()
-    for s1 in data:
-        q = s1.copy()
+    for q in data:
+        # q = s1.copy()
         for s2 in data:
-            if s1.intersection(s2) != set():
+            if q.intersection(s2) != set():
                 q = q.union(s2)
         # Evitar "blocos" de autores repetidos.
         # Para mais detalhes, ver comentario em frozenset
@@ -332,6 +345,12 @@ def fix_block_func(data):
         res.add(frozenset(q))
     return res
 
+
+def fix_repeated_authors(data):
+    author_blocks = fix_block_func(block_authors_with_two_common_names_v2(get_author_list(data)))
+    author_dict = {author_name:max(s,key=len) for s in author_blocks for author_name in s}
+    for d in data.values():
+        d['author'] = [author_dict[author] for author in d['author']]
 
 def get_dot_graph(author,data):
     import textwrap
@@ -381,7 +400,6 @@ def solve(author_name,INPUT_FILENAME=BIB_EXAMPLE_FILENAME):
     html_str_ls.append(html_enclose('body',f'{get_html_pub_type_counts(entries)}{get_html_common_pub_author(author_name,entries)}{get_html_pub_type_index(entries)}{get_html_author_index(entries)}'))
 
     html_str_ls.append(HTML_EPILOGUE)
-
     with open(OUTPUT_FILENAME,'w') as file:
         file.write('\n'.join(html_str_ls))
 
