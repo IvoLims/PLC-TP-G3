@@ -5,7 +5,8 @@ import re
 # https://tex.stackexchange.com/questions/109064/is-there-a-difference-between-and-in-bibtex
 # author = {{National Aeronautics and Space Administration}},
 
-HTML_PREAMBLE = '<!DOCTYPE  HTML PUBLIC>\n<HTML>\n   <HEAD>\n      <TITLE>Categories in BibTeX</TITLE>\n <script type="text/x-mathjax-config"> MathJax.Hub.Config({"extensions":["tex2jax.js"],"jax":["input/TeX","output/HTML-CSS"],"messageStyle":"none","tex2jax":{"processEnvironments":false,"processEscapes":true,"inlineMath":[["$","$"],["\\(","\\)"]],"displayMath":[["$$","$$"],["\\[","\\]"]]},"TeX":{"extensions":["AMSmath.js","AMSsymbols.js","noErrors.js","noUndefined.js"]},"HTML-CSS":{"availableFonts":["TeX"]}}); </script> <script type="text/javascript" async src="file:////home/useralef/.vscode/extensions/shd101wyy.markdown-preview-enhanced-0.6.1/node_modules/@shd101wyy/mume/dependencies/mathjax/MathJax.js" charset="UTF-8"></script>  </HEAD>\n   <BODY>'
+HTML_PROLOGUE = '<!DOCTYPE  html>\n<HTML lang="en">\n<HEAD>\n<meta charset="utf-8">\n      <TITLE>Categories in BibTeX</TITLE>\n <script type="text/x-mathjax-config"> MathJax.Hub.Config({"extensions":["tex2jax.js"],"jax":["input/TeX","output/HTML-CSS"],"messageStyle":"none","tex2jax":{"processEnvironments":false,"processEscapes":true,"inlineMath":[["$","$"],["\\(","\\)"]],"displayMath":[["$$","$$"],["\\[","\\]"]]},"TeX":{"extensions":["AMSmath.js","AMSsymbols.js","noErrors.js","noUndefined.js"]},"HTML-CSS":{"availableFonts":["TeX"]}}); </script> <script type="text/javascript" async src="file:////home/useralef/.vscode/extensions/shd101wyy.markdown-preview-enhanced-0.6.1/node_modules/@shd101wyy/mume/dependencies/mathjax/MathJax.js" charset="UTF-8"></script>  </HEAD>\n'
+HTML_EPILOGUE = '</HTML>'
 BIB_EXAMPLE_FILENAME = "exemplo-utf8.bib"
 OUTPUT_FILENAME = 'output.html'
 
@@ -369,7 +370,7 @@ def get_html_dot_svg(author,data):
         file.write(get_dot_graph(author,data))
     os.system(f'dot -T svg -O {DOT_INPUT_FILENAME}')
     with open(DOT_INPUT_FILENAME + '.svg','r') as file:
-        return file.read()
+        return re.search(r'<svg(?:.|\n)+</svg>',file.read()).group()
 
 
 def get_html_common_pub_author(author,data):
@@ -378,7 +379,7 @@ def get_html_common_pub_author(author,data):
     return ''.join(string_ls)
 
 def solve(author_name,INPUT_FILENAME=BIB_EXAMPLE_FILENAME):
-    html_str_ls = [HTML_PREAMBLE]
+    html_str_ls = [HTML_PROLOGUE]
     bib_str = get_bib_str(INPUT_FILENAME)
 
     entries = get_entries(bib_str)
@@ -386,6 +387,8 @@ def solve(author_name,INPUT_FILENAME=BIB_EXAMPLE_FILENAME):
     fix_repeated_authors(entries)
 
     html_str_ls.append(html_enclose('body',f'{get_html_pub_type_counts(entries)}{get_html_common_pub_author(author_name,entries)}{get_html_pub_type_index(entries)}{get_html_author_index(entries)}'))
+
+    html_str_ls.append(HTML_EPILOGUE)
 
     with open(OUTPUT_FILENAME,'w') as file:
         file.write('\n'.join(html_str_ls))
