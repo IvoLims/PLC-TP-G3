@@ -5,7 +5,7 @@ import re
 # https://tex.stackexchange.com/questions/109064/is-there-a-difference-between-and-in-bibtex
 # author = {{National Aeronautics and Space Administration}},
 
-HTML_PROLOGUE = '<!DOCTYPE  html>\n<HTML lang="en">\n<HEAD>\n<meta charset="utf-8">\n      <TITLE>Categories in BibTeX</TITLE>\n <script type="text/x-mathjax-config"> MathJax.Hub.Config({"extensions":["tex2jax.js"],"jax":["input/TeX","output/HTML-CSS"],"messageStyle":"none","tex2jax":{"processEnvironments":false,"processEscapes":true,"inlineMath":[["$","$"],["\\(","\\)"]],"displayMath":[["$$","$$"],["\\[","\\]"]]},"TeX":{"extensions":["AMSmath.js","AMSsymbols.js","noErrors.js","noUndefined.js"]},"HTML-CSS":{"availableFonts":["TeX"]}}); </script> <script type="text/javascript" async src="file:////home/useralef/.vscode/extensions/shd101wyy.markdown-preview-enhanced-0.6.1/node_modules/@shd101wyy/mume/dependencies/mathjax/MathJax.js" charset="UTF-8"></script>  </HEAD>\n'
+HTML_PROLOGUE = '<!DOCTYPE  html>\n<HTML lang="en">\n<HEAD>\n<meta charset="utf-8">\n      <TITLE>Categories in BibTeX</TITLE>\n <script type="text/x-mathjax-config"> MathJax.Hub.Config({"extensions":["tex2jax.js"],"jax":["input/TeX","output/HTML-CSS"],"messageStyle":"none","tex2jax":{"processEnvironments":false,"processEscapes":true,"inlineMath":[["$","$"]],"displayMath":[["$$","$$"],["\\[","\\]"]]},"TeX":{"extensions":["AMSmath.js","AMSsymbols.js","noErrors.js","noUndefined.js"]},"HTML-CSS":{"availableFonts":["TeX"]}}); </script> <script type="text/javascript" async src="file:////home/useralef/.vscode/extensions/shd101wyy.markdown-preview-enhanced-0.6.1/node_modules/@shd101wyy/mume/dependencies/mathjax/MathJax.js" charset="UTF-8"></script>  </HEAD>\n'
 HTML_EPILOGUE = '</HTML>'
 BIB_EXAMPLE_FILENAME = "exemplo-utf8.bib"
 OUTPUT_FILENAME = 'output.html'
@@ -13,7 +13,7 @@ OUTPUT_FILENAME = 'output.html'
 def get_bib_str(filename):
     with open(filename,'r') as file:
         # Sem essa substituicao iremos entrar em loop
-        return re.sub(r'\b}',r' }',file.read())
+        return re.sub(r'\b}$',r' }',file.read())
 
 def get_pub_type_counts(data):
     pub_types_occur = [x[0] for x in data.keys()]
@@ -370,6 +370,8 @@ def get_html_dot_svg(author,data):
         file.write(get_dot_graph(author,data))
     os.system(f'dot -T svg -O {DOT_INPUT_FILENAME}')
     with open(DOT_INPUT_FILENAME + '.svg','r') as file:
+        # Faco search porque arquivo gerado contem um preambulo
+        # xml com doctype. So queremos o svg.
         return re.search(r'<svg(?:.|\n)+</svg>',file.read()).group()
 
 
