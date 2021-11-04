@@ -282,25 +282,15 @@ def is_a_first_last_match(author1,author2):
     a2 = get_crude_abbrev(author2)
     return a1[0] == a2[0] and a1[-1] == a2[-1]
 
-def block_authors_with_two_common_names(authors):
-    # Resquicios historico, essa funcao nao e usada.
-    # Mas e util para enteder o comportamento de block_authors_with_two_common_names_v2
-    # quando fomos otimiza-la.
-    res = set()
-    for author in authors:
-        fs = set()
-        for author2 in authors:
-            if len(set(re.findall(r'\w\w+',author)).intersection(re.findall(r'\w\w+',author2))) > 1:
-                fs.add(author2)
-        # Names which have only on non-abbreviated word
-        if not fs:
-            print(author)
-        res.add(frozenset(fs))
-    return res
 
 def block_authors_with_two_common_names_v2(authors):
     '''Objetivo: Criar "blocos" com nomes dos autores,
-       quem estiver no mesmo "bloco", é a mesma pessoa.'''
+       quem estiver no mesmo "bloco", é a mesma pessoa.
+       Note que podemos ter dois blocos representado a
+       mesma pessoa mas com membros diferentes, por exemplo:
+       {A,B} e {B,C}. "A" e "B" são a mesma pessoa e "B" e "C"
+       sao a mesma funcao. fix_block_func() é responsável por
+       unir esses blocos.'''
     res = set()
     for author in authors:
         fs = set()
