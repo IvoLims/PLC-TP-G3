@@ -13,7 +13,7 @@ OUTPUT_FILENAME = 'output.html'
 def get_bib_str(filename):
     with open(filename,'r') as file:
         # Sem essa substituicao iremos entrar em loop
-        return re.sub(r'\b}$',r' }',file.read())
+        return re.sub(r'^}',r' }',file.read())
 
 def get_pub_type_counts(data):
     pub_types_occur = [x[0] for x in data.keys()]
@@ -31,7 +31,8 @@ def get_entries(string):
     # https://stackoverflow.com/questions/546433/regular-expression-to-match-balanced-parentheses
     # @(\w+){(\w+),((?:[^{}]+|{(?:[^{}]*|{[^{}]*})+})+)
     field = re.compile(r'(\w+)\s*=\s*(?:{((?:[^{}]+|{(?:[^{}]+|{[^{}]*})+})+)}|"([^"]+)"|(\d+))')
-    for entry in re.finditer(r"@(\w+){(.+),((?:[^{}]+|{(?:[^{}]*|{[^{}]*})+})+)", string):
+    #r"@(\w+){(.+),((?:[^{}]+|{(?:[^{}]*|{[^{}]*})+})+)"
+    for entry in re.finditer(r'@(\w+){(.+),((?:.|\n)+),?},?$', string):
         d[entry.group(1).lower(), entry.group(2)] = {
             x[0].lower(): get_valid_group(x, 1, 3)
             for x in field.findall(entry.group(3))}
