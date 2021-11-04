@@ -131,8 +131,7 @@ def fix_title(title):
              unbrace(#Pode dar problema com expressoes matematicas. Para melhorar devemos fazer if not between $.
              replace(
              remove_latex_special_chars(
-             remove_accents(
-             ' '.join(s.strip() for s in title.split('\n')))))))
+             ' '.join(s.strip() for s in title.split('\n'))))))
 
 
 def mult_replace(string, replacement_list):
