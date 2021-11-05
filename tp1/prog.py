@@ -74,6 +74,8 @@ def unbrace(expression):
        is in effect."""
     string_ls = []
     is_between_dollar_sign = False
+    # Talvez possamos usasr r'[^\\]\$.*[^\\]\$' para identificar
+    # que nao estamos dando escape no dollar sign.
     is_previous_backslash = False
     for c in expression:
         if c == '$' and not is_previous_backslash:
@@ -151,10 +153,12 @@ def fix_title(title):
     replace = lambda x: mult_replace(x,substitutions)
 
     return   html_create_span(
+             single_quote_latex(
+             double_quote_latex(
              unbrace(#Pode dar problema com expressoes matematicas. Para melhorar devemos fazer if not between $.
              replace(
              remove_latex_special_chars(
-             ' '.join(s.strip() for s in title.split('\n'))))))
+             ' '.join(s.strip() for s in title.split('\n'))))))))
 
 
 def mult_replace(string, replacement_list):
@@ -163,7 +167,11 @@ def mult_replace(string, replacement_list):
         string = re.sub(old, new, string)
     return string
 
+def double_quote_latex(expression):
+    return re.sub(r"``(.*[^\\])''",r'"\1"',expression)
 
+def single_quote_latex (expression):
+    return re.sub(r"[^`]`([^`].*[^'])'[^`]",r"'\1'",expression)
 
 def format_authors(data):
     '''Escolhemos remover acentuações e caracteres especiais
