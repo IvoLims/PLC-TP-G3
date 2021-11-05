@@ -74,12 +74,17 @@ def unbrace(expression):
        is in effect."""
     string_ls = []
     is_between_dollar_sign = False
+    is_previous_backslash = False
     for c in expression:
-        if c == '$':
+        if c == '$' and not is_previous_backslash:
             if is_between_dollar_sign:
                 is_between_dollar_sign = False
             else:
                 is_between_dollar_sign = True
+        if c == '\\':
+            is_previous_backslash = True
+        else:
+            is_previous_backslash = False
         if c in '{}' and not is_between_dollar_sign:
             continue
         string_ls.append(c)
