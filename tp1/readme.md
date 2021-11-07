@@ -127,28 +127,3 @@ year
 
 [^format]: http://www.bibtex.org/Format/
 [^std]: https://www.openoffice.org/bibliographic/bibtex-defs.html
-
-## Esboco
-
-1. Categoria
-   - chave, autor, titulo
-   - ...
-2. Categoria
-   - chave, autor, titulo
-   - ...
-
-```dot
-digraph G{
-  rankdir=LR
-
-  "Alef Keuffer" -> "Joao Almeida","Francisco Paulo"
-
-  init [style=invis,shape=point]
-  init -> q0
-  q6 [peripheries=2]
-}
-```
-
-Note que $$T_2O$$
-
-Note que $T_2O$
