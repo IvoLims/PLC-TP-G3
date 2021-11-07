@@ -74,7 +74,7 @@ def unbrace(expression):
        is in effect."""
     string_ls = []
     is_between_dollar_sign = False
-    # Talvez possamos usasr r'[^\\]\$.*[^\\]\$' para identificar
+    # Talvez possamos usar r'[^\\]\$.*[^\\]\$' para identificar
     # que nao estamos dando escape no dollar sign.
     is_previous_backslash = False
     for c in expression:
