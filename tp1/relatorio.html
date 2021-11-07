@@ -1,0 +1,1173 @@
+
+<!DOCTYPE html>
+<HTML>
+<HEAD>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+    extensions: ["tex2jax.js"],
+    jax: ["input/LaTeX", "output/HTML-CSS"],
+    "HTML-CSS": { availableFonts: ["TeX"] }
+    });
+</script>
+
+<script type="text/javascript"
+    src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+<style>
+
+@font-face {
+  font-family: 'Raleway';
+  font-style: normal;
+  font-weight: 300;
+  src: local('Raleway Light'), local('Raleway-Light'), url(http://fonts.gstatic.com/s/raleway/v9/-_Ctzj9b56b8RgXW8FArifk_vArhqVIZ0nv9q090hN8.woff2) format('woff2');
+}
+@font-face {
+  font-family: 'Raleway';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Raleway'), url(http://fonts.gstatic.com/s/raleway/v9/0dTEPzkLWceF7z0koJaX1A.woff2) format('woff2');
+}
+@font-face {
+  font-family: 'Raleway';
+  font-style: normal;
+  font-weight: 600;
+  src: local('Raleway SemiBold'), local('Raleway-SemiBold'), url(http://fonts.gstatic.com/s/raleway/v9/xkvoNo9fC8O2RDydKj12b_k_vArhqVIZ0nv9q090hN8.woff2) format('woff2');
+}
+html {
+  font-family: sans-serif; /* 1 */
+  -ms-text-size-adjust: 100%; /* 2 */
+  -webkit-text-size-adjust: 100%; /* 2 */
+}
+body {
+  margin: 0;
+}
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+main,
+menu,
+nav,
+section,
+summary {
+  display: block;
+}
+audio,
+canvas,
+progress,
+video {
+  display: inline-block; /* 1 */
+  vertical-align: baseline; /* 2 */
+}
+audio:not([controls]) {
+  display: none;
+  height: 0;
+}
+[hidden],
+template {
+  display: none;
+}
+a:active,
+a:hover {
+  outline: 0;
+}
+abbr[title] {
+  border-bottom: 1px dotted;
+}
+b,
+strong {
+  font-weight: bold;
+}
+dfn {
+  font-style: italic;
+}
+h1 {
+  font-size: 2em;
+  margin: 0.67em 0;
+}
+mark {
+  background: #ff0;
+  color: #000;
+}
+small {
+  font-size: 80%;
+}
+sub,
+sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+sup {
+  top: -0.5em;
+}
+sub {
+  bottom: -0.25em;
+}
+img {
+  border: 0;
+}
+svg:not(:root) {
+  overflow: hidden;
+}
+figure {
+  margin: 1em 40px;
+}
+hr {
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
+  height: 0;
+}
+pre {
+  overflow: auto;
+}
+code,
+kbd,
+pre,
+samp {
+  font-family: monospace, monospace;
+  font-size: 1em;
+}
+button,
+input,
+optgroup,
+select,
+textarea {
+  color: inherit; /* 1 */
+  font: inherit; /* 2 */
+  margin: 0; /* 3 */
+}
+button {
+  overflow: visible;
+}
+button,
+select {
+  text-transform: none;
+}
+button,
+html input[type="button"], /* 1 */
+input[type="reset"],
+input[type="submit"] {
+  -webkit-appearance: button; /* 2 */
+  cursor: pointer; /* 3 */
+}
+button[disabled],
+html input[disabled] {
+  cursor: default;
+}
+button::-moz-focus-inner,
+input::-moz-focus-inner {
+  border: 0;
+  padding: 0;
+}
+input {
+  line-height: normal;
+}
+input[type="checkbox"],
+input[type="radio"] {
+  box-sizing: border-box; /* 1 */
+  padding: 0; /* 2 */
+}
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  height: auto;
+}
+input[type="search"] {
+  -webkit-appearance: textfield; /* 1 */
+  -moz-box-sizing: content-box;
+  -webkit-box-sizing: content-box; /* 2 */
+  box-sizing: content-box;
+}
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-decoration {
+  -webkit-appearance: none;
+}
+fieldset {
+  border: 1px solid #c0c0c0;
+  margin: 0 2px;
+  padding: 0.35em 0.625em 0.75em;
+}
+legend {
+  border: 0; /* 1 */
+  padding: 0; /* 2 */
+}
+textarea {
+  overflow: auto;
+}
+optgroup {
+  font-weight: bold;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+td,
+th {
+  padding: 0;
+}
+
+
+/*
+* Skeleton V2.0.4
+* Copyright 2014, Dave Gamache
+* www.getskeleton.com
+* Free to use under the MIT license.
+* http://www.opensource.org/licenses/mit-license.php
+* 12/29/2014
+*/
+.container {
+  position: relative;
+  width: 100%;
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0 20px;
+  box-sizing: border-box; }
+.column,
+.columns {
+  width: 100%;
+  float: left;
+  box-sizing: border-box; }
+@media (min-width: 400px) {
+  .container {
+    width: 85%;
+    padding: 0; }
+}
+@media (min-width: 550px) {
+  .container {
+    width: 80%; }
+  .column,
+  .columns {
+    margin-left: 4%; }
+  .column:first-child,
+  .columns:first-child {
+    margin-left: 0; }
+
+  .one.column,
+  .one.columns                    { width: 4.66666666667%; }
+  .two.columns                    { width: 13.3333333333%; }
+  .three.columns                  { width: 22%;            }
+  .four.columns                   { width: 30.6666666667%; }
+  .five.columns                   { width: 39.3333333333%; }
+  .six.columns                    { width: 48%;            }
+  .seven.columns                  { width: 56.6666666667%; }
+  .eight.columns                  { width: 65.3333333333%; }
+  .nine.columns                   { width: 74.0%;          }
+  .ten.columns                    { width: 82.6666666667%; }
+  .eleven.columns                 { width: 91.3333333333%; }
+  .twelve.columns                 { width: 100%; margin-left: 0; }
+
+  .one-third.column               { width: 30.6666666667%; }
+  .two-thirds.column              { width: 65.3333333333%; }
+
+  .one-half.column                { width: 48%; }
+
+  /* Offsets */
+  .offset-by-one.column,
+  .offset-by-one.columns          { margin-left: 8.66666666667%; }
+  .offset-by-two.column,
+  .offset-by-two.columns          { margin-left: 17.3333333333%; }
+  .offset-by-three.column,
+  .offset-by-three.columns        { margin-left: 26%;            }
+  .offset-by-four.column,
+  .offset-by-four.columns         { margin-left: 34.6666666667%; }
+  .offset-by-five.column,
+  .offset-by-five.columns         { margin-left: 43.3333333333%; }
+  .offset-by-six.column,
+  .offset-by-six.columns          { margin-left: 52%;            }
+  .offset-by-seven.column,
+  .offset-by-seven.columns        { margin-left: 60.6666666667%; }
+  .offset-by-eight.column,
+  .offset-by-eight.columns        { margin-left: 69.3333333333%; }
+  .offset-by-nine.column,
+  .offset-by-nine.columns         { margin-left: 78.0%;          }
+  .offset-by-ten.column,
+  .offset-by-ten.columns          { margin-left: 86.6666666667%; }
+  .offset-by-eleven.column,
+  .offset-by-eleven.columns       { margin-left: 95.3333333333%; }
+
+  .offset-by-one-third.column,
+  .offset-by-one-third.columns    { margin-left: 34.6666666667%; }
+  .offset-by-two-thirds.column,
+  .offset-by-two-thirds.columns   { margin-left: 69.3333333333%; }
+
+  .offset-by-one-half.column,
+  .offset-by-one-half.columns     { margin-left: 52%; }
+
+}
+html {
+  font-size: 62.5%; }
+body {
+  font-size: 1.5em; /* currently ems cause chrome bug misinterpreting rems on body element */
+  line-height: 1.6;
+  font-weight: 400;
+  font-family: "Raleway", "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: #222; }
+h1, h2, h3, h4, h5, h6 {
+  margin-top: 0;
+  margin-bottom: 2rem;
+  font-weight: 300; }
+h1 { font-size: 3.6rem; line-height: 1.2;  letter-spacing: -.1rem;}
+h2 { font-size: 3.4rem; line-height: 1.25; letter-spacing: -.1rem; }
+h3 { font-size: 3.2rem; line-height: 1.3;  letter-spacing: -.1rem; }
+h4 { font-size: 2.8rem; line-height: 1.35; letter-spacing: -.08rem; }
+h5 { font-size: 2.4rem; line-height: 1.5;  letter-spacing: -.05rem; }
+h6 { font-size: 1.5rem; line-height: 1.6;  letter-spacing: 0; }
+
+p {
+  margin-top: 0; }
+a {
+  color: #1EAEDB; }
+a:hover {
+  color: #0FA0CE; }
+.button,
+button,
+input[type="submit"],
+input[type="reset"],
+input[type="button"] {
+  display: inline-block;
+  height: 38px;
+  padding: 0 30px;
+  color: #555;
+  text-align: center;
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 38px;
+  letter-spacing: .1rem;
+  text-transform: uppercase;
+  text-decoration: none;
+  white-space: nowrap;
+  background-color: transparent;
+  border-radius: 4px;
+  border: 1px solid #bbb;
+  cursor: pointer;
+  box-sizing: border-box; }
+.button:hover,
+button:hover,
+input[type="submit"]:hover,
+input[type="reset"]:hover,
+input[type="button"]:hover,
+.button:focus,
+button:focus,
+input[type="submit"]:focus,
+input[type="reset"]:focus,
+input[type="button"]:focus {
+  color: #333;
+  border-color: #888;
+  outline: 0; }
+.button.button-primary,
+button.button-primary,
+input[type="submit"].button-primary,
+input[type="reset"].button-primary,
+input[type="button"].button-primary {
+  color: #FFF;
+  background-color: #33C3F0;
+  border-color: #33C3F0; }
+.button.button-primary:hover,
+button.button-primary:hover,
+input[type="submit"].button-primary:hover,
+input[type="reset"].button-primary:hover,
+input[type="button"].button-primary:hover,
+.button.button-primary:focus,
+button.button-primary:focus,
+input[type="submit"].button-primary:focus,
+input[type="reset"].button-primary:focus,
+input[type="button"].button-primary:focus {
+  color: #FFF;
+  background-color: #1EAEDB;
+  border-color: #1EAEDB; }
+input[type="email"],
+input[type="number"],
+input[type="search"],
+input[type="text"],
+input[type="tel"],
+input[type="url"],
+input[type="password"],
+textarea,
+select {
+  height: 38px;
+  padding: 6px 10px; /* The 6px vertically centers text on FF, ignored by Webkit */
+  background-color: #fff;
+  border: 1px solid #D1D1D1;
+  border-radius: 4px;
+  box-shadow: none;
+  box-sizing: border-box; }
+/* Removes awkward default styles on some inputs for iOS */
+input[type="email"],
+input[type="number"],
+input[type="search"],
+input[type="text"],
+input[type="tel"],
+input[type="url"],
+input[type="password"],
+textarea {
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none; }
+textarea {
+  min-height: 65px;
+  padding-top: 6px;
+  padding-bottom: 6px; }
+input[type="email"]:focus,
+input[type="number"]:focus,
+input[type="search"]:focus,
+input[type="text"]:focus,
+input[type="tel"]:focus,
+input[type="url"]:focus,
+input[type="password"]:focus,
+textarea:focus,
+select:focus {
+  border: 1px solid #33C3F0;
+  outline: 0; }
+label,
+legend {
+  display: block;
+  margin-bottom: .5rem;
+  font-weight: 600; }
+fieldset {
+  padding: 0;
+  border-width: 0; }
+input[type="checkbox"],
+input[type="radio"] {
+  display: inline; }
+label > .label-body {
+  display: inline-block;
+  margin-left: .5rem;
+  font-weight: normal; }
+ul {
+  list-style: circle inside; }
+ol {
+  list-style: decimal inside; }
+ol, ul {
+  padding-left: 0;
+  margin-top: 0; }
+ul ul,
+ul ol,
+ol ol,
+ol ul {
+  margin: 1.5rem 0 1.5rem 3rem;
+  font-size: 90%; }
+li {
+  margin-bottom: 1rem; }
+th,
+td {
+  padding: 12px 15px;
+  text-align: left;
+  border-bottom: 1px solid #E1E1E1; }
+th:first-child,
+td:first-child {
+  padding-left: 0; }
+th:last-child,
+td:last-child {
+  padding-right: 0; }
+button,
+.button {
+  margin-bottom: 1rem; }
+input,
+textarea,
+select,
+fieldset {
+  margin-bottom: 1.5rem; }
+pre,
+blockquote,
+dl,
+figure,
+table,
+p,
+ul,
+ol,
+form {
+  margin-bottom: 2.5rem; }
+.u-full-width {
+  width: 100%;
+  box-sizing: border-box; }
+.u-max-full-width {
+  max-width: 100%;
+  box-sizing: border-box; }
+.u-pull-right {
+  float: right; }
+.u-pull-left {
+  float: left; }
+hr {
+  margin-top: 3rem;
+  margin-bottom: 3.5rem;
+  border-width: 0;
+  border-top: 1px solid #E1E1E1; }
+.container:after,
+.row:after,
+.u-cf {
+  content: "";
+  display: table;
+  clear: both; }
+
+pre {
+  display: block;
+  padding: 9.5px;
+  margin: 0 0 10px;
+  font-size: 13px;
+  line-height: 1.42857143;
+  color: #333;
+  word-break: break-all;
+  word-wrap: break-word;
+  background-color: #f5f5f5;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+code,
+kbd,
+pre,
+samp {
+  font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
+}
+code {
+  padding: 2px 4px;
+  font-size: 90%;
+  color: #c7254e;
+  background-color: #f9f2f4;
+  border-radius: 4px;
+}
+
+@media (min-width: 400px) {}
+@media (min-width: 550px) {}
+@media (min-width: 750px) {}
+@media (min-width: 1000px) {}
+@media (min-width: 1200px) {}
+
+</style>
+
+<style>
+pre { line-height: 125%; }
+td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+span.linenos { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+td.linenos .special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+.hll { background-color: #ffffcc }
+.c { color: #408080; font-style: italic } /* Comment */
+.err { border: 1px solid #FF0000 } /* Error */
+.k { color: #008000; font-weight: bold } /* Keyword */
+.o { color: #666666 } /* Operator */
+.ch { color: #408080; font-style: italic } /* Comment.Hashbang */
+.cm { color: #408080; font-style: italic } /* Comment.Multiline */
+.cp { color: #BC7A00 } /* Comment.Preproc */
+.cpf { color: #408080; font-style: italic } /* Comment.PreprocFile */
+.c1 { color: #408080; font-style: italic } /* Comment.Single */
+.cs { color: #408080; font-style: italic } /* Comment.Special */
+.gd { color: #A00000 } /* Generic.Deleted */
+.ge { font-style: italic } /* Generic.Emph */
+.gr { color: #FF0000 } /* Generic.Error */
+.gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.gi { color: #00A000 } /* Generic.Inserted */
+.go { color: #888888 } /* Generic.Output */
+.gp { color: #000080; font-weight: bold } /* Generic.Prompt */
+.gs { font-weight: bold } /* Generic.Strong */
+.gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.gt { color: #0044DD } /* Generic.Traceback */
+.kc { color: #008000; font-weight: bold } /* Keyword.Constant */
+.kd { color: #008000; font-weight: bold } /* Keyword.Declaration */
+.kn { color: #008000; font-weight: bold } /* Keyword.Namespace */
+.kp { color: #008000 } /* Keyword.Pseudo */
+.kr { color: #008000; font-weight: bold } /* Keyword.Reserved */
+.kt { color: #B00040 } /* Keyword.Type */
+.m { color: #666666 } /* Literal.Number */
+.s { color: #BA2121 } /* Literal.String */
+.na { color: #7D9029 } /* Name.Attribute */
+.nb { color: #008000 } /* Name.Builtin */
+.nc { color: #0000FF; font-weight: bold } /* Name.Class */
+.no { color: #880000 } /* Name.Constant */
+.nd { color: #AA22FF } /* Name.Decorator */
+.ni { color: #999999; font-weight: bold } /* Name.Entity */
+.ne { color: #D2413A; font-weight: bold } /* Name.Exception */
+.nf { color: #0000FF } /* Name.Function */
+.nl { color: #A0A000 } /* Name.Label */
+.nn { color: #0000FF; font-weight: bold } /* Name.Namespace */
+.nt { color: #008000; font-weight: bold } /* Name.Tag */
+.nv { color: #19177C } /* Name.Variable */
+.ow { color: #AA22FF; font-weight: bold } /* Operator.Word */
+.w { color: #bbbbbb } /* Text.Whitespace */
+.mb { color: #666666 } /* Literal.Number.Bin */
+.mf { color: #666666 } /* Literal.Number.Float */
+.mh { color: #666666 } /* Literal.Number.Hex */
+.mi { color: #666666 } /* Literal.Number.Integer */
+.mo { color: #666666 } /* Literal.Number.Oct */
+.sa { color: #BA2121 } /* Literal.String.Affix */
+.sb { color: #BA2121 } /* Literal.String.Backtick */
+.sc { color: #BA2121 } /* Literal.String.Char */
+.dl { color: #BA2121 } /* Literal.String.Delimiter */
+.sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
+.s2 { color: #BA2121 } /* Literal.String.Double */
+.se { color: #BB6622; font-weight: bold } /* Literal.String.Escape */
+.sh { color: #BA2121 } /* Literal.String.Heredoc */
+.si { color: #BB6688; font-weight: bold } /* Literal.String.Interpol */
+.sx { color: #008000 } /* Literal.String.Other */
+.sr { color: #BB6688 } /* Literal.String.Regex */
+.s1 { color: #BA2121 } /* Literal.String.Single */
+.ss { color: #19177C } /* Literal.String.Symbol */
+.bp { color: #008000 } /* Name.Builtin.Pseudo */
+.fm { color: #0000FF } /* Name.Function.Magic */
+.vc { color: #19177C } /* Name.Variable.Class */
+.vg { color: #19177C } /* Name.Variable.Global */
+.vi { color: #19177C } /* Name.Variable.Instance */
+.vm { color: #19177C } /* Name.Variable.Magic */
+.il { color: #666666 } /* Literal.Number.Integer.Long */
+</style>
+
+
+
+
+
+<style>
+h1.title {margin-top : 20px}
+img {max-width : 100%}
+
+#From nbconvert
+.ansi-black-fg { color: #3E424D; }
+.ansi-black-bg { background-color: #3E424D; }
+.ansi-black-intense-fg { color: #282C36; }
+.ansi-black-intense-bg { background-color: #282C36; }
+.ansi-red-fg { color: #E75C58; }
+.ansi-red-bg { background-color: #E75C58; }
+.ansi-red-intense-fg { color: #B22B31; }
+.ansi-red-intense-bg { background-color: #B22B31; }
+.ansi-green-fg { color: #00A250; }
+.ansi-green-bg { background-color: #00A250; }
+.ansi-green-intense-fg { color: #007427; }
+.ansi-green-intense-bg { background-color: #007427; }
+.ansi-yellow-fg { color: #DDB62B; }
+.ansi-yellow-bg { background-color: #DDB62B; }
+.ansi-yellow-intense-fg { color: #B27D12; }
+.ansi-yellow-intense-bg { background-color: #B27D12; }
+.ansi-blue-fg { color: #208FFB; }
+.ansi-blue-bg { background-color: #208FFB; }
+.ansi-blue-intense-fg { color: #0065CA; }
+.ansi-blue-intense-bg { background-color: #0065CA; }
+.ansi-magenta-fg { color: #D160C4; }
+.ansi-magenta-bg { background-color: #D160C4; }
+.ansi-magenta-intense-fg { color: #A03196; }
+.ansi-magenta-intense-bg { background-color: #A03196; }
+.ansi-cyan-fg { color: #60C6C8; }
+.ansi-cyan-bg { background-color: #60C6C8; }
+.ansi-cyan-intense-fg { color: #258F8F; }
+.ansi-cyan-intense-bg { background-color: #258F8F; }
+.ansi-white-fg { color: #C5C1B4; }
+.ansi-white-bg { background-color: #C5C1B4; }
+.ansi-white-intense-fg { color: #A1A6B2; }
+.ansi-white-intense-bg { background-color: #A1A6B2; }
+
+.ansi-bold { font-weight: bold; }
+</style>
+
+</HEAD>
+<BODY>
+    <div class ="container">
+        <div class = "row">
+            <div class = "col-md-12 twelve columns">
+<h1>Relatório</h1>
+<p>Para realizar as modificações em um ficheiro chamamos <code>solve(author_name,INPUT_FILENAME=BIB_EXAMPLE_FILENAME)</code>, passando o nome do autor que queremos conforme (R5).</p>
+<h2>Módulo não é <code>re</code></h2>
+<p>Esse módulo é compatível com <code>re</code> sendo mais poderoso. Seu uso será justificado.</p>
+
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">regex</span> <span class="k">as</span> <span class="nn">re</span>
+</pre></div>
+
+<h2>Chamar pela linha de comando</h2>
+<p>Isso serve para podermos chamar pela linha de comando.</p>
+
+<div class="highlight"><pre><span></span><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">sys</span>
+    <span class="kn">import</span> <span class="nn">os.path</span>
+    <span class="n">filename</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="k">assert</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="p">:</span>
+        <span class="n">author_name</span> <span class="o">=</span> <span class="s1">&#39;Daniela da Cruz&#39;</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">author_name</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+    <span class="n">solve</span><span class="p">(</span><span class="n">author_name</span><span class="p">,</span><span class="n">filename</span><span class="p">)</span>
+</pre></div>
+
+<h2>Algumas constantes</h2>
+<p>Famos ter que fechar a tag HTML que começamos em <code>HTML_PROLOGUE</code></p>
+
+<div class="highlight"><pre><span></span><span class="n">HTML_EPILOGUE</span> <span class="o">=</span> <span class="s1">&#39;&lt;/HTML&gt;&#39;</span>
+</pre></div>
+
+<p>O ficheiro dado como argumento de entrada é o ficheiro <code>exemplo-utf8.bib</code>.</p>
+
+<div class="highlight"><pre><span></span><span class="n">BIB_EXAMPLE_FILENAME</span> <span class="o">=</span> <span class="s2">&quot;exemplo-utf8.bib&quot;</span>
+</pre></div>
+
+<p>Decidimos chamar o output como <code>output.html</code>.</p>
+
+<div class="highlight"><pre><span></span><span class="n">OUTPUT_FILENAME</span> <span class="o">=</span> <span class="s1">&#39;output.html&#39;</span>
+</pre></div>
+
+<p>Aqui incluimos javascript para renderizar fórmulas matemáticas.</p>
+
+<div class="highlight"><pre><span></span><span class="n">HTML_PROLOGUE</span> <span class="o">=</span> <span class="s1">&#39;&lt;!DOCTYPE  html&gt;</span><span class="se">\n</span><span class="s1">&lt;HTML lang=&quot;en&quot;&gt;</span><span class="se">\n</span><span class="s1">&lt;HEAD&gt;</span><span class="se">\n</span><span class="s1">&lt;meta charset=&quot;utf-8&quot;&gt;</span><span class="se">\n</span><span class="s1">      &lt;TITLE&gt;Categories in BibTeX&lt;/TITLE&gt;</span><span class="se">\n</span><span class="s1"> &lt;script type=&quot;text/x-mathjax-config&quot;&gt; MathJax.Hub.Config({&quot;extensions&quot;:[&quot;tex2jax.js&quot;],&quot;jax&quot;:[&quot;input/TeX&quot;,&quot;output/HTML-CSS&quot;],&quot;messageStyle&quot;:&quot;none&quot;,&quot;tex2jax&quot;:{&quot;processEnvironments&quot;:false,&quot;processEscapes&quot;:true,&quot;inlineMath&quot;:[[&quot;$&quot;,&quot;$&quot;]],&quot;displayMath&quot;:[]},&quot;TeX&quot;:{&quot;extensions&quot;:[&quot;AMSmath.js&quot;,&quot;AMSsymbols.js&quot;,&quot;noErrors.js&quot;,&quot;noUndefined.js&quot;]},&quot;HTML-CSS&quot;:{&quot;availableFonts&quot;:[&quot;TeX&quot;]}}); &lt;/script&gt; &lt;script type=&quot;text/javascript&quot; async src=&quot;file:////home/useralef/.vscode/extensions/shd101wyy.markdown-preview-enhanced-0.6.1/node_modules/@shd101wyy/mume/dependencies/mathjax/MathJax.js&quot; charset=&quot;UTF-8&quot;&gt;&lt;/script&gt;  &lt;/HEAD&gt;</span><span class="se">\n</span><span class="s1">&#39;</span>
+</pre></div>
+
+<h2>Função principal</h2>
+<p>Em <code>solve</code> temos a váriavel <code>htlm_str_ls</code> que é uma lista de strings que iremos concatenar. Usamos uma lista ao invés de ir concatenando uma váriavel string porque em python strings são imutáveis, cada concatenação requer que todos os caracteres sejam copiados. Por outro lado, appends numa lista são <span class="math">\(\cal{O}(1)\)</span class="math"> e no final concatenamos só uma vez as strings na lista para formar o código html.</p>
+<p>Em <code>bib_str</code> salvamos o texto inteiro que está em <code>INPUT_FILENAME</code>. <code>get_bib_str()</code> é utilizada para abrir o ficheiro.g</p>
+
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">solve</span><span class="p">(</span><span class="n">author_name</span><span class="p">,</span><span class="n">INPUT_FILENAME</span><span class="o">=</span><span class="n">BIB_EXAMPLE_FILENAME</span><span class="p">):</span>
+    <span class="n">html_str_ls</span> <span class="o">=</span> <span class="p">[</span><span class="n">HTML_PROLOGUE</span><span class="p">]</span>
+    <span class="n">bib_str</span> <span class="o">=</span> <span class="n">get_bib_str</span><span class="p">(</span><span class="n">INPUT_FILENAME</span><span class="p">)</span>
+
+    <span class="n">entries</span> <span class="o">=</span> <span class="n">get_entries</span><span class="p">(</span><span class="n">bib_str</span><span class="p">)</span>
+    <span class="n">format_authors</span><span class="p">(</span><span class="n">entries</span><span class="p">)</span>
+    <span class="n">fix_repeated_authors</span><span class="p">(</span><span class="n">entries</span><span class="p">)</span>
+
+    <span class="n">html_str_ls</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">html_enclose</span><span class="p">(</span><span class="s1">&#39;body&#39;</span><span class="p">,</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">get_html_pub_type_counts</span><span class="p">(</span><span class="n">entries</span><span class="p">)</span><span class="si">}{</span><span class="n">get_html_common_pub_author</span><span class="p">(</span><span class="n">author_name</span><span class="p">,</span><span class="n">entries</span><span class="p">)</span><span class="si">}{</span><span class="n">get_html_pub_type_index</span><span class="p">(</span><span class="n">entries</span><span class="p">)</span><span class="si">}{</span><span class="n">get_html_author_index</span><span class="p">(</span><span class="n">entries</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">))</span>
+
+    <span class="n">html_str_ls</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">HTML_EPILOGUE</span><span class="p">)</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">OUTPUT_FILENAME</span><span class="p">,</span><span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+        <span class="n">file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">html_str_ls</span><span class="p">))</span>
+</pre></div>
+
+
+
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_bib_str</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span><span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+        <span class="c1"># Sem essa substituicao iremos entrar em loop</span>
+        <span class="k">return</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;^}&#39;</span><span class="p">,</span><span class="sa">r</span><span class="s1">&#39; }&#39;</span><span class="p">,</span><span class="n">file</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
+</pre></div>
+
+<h2>Apanhando as entradas</h2>
+<p>Nesse procedimento, criamos um dicionário onde cada chave é um par (tipo de publicação, nome do autor) e o valor é um dicionário em que cada chave é um campo da entrada bibtex e o valor é o valor do campo.</p>
+<p>É aqui que se justifica o useo do módulo <code>regex</code>. Note a expressão regular:</p>
+<p>&lt;&lt;&gt;&gt;=
+between_cbrace_ex = r'(?:(?<rec>{(?<value>[^{}]+|(?P&gt;rec))*+}))'
+@</p>
+<p>Nela usamos um padrão recursivo não suportado pelo módulo <code>re</code>. O padrão é usado para capturar o que está entre chavetas que podem estar aninhadas arbitrariamente.</p>
+<p>Usamos <code>RELEVANT_FIELDS</code> para definir quais campos iremos usar.</p>
+
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_entries</span><span class="p">(</span><span class="n">string</span><span class="p">):</span>
+    <span class="n">d</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="n">RELEVANT_FIELDS</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;author&#39;</span><span class="p">,</span><span class="s1">&#39;title&#39;</span><span class="p">}</span>
+    <span class="n">SPECIAL_TYPES</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;comment&#39;</span><span class="p">,</span><span class="s1">&#39;string&#39;</span><span class="p">,</span><span class="s1">&#39;preamble&#39;</span><span class="p">}</span>
+
+    <span class="n">between_cbrace_ex</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;(?:(?&lt;rec&gt;{(?&lt;value&gt;[^</span><span class="si">{}</span><span class="s1">]+|(?P&gt;rec))*+}))&#39;</span>
+
+    <span class="n">field_match</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">rf</span><span class="s1">&#39;(?&lt;name&gt;\w+)\s*=\s*(</span><span class="si">{</span><span class="n">between_cbrace_ex</span><span class="si">}</span><span class="s1">|&quot;(?&lt;value&gt;[^&quot;]+)&quot;|(?&lt;value&gt;\d+))&#39;</span><span class="p">)</span>
+    <span class="n">entry_match</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">rf</span><span class="s1">&#39;@(?&lt;type&gt;\w+)(?&lt;value&gt;</span><span class="si">{</span><span class="n">between_cbrace_ex</span><span class="si">}</span><span class="s1">)&#39;</span><span class="p">)</span>
+    <span class="n">key_match</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;([^</span><span class="si">{}</span><span class="s1">,~#%</span><span class="se">\\</span><span class="s1">]+),&#39;</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">entry</span> <span class="ow">in</span> <span class="n">entry_match</span><span class="o">.</span><span class="n">finditer</span><span class="p">(</span><span class="n">string</span><span class="p">):</span>
+        <span class="n">entry_type</span> <span class="o">=</span> <span class="n">entry</span><span class="p">[</span><span class="s1">&#39;type&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">entry_type</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">SPECIAL_TYPES</span><span class="p">:</span>
+            <span class="n">key</span> <span class="o">=</span> <span class="n">key_match</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">entry</span><span class="p">[</span><span class="s1">&#39;value&#39;</span><span class="p">])[</span><span class="mi">1</span><span class="p">]</span>
+            <span class="n">d</span><span class="p">[</span><span class="n">entry_type</span><span class="p">,</span> <span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="n">field</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">():</span> <span class="n">field</span><span class="p">[</span><span class="s1">&#39;value&#39;</span><span class="p">]</span>
+                <span class="k">for</span> <span class="n">field</span> <span class="ow">in</span> <span class="n">field_match</span><span class="o">.</span><span class="n">finditer</span><span class="p">(</span><span class="n">entry</span><span class="p">[</span><span class="s1">&#39;value&#39;</span><span class="p">])</span> <span class="k">if</span> <span class="n">field</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="n">RELEVANT_FIELDS</span><span class="p">}</span>
+    <span class="k">return</span> <span class="n">d</span>
+</pre></div>
+
+<h2>Procedimentos usados ao longo do programa</h2>
+<h3>Relacionado a expressões <span class="math">\(La\TeX\)</span class="math"></h3>
+<p>Assumimos que as chavetas estão balanceadas. Iremos remover as caveteas baseados na informação achada <a href="https://tex.stackexchange.com/questions/109064/is-there-a-difference-between-and-in-bibtex:">aqui</a></p>
+<p>Chavetas dentro de títulos são usadas para previnir que palavras sejam convertidas para em letras minúsculas (se "sentence style" é usado ao invés de "title style").</p>
+<p>Por exemplo, devemos usar chavetas para escrever</p>
+<p><code>title = "The Life of {Albert} {Einstein}"</code></p>
+<p>ou, de forma equivalente,</p>
+<p><code>title = {The life of {Albert} {Einstein}}</code></p>
+<p>para garantir que as letras 'A' e 'E' sejam sempre formatadas em letras maiúsculas mesmo que "sentence style" esteja sendo usado.</p>
+
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">unbrace</span><span class="p">(</span><span class="n">expression</span><span class="p">):</span>
+    <span class="n">string_ls</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">is_between_dollar_sign</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="c1"># Talvez possamos usar r&#39;[^\\]\$.*[^\\]\$&#39; para identificar</span>
+    <span class="c1"># que nao estamos dando escape no dollar sign.</span>
+    <span class="n">is_previous_backslash</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">expression</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">c</span> <span class="o">==</span> <span class="s1">&#39;$&#39;</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">is_previous_backslash</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">is_between_dollar_sign</span><span class="p">:</span>
+                <span class="n">is_between_dollar_sign</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">is_between_dollar_sign</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">if</span> <span class="n">c</span> <span class="o">==</span> <span class="s1">&#39;</span><span class="se">\\</span><span class="s1">&#39;</span><span class="p">:</span>
+            <span class="n">is_previous_backslash</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">is_previous_backslash</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="k">if</span> <span class="n">c</span> <span class="ow">in</span> <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">&#39;</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">is_between_dollar_sign</span><span class="p">:</span>
+            <span class="k">continue</span>
+        <span class="n">string_ls</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
+    <span class="k">return</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">string_ls</span><span class="p">)</span>
+</pre></div>
+
+<h3>Relacionados a <em>HTML</em></h3>
+<p>É muito comum em <em>HTML</em> o uso de <em>tags</em> para marcar uma expressão. Então criamos um procedimento que facilita colocar cercar uma expressão pela <em>tag</em> desejada.</p>
+
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">html_enclose</span><span class="p">(</span><span class="n">tag</span><span class="p">,</span><span class="n">string</span><span class="p">):</span>
+    <span class="c1"># Funcao mais geral</span>
+    <span class="k">return</span> <span class="sa">rf</span><span class="s1">&#39;&lt;</span><span class="si">{</span><span class="n">tag</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span><span class="si">}</span><span class="s1">&gt;</span><span class="si">{</span><span class="n">string</span><span class="si">}</span><span class="s1">&lt;/</span><span class="si">{</span><span class="n">tag</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span><span class="si">}</span><span class="s1">&gt;&#39;</span>
+</pre></div>
+
+<p>Nesse sentido, <em>spans</em> são muito úteis em <em>HTML</em>, logo criamos:</p>
+
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">html_create_span</span><span class="p">(</span><span class="n">expression</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">html_enclose</span><span class="p">(</span><span class="s1">&#39;span&#39;</span><span class="p">,</span><span class="n">expression</span><span class="p">)</span>
+</pre></div>
+
+<p>As vezes queremos adicionar um atributo numa <em>tag</em>, nesse caso podemos usar (há um pequeno problema com esse procedimento, mas para nosso uso não foi relevante).</p>
+
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">html_add_attr</span><span class="p">(</span><span class="n">attr</span><span class="p">,</span><span class="n">val</span><span class="p">,</span><span class="n">html_expression</span><span class="p">):</span>
+    <span class="c1"># Funcao mais geral</span>
+    <span class="k">return</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;&lt;(\w+)([^&gt;]*)\s*&gt;(.*)&lt;/\1&gt;&#39;</span><span class="p">,</span><span class="sa">rf</span><span class="s1">&#39;&lt;\1\2 </span><span class="si">{</span><span class="n">attr</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span><span class="si">}</span><span class="s1">=&quot;</span><span class="si">{</span><span class="n">val</span><span class="si">}</span><span class="s1">&quot;&gt;\3&lt;/\1&gt;&#39;</span><span class="p">,</span><span class="n">html_expression</span><span class="p">)</span>
+</pre></div>
+
+<h3>Relacionados a <em>Regex</em></h3>
+<p>As vezes queremos fazer várias substituições num texto, logo criamos:</p>
+
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">mult_replace</span><span class="p">(</span><span class="n">string</span><span class="p">,</span> <span class="n">replacement_list</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;Uses a list of regex substitutions to modify a string&#39;&#39;&#39;</span>
+    <span class="k">for</span> <span class="n">old</span><span class="p">,</span> <span class="n">new</span> <span class="ow">in</span> <span class="n">replacement_list</span><span class="p">:</span>
+        <span class="n">string</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="n">old</span><span class="p">,</span> <span class="n">new</span><span class="p">,</span> <span class="n">string</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">string</span>
+</pre></div>
+
+<h2>Tratamento do nome dos autores</h2>
+<p>Escolhemos remover acentuações e caracteres especiais que as representam em <span class="math">\(La\TeX\)</span class="math"> (e.g. <code>\~</code>) do nome dos autores.</p>
+<p>É importante notar que ainda ocorrem alguns problemas de acentuações uma vez que não removemos acentuações do tipo <code>\~{letra}</code>.</p>
+
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">format_authors</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+        <span class="k">if</span> <span class="s2">&quot;author&quot;</span> <span class="ow">in</span> <span class="n">d</span><span class="p">:</span>
+            <span class="n">author_lst</span> <span class="o">=</span> <span class="p">[</span> <span class="n">remove_consecutive_spaces</span><span class="p">(</span>
+                           <span class="nb">str</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span>
+                           <span class="n">invert_name</span><span class="p">(</span>
+                           <span class="n">unbrace</span><span class="p">(</span>
+                           <span class="n">remove_accents</span><span class="p">(</span><span class="n">name</span><span class="p">)))))</span>
+                           <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">re</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;\band\b&quot;</span><span class="p">,</span> <span class="n">d</span><span class="p">[</span><span class="s2">&quot;author&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot; &quot;</span><span class="p">))]</span>
+            <span class="n">d</span><span class="p">[</span><span class="s1">&#39;author&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">author</span> <span class="k">for</span> <span class="n">author</span> <span class="ow">in</span> <span class="n">author_lst</span> <span class="k">if</span> <span class="n">author</span><span class="p">]</span>
+</pre></div>
+
+<h3>Procedimentos auxiliares</h3>
+
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">remove_consecutive_spaces</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;\s+&#39;</span><span class="p">,</span><span class="s1">&#39; &#39;</span><span class="p">,</span><span class="n">name</span><span class="p">)</span>
+</pre></div>
+
+
+
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">invert_name</span><span class="p">(</span><span class="n">author_name</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;Inverte nome do tipo: last_name, first_name.</span>
+<span class="sd">       Por exemplo: da Cruz, Daniela → Daniela da Cruz&#39;&#39;&#39;</span>
+    <span class="k">return</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;([^,]+),\s*([^,]+)&quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;\2 \1&quot;</span><span class="p">,</span> <span class="n">author_name</span><span class="p">)</span>
+</pre></div>
+
+
+
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">remove_accents</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">remove_latex_accent</span><span class="p">(</span><span class="n">remove_normal_accent</span><span class="p">(</span><span class="n">name</span><span class="p">))</span>
+</pre></div>
+
+<p>Para remoção de acentos <span class="math">\(La\TeX\)</span class="math"> consultamos a <a href="https://en.wikibooks.org/wiki/LaTeX/Special_Characters">wiki</a>.</p>
+<p>Pensamos em possivelmente usar algo como:</p>
+<p>&lt;&lt;&gt;&gt;=
+re.sub(r'\{?(acento)}?',rf'{fix_accent(\1)}',author_name)
+@</p>
+<p>para manter acentuações, mas devido a restrições de tempo não achamos prudente embarcar nesta ideia.</p>
+
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">remove_latex_accent</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;</span><span class="se">\\</span><span class="s1">\W&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">,</span><span class="n">name</span><span class="p">)</span>
+</pre></div>
+
+<p>Aqui removemos palavras com acentuações normais, isso é, palavras como "á", "é", "í", etc (não <span class="math">\(La\TeX\)</span class="math">).</p>
+
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">remove_normal_accent</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
+    <span class="kn">import</span> <span class="nn">unicodedata</span>
+    <span class="k">return</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">((</span><span class="n">c</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">unicodedata</span><span class="o">.</span><span class="n">normalize</span><span class="p">(</span><span class="s1">&#39;NFD&#39;</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span> <span class="k">if</span> <span class="n">unicodedata</span><span class="o">.</span><span class="n">category</span><span class="p">(</span><span class="n">c</span><span class="p">)</span> <span class="o">!=</span> <span class="s1">&#39;Mn&#39;</span><span class="p">))</span>
+</pre></div>
+
+<p>Também usamos a já referenciada <code>unbrace()</code>.</p>
+<h2>Tratando autores repetidos na estrutura</h2>
+<p>No nosso dicionário, teremos autores repetidos (pois podem estar escritos de formas diferentes, omitindo alguns sobrenomes ou até mesmo primeiros nomes).</p>
+
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">fix_repeated_authors</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+    <span class="n">author_blocks</span> <span class="o">=</span> <span class="n">fix_block_func</span><span class="p">(</span><span class="n">block_authors_with_two_common_names_v2</span><span class="p">(</span><span class="n">get_author_list</span><span class="p">(</span><span class="n">data</span><span class="p">)))</span>
+    <span class="n">author_dict</span> <span class="o">=</span> <span class="p">{</span><span class="n">author_name</span><span class="p">:</span><span class="nb">max</span><span class="p">(</span><span class="n">s</span><span class="p">,</span><span class="n">key</span><span class="o">=</span><span class="nb">len</span><span class="p">)</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">author_blocks</span> <span class="k">for</span> <span class="n">author_name</span> <span class="ow">in</span> <span class="n">s</span><span class="p">}</span>
+    <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+        <span class="n">d</span><span class="p">[</span><span class="s1">&#39;author&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">author_dict</span><span class="p">[</span><span class="n">author</span><span class="p">]</span> <span class="k">for</span> <span class="n">author</span> <span class="ow">in</span> <span class="n">d</span><span class="p">[</span><span class="s1">&#39;author&#39;</span><span class="p">]]</span>
+</pre></div>
+
+<p>Para lidar com isso, realizamos três procedimentos:</p>
+<ol>
+<li>Obtemos uma lista dos autores ordenada alfabéticamente.</li>
+<li>Criamos conjuntos onde seus elementos representam um mesmo autor. Ou seja, se temos três nomes: <span class="math">\(A\)</span class="math">, <span class="math">\(B\)</span class="math"> e <span class="math">\(C\)</span class="math"> e temos os conjuntos <span class="math">\(\{A,B\}\)</span class="math"> e <span class="math">\(\{B,C\}\)</span class="math">, então os nomes <span class="math">\(A,B,C\)</span class="math"> referem o mesmo autor.</li>
+<li>Juntamos esses blocos para que cada bloco seja um único autor. Ou seja, determinamos uma "transitividade" nos blocos, usando o exemplo anterior, se temos <span class="math">\(\{A,B\}\)</span class="math"> e <span class="math">\(\{B,C\}\)</span class="math">, devemos obter <span class="math">\(\{A,B,C\}\)</span class="math">.</li>
+</ol>
+<h3>Procedimento 1</h3>
+
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_author_list</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+    <span class="k">return</span> <span class="nb">sorted</span><span class="p">(</span><span class="nb">set</span><span class="p">([</span><span class="n">a</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">values</span><span class="p">()</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">s</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;author&quot;</span><span class="p">,</span> <span class="p">[])]))</span>
+</pre></div>
+
+<h3>Procedimento 2</h3>
+
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">block_authors_with_two_common_names_v2</span><span class="p">(</span><span class="n">authors</span><span class="p">):</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">author</span> <span class="ow">in</span> <span class="n">authors</span><span class="p">:</span>
+        <span class="n">fs</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">author2</span> <span class="ow">in</span> <span class="n">authors</span><span class="p">:</span>
+            <span class="n">a1</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;\w\w+&#39;</span><span class="p">,</span><span class="n">author</span><span class="p">))</span>
+            <span class="n">a2</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;\w\w+&#39;</span><span class="p">,</span><span class="n">author2</span><span class="p">))</span>
+</pre></div>
+
+<p>Se os autores tem mais de duas componentes do nome em comum, então podemos considerar eles como um mesmo autor.</p>
+
+<div class="highlight"><pre><span></span>            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">a1</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="n">a2</span><span class="p">))</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="n">fs</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">author2</span><span class="p">)</span>
+</pre></div>
+
+<p>Caso especial: Suponha que existe um autor que só tem uma componente do nome não abreviada (e.g. P. Henriques). Suponha que outro autor (e.g. P.R. Henriques) também só tem uma componente do nome não abreviada e essa componente é igual a do primeiro autor. Então ainda temos que fortalecer a condição para que sejam considerados iguais. Para isso, usamos <code>is_a_first_last_match()</code> garantido que pelo menos a abreciação da primeira componente dos nomes sejam iguais.</p>
+
+<div class="highlight"><pre><span></span>            <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">a1</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">a1</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="n">a2</span><span class="p">))</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">is_a_first_last_match</span><span class="p">(</span><span class="n">author</span><span class="p">,</span><span class="n">author2</span><span class="p">):</span>
+                <span class="n">fs</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">author2</span><span class="p">)</span>
+        <span class="n">res</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="nb">frozenset</span><span class="p">(</span><span class="n">fs</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">res</span>
+</pre></div>
+
+<p>Pra implementar <code>is_a_first_last_match()</code> usamos <code>get_crude_abbrev</code> para obter uma string com o primeiro caractere de cada componente do nome de um autor (e.g. "Ricardo Henriques → RH").</p>
+
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_crude_abbrev</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
+    <span class="k">return</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">c</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">name</span> <span class="k">if</span> <span class="n">c</span><span class="o">.</span><span class="n">isupper</span><span class="p">())</span>
+</pre></div>
+
+<p>Aqui iremos verificar se os primeiros caracteres da primeira componente e última componente do nome de um autor <span class="math">\(a_1\)</span class="math"> são iguais, respectivamente, aos primeiros e últimos caracteres da primeira e última componente do nome de um autor <span class="math">\(a_2\)</span class="math">.</p>
+
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">is_a_first_last_match</span><span class="p">(</span><span class="n">author1</span><span class="p">,</span><span class="n">author2</span><span class="p">):</span>
+    <span class="n">a1</span> <span class="o">=</span> <span class="n">get_crude_abbrev</span><span class="p">(</span><span class="n">author1</span><span class="p">)</span>
+    <span class="n">a2</span> <span class="o">=</span> <span class="n">get_crude_abbrev</span><span class="p">(</span><span class="n">author2</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">a1</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">a2</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">and</span> <span class="n">a1</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="n">a2</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+</pre></div>
+
+<h3>Procedimento 3</h3>
+<p>Objetivo: Criar a "transitividade" nos blocos dos autores referenciada no ínicio.</p>
+
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">fix_block_func</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">q</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">s2</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">q</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="n">s2</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">set</span><span class="p">():</span>
+                <span class="n">q</span> <span class="o">=</span> <span class="n">q</span><span class="o">.</span><span class="n">union</span><span class="p">(</span><span class="n">s2</span><span class="p">)</span>
+        <span class="n">res</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="nb">frozenset</span><span class="p">(</span><span class="n">q</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">res</span>
+</pre></div>
+
+<h2>Contagem dos tipos de publicações</h2>
+<p>Conforme <span class="math">\(\text{(R1)}\)</span class="math">, devemos contar quantas publicações de cada tipo existem.</p>
+
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_pub_type_counts</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+    <span class="n">pub_types_occur</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">keys</span><span class="p">()]</span>
+    <span class="n">pub_types</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">pub_types_occur</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">[(</span><span class="n">pub_type</span><span class="p">,</span> <span class="n">pub_types_occur</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="n">pub_type</span><span class="p">))</span> <span class="k">for</span> <span class="n">pub_type</span> <span class="ow">in</span> <span class="n">pub_types</span><span class="p">]</span>
+</pre></div>
+
+<p>Conforme <span class="math">\(\text{(R2)}\)</span class="math"> queremos incorporar a contagem de publicações de cada tipo no documento HTML que iremos produzir.</p>
+
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_html_pub_type_counts</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+    <span class="n">string_ls</span> <span class="o">=</span> <span class="p">[</span><span class="n">html_enclose</span><span class="p">(</span><span class="s1">&#39;h2&#39;</span><span class="p">,</span><span class="s1">&#39;Number of Occurrences of Publication Types&#39;</span><span class="p">)]</span>
+    <span class="n">pub_counts</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">get_pub_type_counts</span><span class="p">(</span><span class="n">data</span><span class="p">),</span><span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">time</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">v</span><span class="p">:</span> <span class="s1">&#39;s&#39;</span> <span class="k">if</span> <span class="n">v</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="k">else</span> <span class="s1">&#39;&#39;</span>
+    <span class="k">for</span> <span class="n">pub_type</span><span class="p">,</span> <span class="n">count</span> <span class="ow">in</span> <span class="n">pub_counts</span><span class="p">:</span>
+        <span class="n">string_ls</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">html_enclose</span><span class="p">(</span><span class="s1">&#39;p&#39;</span><span class="p">,</span><span class="sa">f</span><span class="s1">&#39;Type </span><span class="si">{</span><span class="n">pub_type</span><span class="si">}</span><span class="s1"> appears </span><span class="si">{</span><span class="n">count</span><span class="si">}</span><span class="s1"> time</span><span class="si">{</span><span class="n">time</span><span class="p">(</span><span class="n">count</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">))</span>
+    <span class="k">return</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">string_ls</span><span class="p">)</span>
+</pre></div>
+
+<h2>Criação do grafo</h2>
+<p>Conforme (R5) queremos constuir um grafo que represente a co-autoria entre os autores.</p>
+
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_author_pub_graph</span><span class="p">(</span><span class="n">author</span><span class="p">,</span><span class="n">data</span><span class="p">):</span>
+    <span class="n">pub_partners</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">entry</span> <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+        <span class="k">if</span> <span class="s1">&#39;author&#39;</span> <span class="ow">in</span> <span class="n">entry</span> <span class="ow">and</span> <span class="n">author</span> <span class="ow">in</span> <span class="n">entry</span><span class="p">[</span><span class="s1">&#39;author&#39;</span><span class="p">]:</span>
+            <span class="k">for</span> <span class="n">partner</span> <span class="ow">in</span> <span class="n">entry</span><span class="p">[</span><span class="s1">&#39;author&#39;</span><span class="p">]:</span>
+                <span class="k">if</span> <span class="n">partner</span> <span class="o">!=</span> <span class="n">author</span><span class="p">:</span>
+                    <span class="n">pub_partners</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">partner</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">[(</span><span class="n">author_name</span><span class="p">,</span><span class="n">pub_partners</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="n">author_name</span><span class="p">))</span>
+            <span class="k">for</span> <span class="n">author_name</span> <span class="ow">in</span> <span class="nb">set</span><span class="p">(</span><span class="n">pub_partners</span><span class="p">)]</span>
+</pre></div>
+
+<p>Conforme (R6) iremos recorrer a linguagem <em>Dot</em> para renderizar o grafo.</p>
+
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_dot_graph</span><span class="p">(</span><span class="n">author</span><span class="p">,</span><span class="n">data</span><span class="p">):</span>
+    <span class="kn">import</span> <span class="nn">textwrap</span>
+    <span class="n">g</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">get_author_pub_graph</span><span class="p">(</span><span class="n">author</span><span class="p">,</span><span class="n">data</span><span class="p">),</span><span class="n">key</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">string_ls</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;graph{&#39;</span><span class="p">]</span>
+    <span class="n">string_ls2</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">partner_author</span><span class="p">,</span><span class="n">no_joint_pub</span> <span class="ow">in</span> <span class="n">g</span><span class="p">[</span><span class="o">-</span><span class="mi">3</span><span class="p">:]:</span>
+        <span class="n">string_ls2</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;&quot;</span><span class="si">{</span><span class="n">author</span><span class="si">}</span><span class="s1">&quot; -- &quot;</span><span class="si">{</span><span class="n">partner_author</span><span class="si">}</span><span class="s1">&quot; [label=&quot;</span><span class="si">{</span><span class="n">no_joint_pub</span><span class="si">}</span><span class="s1">&quot;]&#39;</span><span class="p">)</span>
+    <span class="n">string_ls</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">textwrap</span><span class="o">.</span><span class="n">indent</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">string_ls2</span><span class="p">),</span><span class="s1">&#39;  &#39;</span><span class="p">))</span>
+    <span class="n">string_ls</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;}&#39;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">string_ls</span><span class="p">)</span>
+</pre></div>
+
+<p>Como ideia nossa para ir além do que foi pedido, decidimos incorporar o grafo no documento HTML que iremos produzir.</p>
+<p>Utilizamos <code>re.search()</code> porque o arquivo gerado contém um preâmbulo <em>XML</em> como <em>doctype</em>. Só queremos o <em>SVG</em>.</p>
+
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_html_dot_svg</span><span class="p">(</span><span class="n">author</span><span class="p">,</span><span class="n">data</span><span class="p">):</span>
+    <span class="kn">import</span> <span class="nn">os</span>
+    <span class="n">DOT_INPUT_FILENAME</span> <span class="o">=</span> <span class="s1">&#39;dot_input&#39;</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">DOT_INPUT_FILENAME</span><span class="p">,</span><span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+        <span class="n">file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">get_dot_graph</span><span class="p">(</span><span class="n">author</span><span class="p">,</span><span class="n">data</span><span class="p">))</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;dot -T svg -O </span><span class="si">{</span><span class="n">DOT_INPUT_FILENAME</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">DOT_INPUT_FILENAME</span> <span class="o">+</span> <span class="s1">&#39;.svg&#39;</span><span class="p">,</span><span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+        <span class="c1"># Faco search porque arquivo gerado contem um preambulo</span>
+        <span class="c1"># xml com doctype. So queremos o svg.</span>
+        <span class="k">return</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;&lt;svg(?:.|\n)+&lt;/svg&gt;&#39;</span><span class="p">,</span><span class="n">file</span><span class="o">.</span><span class="n">read</span><span class="p">())</span><span class="o">.</span><span class="n">group</span><span class="p">()</span>
+</pre></div>
+
+<p>Finalmente,</p>
+
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_html_common_pub_author</span><span class="p">(</span><span class="n">author</span><span class="p">,</span><span class="n">data</span><span class="p">):</span>
+    <span class="n">string_ls</span> <span class="o">=</span> <span class="p">[</span><span class="n">html_enclose</span><span class="p">(</span><span class="s1">&#39;h2&#39;</span><span class="p">,</span><span class="s1">&#39;Author Graph&#39;</span><span class="p">)]</span>
+    <span class="n">string_ls</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">get_html_dot_svg</span><span class="p">(</span><span class="n">author</span><span class="p">,</span><span class="n">data</span><span class="p">))</span>
+    <span class="k">return</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">string_ls</span><span class="p">)</span>
+</pre></div>
+
+<h2>Filtrar (chave,autore,título)</h2>
+<h3>Títulos</h3>
+<p>Pelo (R3.3), devemos incluir títulos. Para isso devemos aplicar um tratamento para uma formatação mais elegante (como manter expressões <span class="math">\(La\TeX\)</span class="math">).</p>
+<p>Note que formatmos <em>small caps</em> como pode ser notado em entradas que contém "Camila". Também formatoms <em>sans serif</em> e algumas expressões matemáticas.</p>
+
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">fix_title</span><span class="p">(</span><span class="n">title</span><span class="p">):</span>
+    <span class="n">substitutions</span> <span class="o">=</span> <span class="p">[(</span><span class="sa">r</span><span class="s1">&#39;</span><span class="se">\\</span><span class="s1">textsc{((?:</span><span class="se">\\</span><span class="s1">{|[^{])+)}&#39;</span><span class="p">,</span><span class="k">lambda</span> <span class="n">m</span><span class="p">:</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">html_to_small_caps</span><span class="p">(</span><span class="n">html_create_span</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)))</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">),</span>
+                     <span class="p">(</span><span class="sa">r</span><span class="s1">&#39;</span><span class="se">\\</span><span class="s1">textsf{((?:</span><span class="se">\\</span><span class="s1">{|[^{])+)}&#39;</span><span class="p">,</span><span class="k">lambda</span> <span class="n">m</span><span class="p">:</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">html_to_sans_serif</span><span class="p">(</span><span class="n">html_create_span</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)))</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">),</span>
+                     <span class="p">(</span><span class="sa">r</span><span class="s1">&#39;(\$(?:.|</span><span class="se">\\</span><span class="s1">\$)+\$)&#39;</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">m</span><span class="p">:</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">str_to_html_math</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)]</span>
+
+
+    <span class="n">replace</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">mult_replace</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">substitutions</span><span class="p">)</span>
+
+    <span class="k">return</span>   <span class="n">html_create_span</span><span class="p">(</span>
+             <span class="n">single_quote_latex</span><span class="p">(</span>
+             <span class="n">double_quote_latex</span><span class="p">(</span>
+             <span class="n">unbrace</span><span class="p">(</span>
+             <span class="n">replace</span><span class="p">(</span>
+             <span class="n">remove_latex_special_chars</span><span class="p">(</span>
+             <span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">title</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">))))))))</span>
+</pre></div>
+
+<h4>Tratamento de caracteres <span class="math">\(La\TeX\)</span class="math"></h4>
+
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">double_quote_latex</span><span class="p">(</span><span class="n">expression</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;``(.*[^</span><span class="se">\\</span><span class="s2">])&#39;&#39;&quot;</span><span class="p">,</span><span class="sa">r</span><span class="s1">&#39;&quot;\1&quot;&#39;</span><span class="p">,</span><span class="n">expression</span><span class="p">)</span>
+</pre></div>
+
+
+
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">single_quote_latex</span> <span class="p">(</span><span class="n">expression</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;[^`]`([^`].*[^&#39;])&#39;[^`]&quot;</span><span class="p">,</span><span class="sa">r</span><span class="s2">&quot;&#39;\1&#39;&quot;</span><span class="p">,</span><span class="n">expression</span><span class="p">)</span>
+</pre></div>
+
+
+
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">remove_latex_special_chars</span><span class="p">(</span><span class="n">latex_expression</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;</span><span class="se">\\</span><span class="s1">({|[^{])\b&#39;</span><span class="p">,</span><span class="sa">r</span><span class="s1">&#39;\1&#39;</span><span class="p">,</span><span class="n">latex_expression</span><span class="p">)</span>
+</pre></div>
+
+<h3>Formatações especiais</h3>
+<h4>Small caps</h4>
+
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">str_to_html_small_caps</span><span class="p">(</span><span class="n">expression</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">html_to_small_caps</span><span class="p">(</span><span class="n">html_create_span</span><span class="p">(</span><span class="n">expression</span><span class="p">))</span>
+
+
+<span class="k">def</span> <span class="nf">html_to_small_caps</span><span class="p">(</span><span class="n">html_expression</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;Usado para converter expressoes latex \\textsc{expression}&#39;&#39;&#39;</span>
+    <span class="k">return</span> <span class="n">html_add_attr</span><span class="p">(</span><span class="s1">&#39;style&#39;</span><span class="p">,</span><span class="s1">&#39;font-variant:small-caps&#39;</span><span class="p">,</span><span class="n">html_expression</span><span class="p">)</span>
+</pre></div>
+
+<h4>Sans serif</h4>
+
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">html_to_sans_serif</span><span class="p">(</span><span class="n">html_expression</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">html_add_attr</span><span class="p">(</span><span class="s1">&#39;style&#39;</span><span class="p">,</span><span class="s1">&#39;font-family:sans-serif&#39;</span><span class="p">,</span><span class="n">html_expression</span><span class="p">)</span>
+</pre></div>
+
+<h4>Matemática</h4>
+
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">str_to_html_math</span><span class="p">(</span><span class="n">string</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">html_add_attr</span><span class="p">(</span><span class="s1">&#39;class&#39;</span><span class="p">,</span><span class="s1">&#39;math inline&#39;</span><span class="p">,</span><span class="n">html_create_span</span><span class="p">(</span><span class="n">string</span><span class="p">))</span>
+</pre></div>
+
+<h3>Incorporar no docmuento <em>HTML</em></h3>
+<p>Conforme (R3.4):</p>
+
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_html_pub_type_index</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+    <span class="n">string_ls</span> <span class="o">=</span> <span class="p">[</span><span class="n">html_enclose</span><span class="p">(</span><span class="s1">&#39;h2&#39;</span><span class="p">,</span><span class="s1">&#39;Publication Type Index&#39;</span><span class="p">)]</span>
+    <span class="k">for</span> <span class="n">entry_type</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">data</span><span class="p">)):</span>
+        <span class="n">string_ls</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">html_enclose</span><span class="p">(</span><span class="s1">&#39;h3&#39;</span><span class="p">,</span><span class="n">entry_type</span><span class="p">))</span>
+        <span class="k">for</span> <span class="n">citation_key</span> <span class="ow">in</span> <span class="p">[</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">data</span> <span class="k">if</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">==</span><span class="n">entry_type</span><span class="p">]:</span>
+            <span class="n">title</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">entry_type</span><span class="p">,</span><span class="n">citation_key</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;title&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+            <span class="n">authors</span> <span class="o">=</span> <span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">((</span><span class="nb">sorted</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">entry_type</span><span class="p">,</span><span class="n">citation_key</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;author&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">))))</span>
+            <span class="n">string_ls</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">html_enclose</span><span class="p">(</span><span class="s1">&#39;p&#39;</span><span class="p">,</span><span class="sa">f</span><span class="s2">&quot;Key = </span><span class="si">{</span><span class="n">citation_key</span><span class="si">}</span><span class="s2">&lt;br&gt;Title = </span><span class="si">{</span><span class="n">fix_title</span><span class="p">(</span><span class="n">title</span><span class="p">)</span><span class="si">}</span><span class="s2">&lt;br&gt;Autores = </span><span class="si">{</span><span class="n">authors</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">))</span>
+    <span class="k">return</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">string_ls</span><span class="p">)</span>
+</pre></div>
+
+<h2>Índice de autores</h2>
+<p>Conforme (R4) iremos criar um índice de autores.</p>
+<p>Primeiro queremos formatar os nomes para que tenham o apelido aparecendo primeiro, como é comum nos índices de autores. Com esse propósito, criamos o procedimento:</p>
+
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">last_name_first</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;Recebe um nome normalizado (e.g.</span>
+<span class="sd">       Pedro Filipe H. Pereira) e deve</span>
+<span class="sd">       retornar &quot;invertido&quot; (e.g.</span>
+<span class="sd">       Pereira, P. F. H.&#39;&#39;&#39;</span>
+    <span class="n">initials</span> <span class="o">=</span>  <span class="s1">&#39;. &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">get_crude_abbrev</span><span class="p">(</span><span class="n">name</span><span class="p">))[:</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span>
+    <span class="n">last_name</span> <span class="o">=</span> <span class="n">name</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">last_name</span><span class="si">}</span><span class="s1">, </span><span class="si">{</span><span class="n">initials</span><span class="si">}</span><span class="s1">&#39;</span>
+</pre></div>
+
+<p>Exemplo: "Pedro Filipe H. Pereira" → "Pereira, P. F. H"</p>
+<p>Utilizamos isso na construção de um dicionário que irá conter como chaves o nome do autor já formatado e como valor todas as chaves de citações de suas publicações.</p>
+
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_author_index_dict</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+    <span class="n">index</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="k">if</span> <span class="s1">&#39;author&#39;</span> <span class="ow">in</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">author</span> <span class="ow">in</span> <span class="n">e</span><span class="p">[</span><span class="s1">&#39;author&#39;</span><span class="p">]:</span>
+                <span class="n">author_name</span> <span class="o">=</span> <span class="n">last_name_first</span><span class="p">(</span><span class="n">author</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">author_name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">index</span><span class="p">:</span>
+                    <span class="n">index</span><span class="p">[</span><span class="n">author_name</span><span class="p">]</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+                <span class="n">index</span><span class="p">[</span><span class="n">author_name</span><span class="p">]</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">key</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="c1">#key[1] is the citation-key</span>
+    <span class="k">return</span> <span class="n">index</span>
+</pre></div>
+
+<p>Decidimos incorporar o índice no documento HTML que iremos produzir.</p>
+
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_html_author_index</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+    <span class="n">index</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">get_author_index_dict</span><span class="p">(</span><span class="n">data</span><span class="p">)</span><span class="o">.</span><span class="n">items</span><span class="p">())</span>
+    <span class="n">alphabet_order</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">c</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">index</span><span class="p">))</span>
+    <span class="n">string_ls</span> <span class="o">=</span> <span class="p">[</span><span class="n">html_enclose</span><span class="p">(</span><span class="s1">&#39;h2&#39;</span><span class="p">,</span><span class="s1">&#39;Author Index&#39;</span><span class="p">)]</span>
+    <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">string_ls</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">html_enclose</span><span class="p">(</span><span class="s1">&#39;h3&#39;</span><span class="p">,</span><span class="n">alphabet_order</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span>
+    <span class="k">for</span> <span class="n">author</span><span class="p">,</span><span class="n">citation_keys</span> <span class="ow">in</span> <span class="n">index</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">author</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="n">alphabet_order</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
+            <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="n">string_ls</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">html_enclose</span><span class="p">(</span><span class="s1">&#39;h3&#39;</span><span class="p">,</span><span class="n">alphabet_order</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span>
+        <span class="n">citation_keys_str</span> <span class="o">=</span> <span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">citation_keys</span><span class="p">)</span>
+        <span class="n">string_ls</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">html_enclose</span><span class="p">(</span><span class="s1">&#39;p&#39;</span><span class="p">,</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">author</span><span class="si">}</span><span class="s1">, </span><span class="si">{</span><span class="n">citation_keys_str</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">))</span>
+    <span class="k">return</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">string_ls</span><span class="p">)</span>
+</pre></div>
+
+
+    <HR/>
+    <div class="footer">
+      <p>Published from <a href="relatorio.pmd">relatorio.pmd</a>
+    using <a href="http://mpastell.com/pweave">Pweave</a> 0.30.3
+    on 07-11-2021.<p></div>
+
+            </div>
+        </div>
+    </div>
+  </BODY>
+</HTML>
