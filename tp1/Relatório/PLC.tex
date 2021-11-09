@@ -136,7 +136,7 @@ Uma vez que todas as categorias num \bib\ têm como antecedente o caráter @ e t
 Através dessa pequena realização chegamos à seguinte expressão: \textbf{$\land$@(.*)\{}
 
 \newpage
-\subsubsection{Implementação}
+\subsection{Implementação}
 \begin{lstlisting}[language=python]
 import re
 
@@ -173,7 +173,7 @@ with open('output.html','w') as file:
 \newpage
 \section{Tarefa 4 b}
 
-\subsubsection{Algoritmos}
+\subsection{Algoritmos}
 
 Infelizmente a estratégia adotada na primeira questão de unicamente guardar aquilo que interessava tornou-se impraticável pois os parâmetros pedidos nas outras questões não tinham tanta consistência, ou seja, podiam estar envolvidos \{\} entre \{\}, podiam alterar a ordem pela qual apareciam, entre outros contratempos.
 
@@ -183,88 +183,66 @@ Para o efeito utilizamos vários algoritmos de agrupamento e filtragem da inform
 
 Todos os algoritmos tem a sua função explicitada abaixo, sendo cada um destes fundamental para a execução do programa:
 
-\begin{itemize}
-    \item get\_bib\_str: Abre \bib
-    \item get\_pub\_type\_counts: Conta e enunciar categorias
-    \item get\_entries: Copia todos os dados \bib para um dic
-    \item get\_valid\_group: Guarda título, nome e chave todos os que aparece entre " " ou em \{\}
-    \item  unbrace: Retirar \{\} dentro de \{\} ou seja \{\{cenas\}\} = cenas
-    \item get\_author\_list: Ordena autores alfabeticamente para ser mais fácil filtrar
-    \item invert\_name: exemplo: da Cruz, Daniela -> Daniela da Cruz
-    \item remove\_latex\_special\_chars: Transforma serif, small caps,... 
-    \item html\_create\_span: Coloca o <SPAN> ... </Span>
-    \item html\_enclose:  Coloca as <cenas> ... </cenas>
-    \item html\_to\_small\_caps: Coloca o texto assim
-    \item  html\_to\_sans\_serif: Coloca o texto assim
-    \item  html\_add\_attr: colocar um atributo exemplos de cima
-    \item get\_html\_pub\_type\_index: Mudifica as entradas colocando mais atributos html
-    \item get\_html\_pub\_type\_index: Mudifica as entradas colocando mais atributos html
-    \item str\_to\_html\_math: Processa expressões matemáticas
-    \item fix\_title: Faz busca dos atributos que tem de ser mudados enviando para a função que as realiza
-    \item fix\_repeated\_authors: Faz a junção de autores que sao a mesma pessoa
-    \item format\_authors: Escolhe remover acentuações e caracteres especiais  que as representam em latex (e.g. "\\~") do nome dos autores.
-    \item remove\_consecutive\_spaces: Remover os espaços consecutivos 
-    \item remove\_latex\_accent: Remove os acentos em latex 
-    \item last\_name\_first: Recebe um nome normalizado (e.g. Pedro Filipe H. Pereira) e deve retornar "invertido" (e.g. Pereira, P. F. H.)
-    \item is\_a\_first\_last\_match: Verifica 1 letra autor 1 com 1 letra autor 2 e o mesmo para a segunda
-    \item get\_crude\_abbrev: Coloca todos os nomes a maiuscula
-    \item is\_a\_first\_last\_match: Verifica se a letra do primeiro autor e igual a 1 letra do segundo autor e o mesmo para a 2 letra  
-    \item block\_authors\_with\_two\_common\_names\_v2: Cria blocos com nomes dos autores, quem estiver no mesmo bloco, e a mesma pessoa.
-    \item fix\_block\_func: Cria transitividade nos autores.  Sem essa função, temos blocos {A,B} e {B,C} Depois dessa função, vamos ter {A,B,C}
-    \item get\_html\_pub\_type\_counts: Coloca  em formato \htlm parâmetros utilizados em \ref{R2}
-    \item mult\_replace: Muda o posicionamento dos nomes atraves de uma lista em regex
-    
-    
-\end{itemize}
+\begin{enumerate*}[label=\textbf{L\arabic*}]
+    \item \label{L1}get\_bib\_str: Abre \bib
+    \item \label{L2}get\_pub\_type\_counts: Conta e enunciar categorias
+    \item \label{L3}get\_entries: Copia todos os dados \bib para um dic
+    \item \label{L4}get\_valid\_group: Guarda título, nome e chave todos os que aparece entre " " ou em \{\}
+    \item \label{L5}unbrace: Retirar \{\} dentro de \{\} ou seja \{\{cenas\}\} = cenas
+    \item \label{L6}get\_author\_list: Ordena autores alfabeticamente para ser mais fácil filtrar
+    \item \label{L7}invert\_name: exemplo: da Cruz, Daniela $\rightarrow$ Daniela da Cruz
+    \item \label{L8}remove\_latex\_special\_chars: Transforma serif, small caps,... 
+    \item \label{L9}html\_create\_span: Coloca o <SPAN> ... </Span>
+    \item \label{L10}html\_enclose:  Coloca as <cenas> ... </cenas>
+    \item \label{L11}html\_to\_small\_caps: Coloca o texto assim
+    \item \label{L12}html\_to\_sans\_serif: Coloca o texto assim
+    \item \label{L13}html\_add\_attr: colocar um atributo exemplos de cima
+    \item \label{L14}get\_html\_pub\_type\_index: Mudifica as entradas colocando mais atributos html
+    \item \label{L15}get\_html\_pub\_type\_index: Mudifica as entradas colocando mais atributos html
+    \item \label{L16}str\_to\_html\_math: Processa expressões matemáticas
+    \item \label{L17}fix\_title: Faz busca dos atributos que tem de ser mudados enviando para a função que as realiza
+    \item \label{L18}fix\_repeated\_authors: Faz a junção de autores que sao a mesma pessoa
+    \item \label{L19}format\_authors: Escolhe remover acentuações e caracteres especiais  que as representam em latex (e.g. "\\~") do nome dos autores.
+    \item \label{L20}remove\_consecutive\_spaces: Remover os espaços consecutivos 
+    \item \label{L21}remove\_latex\_accent: Remove os acentos em latex 
+    \item \label{L22}last\_name\_first: Recebe um nome normalizado (e.g. Pedro Filipe H. Pereira) e deve retornar "invertido" (e.g. Pereira, P. F. H.)
+    \item \label{L23}is\_a\_first\_last\_match: Verifica 1 letra autor 1 com 1 letra autor 2 e o mesmo para a segunda
+    \item \label{L24}get\_crude\_abbrev: Coloca todos os nomes a maiuscula
+    \item \label{L25}is\_a\_first\_last\_match: Verifica se a letra do primeiro autor e igual a 1 letra do segundo autor e o mesmo para a 2 letra  
+    \item \label{L26}block\_authors\_with\_two\_common\_names\_v2: Cria blocos com nomes dos autores, quem estiver no mesmo bloco, e a mesma pessoa.
+    \item \label{L27}fix\_block\_func: Cria transitividade nos autores.  Sem essa função, temos blocos {A,B} e {B,C} Depois dessa função, vamos ter {A,B,C}
+    \item \label{L28}get\_html\_pub\_type\_counts: Coloca  em formato \htlm parâmetros utilizados em \ref{R2}
+    \item \label{L29}mult\_replace: Muda o posicionamento dos nomes atraves de uma lista em regex
+\end{enumerate*}
+
 \newpage
-\subsubsection{Expressões Regulares}
+\subsection{Expressões Regulares}
 
-De seguida iremos apresentar as Expressões Regulares utilizadas para normalizar o texto presente no \bib\ e filtrar as informações relevantes:
+De seguida iremos apresentar as Expressões Regulares utilizadas para normalizar o texto presente no \bib\ e filtrar as informações relevantes. Nestas ER foram utilizadas nos seguintes algoritmos:
 \begin{itemize}
-\item Para capturar tudo os que está dentro das 
-\begin{lstlisting}
-\b}
-\end{lstlisting}
-\item Esta expressão é útil para
-\begin{lstlisting}
-(\w+)\s*=\s*(?:{((?:[^{}]+|{(?:[^{}]+|{[^{}]*})+})+)}|"([^"]+)"|(\d+))
-@(\w+){(.+),((?:[^{}]+|{(?:[^{}]*|{[^{}]*})+})+)
-\end{lstlisting}
-\item Substituir nomes:
-\begin{lstlisting}
-([^,]+),\s*([^,]+) ... \2 \1
-\end{lstlisting}
-\item Esta expressão é útil para
-\begin{lstlisting}
-\\({|[^{])\b
-\end{lstlisting}
-\item Usamos esta expressão com o intuito de 
-\begin{lstlisting}
-<(\w+)([^>]*)\s*>(.*)</\1> .... <\1\2 {attr.upper()}="{val}">\3</\1>
-\end{lstlisting}
-\item Expressão utilizada para
-\begin{lstlisting}
-\\textsc{((?:\\{|[^{])+)}
-\end{lstlisting}
-\item Esta expressão é útil para
-\begin{lstlisting}
-\band\b
-\end{lstlisting}
-\item A expressão abaixo apresentada serve para 
-\begin{lstlisting}
-\s+
-\end{lstlisting}
-\item Abaixo apresentamos a expressão que 
-\begin{lstlisting}
-\\\W
-\end{lstlisting}
-\item Nesta expressão
-\begin{lstlisting}
-\w\w+
-\end{lstlisting}
+\item $\setminus b\}$: \ref{L1}
+
+\item $\setminus$ $\setminus$ w+\}$\setminus$s*=$\setminus$s*(?:\{((?:[$\land$\{\}]+|\{(?:[$\land$\{\}]+|\{[$\land$\{\}]*\})+\})+)\}|"([$\land$"]+)"|($\setminus$d+))@($\setminus$w+)\{(.+),((?:[$\land$\{\}]+|\{(?:[$\land$\{\}]*|\{[$\land$\{\}]*\})+\})+) : \ref{L3}
+
+\item ([$\land$,]+),$\setminus$s*([$\land$,]+) ... $\setminus$2 $\setminus$1 : \ref{L7}
+
+\item $\setminus \setminus$(\{|[$\land$\{])$\setminus$b 
+
+\item $<$($\setminus$w+)([$\land$$>$]*)$\setminus$s*$>$(.*)$<$/$\setminus$1$>$ .... $<$$\setminus$1$\setminus$2 {attr.upper()}="{val}"$>$$\setminus$3$<$/$\setminus$1$>$ :\ref{L13}
+
+\item $\setminus \setminus$textsc\{((?:$\setminus \setminus$\{|[$\land$\{])+)\} : \ref{L17}
+
+\item $\setminus$band$\setminus$b :  \ref{L19}
+
+\item $\setminus$s+ : \ref{L20}
+
+\item $\setminus \setminus \setminus$W : \ref{L21}
+
+\item $\setminus$w$\setminus$w+ : \ref{L26}
+
 \end{itemize}
 
-\subsubsection{Implementação}
+\subsection{Implementação}
 \begin{lstlisting}[language=python]
 import re
 import unicodedata
@@ -453,7 +431,7 @@ def get_html_pub_type_counts(data):
         string_ls.append(html_enclose('p',f'Type {pub_type} appears {count} time{time(count)}'))
     return ''.join(string_ls)
 
-#muda o posicionamento dos nomes atraves de uma lista em regex
+#Muda o posicionamento dos nomes através de uma lista em regex
 def mult_replace(string, replacement_list):
     for old, new in replacement_list:
         string = re.sub(old, new, string)
@@ -487,7 +465,15 @@ def solve(author_name,INPUT_FILENAME=BIB_EXAMPLE_FILENAME):
 
 \section{Tarefa 4 c}
 
-\subsubsection{Implementação}
+\subsection{Algoritmos}
+Para esta tarefa, foi necessário acrescentar alguns utilizados  que foram as seguintes:
+
+\begin{itemize}
+    \item get\_author\_index\_dict: Faz a junção de todos os autores no \bib para o dicionário aplicando-lhe um primeiro filtro
+    \item get\_html\_author\_index: Faz a transformação de os autores no \bib para ficarem no html da alínea 4c)
+
+\end{itemize}
+\subsection{Implementação}
 \begin{lstlisting}[language=python]
 
 #faz a juncao de todos os autores no bib para o dicionario aplicando lhe um primeiro filtro
@@ -526,6 +512,15 @@ def get_html_author_index(data):
 \end{figure}
 
 \section{Tarefa 4 d}
+\subsubsection{Algoritmos}
+
+\begin{itemize}
+    \item  get\_author\_pub\_graph: Recorrendo  \ref{R5}, irá construir um grafo que represente a co-autoria entre os autores.
+    \item  get\_dot\_graph: Conforme \ref{R6}, iremos recorrer a linguagem \dott \ para renderizar o grafo
+    \item  get\_html\_dot\_svg: Abre o ficheiro transforma a linguaguem \dott \ em \htlm 
+    \item  get\_html\_common\_pub\_author: Dado um autor, devolve uma lista dos autores que mais vezes  publicaram juntos
+
+\end{itemize}
 
 \subsubsection{Implementação}
 \begin{lstlisting}[language=python]
@@ -567,26 +562,23 @@ def get_html_common_pub_author(author,data):
     return ''.join(string_ls)
 
 \end{lstlisting}
-
+\newpage
 \subsection{Resultado}
 \begin{figure}[h]
 \centering
-\includegraphics[width=1.5\textwidth]{P/authorGraph.jpeg}
+\includegraphics[width=1.2\textwidth]{P/authorGraph.jpeg}
 \caption{Grafo de Autores}
 \end{figure}
 
 
 \chapter{Conclusão}
-Através deste projeto foi possível expandir as nossas competências intelectuais sobre este tópico de estudo e, ao mesmo tempo, foi possível desenvolver as nossas aptidões enquanto grupo.
 
-
-Assim, utilizando todos os nossos conhecimentos expostos neste trabalho e obtidos na sala de aula e é possível obter a tão esperada fotografia “perfeita”.
-
+Através deste projeto foi possível expandir as nossas competências intelectuais sobre o tópico de estudo: Expressões Regulares (ER) que nos possibilitou desenvolver um processador \bib\ utilizando a linguahem \emph{Pyhton}.
+Consideramos que o produto final cumpre os requisitios  mencionados ao longo do mesmo.
 
 Concluindo este projeto, podemos afirmar que foi um trabalho muito
-desafiante e enriquecedor para cada uma de nós, uma vez que tivemos a
-oportunidade de explandir, aprofundar e aperfeiçoar os nossos conhecimentos
-sobre a matéria lecionada na sala de aula e sobre a cinematografia. 
+desafiante e enriquecedor para cada um de nós, uma vez que tivemos a
+oportunidade de explandir, aprofundar e aperfeiçoar os nossos conhecimentos.
 \appendix
 \begin{appendices}
 \chapter{Código do Programa}
