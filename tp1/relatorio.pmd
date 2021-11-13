@@ -88,7 +88,7 @@ A nossa solução deve satisfazer os seguintes requisitos<a name="req"></a>:
 
 Para realizar as modificações no ficheiro usamos `solve(author_name,INPUT_FILENAME=BIB_EXAMPLE_FILENAME)`, passando como argumento o nome do autor que queremos conforme [(R5)](#R5).
 
-```echo = False
+```python, echo = False
 #!/usr/bin/python
 ```
 
@@ -169,9 +169,9 @@ OUTPUT_FILENAME = 'output.html'
 ## Função principal
 
 
-Em `solve()` temos a váriavel `html_str_ls` que é uma lista de _strings_ que serão concatenadas. A título de optimização da imutabilidade de _strings_ (concatenação de _strings_ em _python_ cria uma cópia de cada), optamos por fazer sucessivos _appends_ de custo $\cal{O}(1)$ e, por fim, concatena-las para formar o código _HTML_.
+Em `solve()` temos a váriavel `html_str_ls` que consiste numa lista de _strings_ que serão concatenadas. A título de optimização da imutabilidade de _strings_ (concatenação de _strings_ em _python_ cria uma cópia de cada), optamos por fazer sucessivos _appends_ de custo $\cal{O}(1)$ e por fim, concatena-las para formar o código _HTML_.
 
-Em `bib_str` guardamos todo o texto contindo em `INPUT_FILENAME`.
+Em `bib_str` guardamos todo o texto contido em `INPUT_FILENAME`.
 
 ```python, wrap=True
 def solve(author_name,INPUT_FILENAME=BIB_EXAMPLE_FILENAME):
@@ -218,7 +218,7 @@ Poderíamos coletar todos os campos de todas as entradas, mas neste trabalho só
     RELEVANT_FIELDS = {'author','title'}
 ```
 
-Como foi dito anteriormente, alguns tipos de entrada não são categorias de referência. Iremos ignorá-los.
+Como foi dito anteriormente, alguns tipos de entrada não são categorias de referência, assim iremos ignorá-los.
 
 ```python, evaluate = False
     SPECIAL_TYPES = {'comment','string','preamble'}
@@ -636,7 +636,7 @@ na página _HTML_.
 
 Pelo [(R3.3)](#R33), devemos incluir títulos. Para isso devemos aplicar um tratamento para uma formatação mais elegante (como manter expressões $La\TeX$).
 
-Note que formatmos _small caps_ como pode ser notado em entradas que contém "Camila". Também formatoms _sans serif_ e algumas expressões matemáticas.
+Note que formatamos _small caps_ como pode ser notado em entradas que contém "Camila". Também formatamos _sans serif_ e algumas expressões matemáticas.
 
 ```python
 def fix_title(title):
@@ -820,6 +820,8 @@ Este projeto foi desafiante (pela complexidade do $La\TeX$) e enriquecedor (pela
 ### _Source Code_
 
 ```py
+#!/usr/bin/python
+
 import regex as re
 
 MATHJAX = '''
@@ -1161,7 +1163,7 @@ def get_html_author_index(data):
             string_ls.append(html_enclose('h3',alphabet_order[i]))
         citation_keys_str = ', '.join(citation_keys)
         string_ls.append(html_enclose('p',f'{author}, {citation_keys_str}'))
-    return ''.join(string_ls)
+    return '\n'.join(string_ls)
 
 if __name__ == '__main__':
     import sys
@@ -1175,16 +1177,6 @@ if __name__ == '__main__':
     else:
         author_name = sys.argv[2]
     solve(author_name,filename)
-```
-
-### _Dot_ Output
-
-```viz
-graph{
-  "Daniela da Cruz" -- "Nuno Oliveira" [label="11"]
-  "Daniela da Cruz" -- "Maria Joao Varanda Pereira" [label="25"]
-  "Daniela da Cruz" -- "Pedro Rangel Henriques" [label="39"]
-}
 ```
 
 ### _HTML_ Output
