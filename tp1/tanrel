@@ -1,0 +1,9 @@
+#!/usr/bin/sh
+pweave -f pandoc2html relatorio.pmd
+sed -i -E 's/(font-size: )(13)(px;)/\19.5\3/g' relatorio.html
+sed '0,/<style>/r fontfaces' test.txt
+
+ptangle relatorio.pmd
+sed '1d' relatorio.py > tmp
+mv tmp relatorio.py
+python relatorio.py
