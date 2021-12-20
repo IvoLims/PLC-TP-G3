@@ -1,9 +1,75 @@
 #!/usr/bin/sh
-pweave -f pandoc2html relatorio.pmd
-sed -i -E 's/(font-size: )(13)(px;)/\19.5\3/g' relatorio.html
-sed '0,/<style>/r fontfaces' test.txt
 
-ptangle relatorio.pmd
-sed '1d' relatorio.py > tmp
-mv tmp relatorio.py
-python relatorio.py
+original='relatorio'
+file='tmp'
+extra='fontfaces'
+ADD_TO_HEAD='add_to_head'
+cp $original.pmd $file.pmd
+
+# generate source
+ptangle $original.pmd
+sed -i '1d' $original.py
+python $original.py
+
+# add to file
+T="\`\`\`"
+
+# code() {
+#     echo "$T$1
+# $(cat $2)
+# $T"
+# }
+
+escape() {
+    sed 's/&/\&amp;/g; s/</\&lt;/g; s/>/\&gt;/g; s/"/\&quot;/g; s/'"'"'/\&#39;/g' $1
+}
+
+code() {
+    echo "<pre><code class="language-$1">$(escape $2)</code></pre>"
+}
+
+high() {
+    echo "<pre>$(highlight --inline-css -I -f -O html -S $1 -i $2)</pre>"
+}
+
+echo "
+
+## Apêndices
+
+### _Source Code_
+
+$(code py $original.py)
+
+### Código usado para gerar esse documento (e outros)
+
+$(code sh tanrel)
+
+### _Dot_ Output
+
+$(high dot dot_input)
+
+### _HTML_ Output
+
+$(code html output.html)
+
+" >> $file.pmd
+
+# html
+pweave -f pandoc2html $file.pmd
+# sed -i '/<HEAD>/a <link rel="stylesheet" href="highlight.css">'
+sed -i "/<HEAD>/ r $ADD_TO_HEAD" $file.html
+sed -i -E 's/(font-size: )(13)(px;)/\19.5\3/g' $file.html
+gawk -i inplace -vf="$(cat $extra)" '{print} /<style>/ && ++x ==1 {print f}' $file.html
+# python -c "import re
+# with open('$file.html','r') as f:
+#     data = f.read()
+
+# with open('$extra','r') as ff, open('$file.html','w') as f:
+#     f.write(re.sub(r'(<style>)',rf'\1\n{ff.read()}',data,1))
+# "
+sed -i 's/Menlo, Monaco, Consolas, "Courier New", monospace/"jetbrains mono"/' $file.html
+sed -i 's/"Raleway", "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif/news-gothic-std, sans-serif/' $file.html
+
+# clean directory
+mv $file.html $original.html
+trash $file.pmd
