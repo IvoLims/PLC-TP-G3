@@ -271,7 +271,8 @@ pre[data-line] .line-highlight[data-end]:after {
     </head>
     <body for="html-export">
       <div class="mume markdown-preview  ">
-      <h2 id="organiza&#xE7;&#xE3;o-da-m&#xE1;quina">Organiza&#xE7;&#xE3;o da M&#xE1;quina</h2>
+      <p>$        $</p>
+<h2 id="organiza&#xE7;&#xE3;o-da-m&#xE1;quina">Organiza&#xE7;&#xE3;o da M&#xE1;quina</h2>
 <h3 id="pilhas">Pilhas</h3>
 <p>2 pilhas:</p>
 <ul>
@@ -331,8 +332,10 @@ pre[data-line] .line-highlight[data-end]:after {
 <p>O resultado duma opera&#xE7;&#xE3;o de compara&#xE7;&#xE3;o &#xE9; um inteiro que vale 0 ou 1. O inteiro 0 representa o valor booleano f also enquanto o valor 1 representa o valor verdade.</p>
 <h3 id="opera&#xE7;&#xF5;es">Opera&#xE7;&#xF5;es</h3>
 <ul>
-<li>inf: subtopo &lt; topo</li>
-<li>jz label &#x2261; if not P[sp-1]: pc = label</li>
+<li><span class="math inline">\(\mathop{\mathrm{inf}}&#x2261; P[sp-2] &lt; P[sp-1]\)</span></li>
+<li><span class="math inline">\(\mathop{\mathrm{jump}}\textrm{label} &#x2261; pc:=\mathop{\mathrm{addressof}}(\textrm{label})\)</span></li>
+<li><span class="math inline">\(\mathop{\mathrm{jz}}\textrm{label}\ &#x2261;\ \mathop{\mathrm{if}}\ !P[sp-1]: pc = \textrm{label}\ &#x2248;\ \mathop{\mathrm{if}}\ !P[sp-1]: \mathop{\mathrm{jump}}\mathop{\mathrm{addressof}}(\textrm{label})\)</span></li>
+<li><span class="math inline">\(\mathop{\mathrm{pusha}}\textrm{label} &#x2261; \mathop{\mathrm{pusha}}\mathop{\mathrm{addressof}}(\textrm{label})\)</span></li>
 </ul>
 <h2 id="exemplos">Exemplos</h2>
 <h3 id="exemplos-1">Exemplos 1</h3>
@@ -662,7 +665,7 @@ pushg 1
 allocn</pre>
 <p><span class="math display">\[
 \DeclareMathOperator{\CASE}{\color{blue}{case}}
-\newcommand{\IF}[2]{\operatorname{\color{blue}{if}}\ #1\!:\\\qquad{#2}}
+\newcommand{\if}[2]{\operatorname{\color{blue}{if}}\ #1\!:\\\qquad{#2}}
 \newcommand{\ELIF}[2]{\operatorname{\color{blue}{elif}}\ #1\!:\\\qquad{#2}}
 \newcommand{\ELSE}[1]{\operatorname{\color{blue}{else}}\!:\\\qquad{#1}}
 % \DeclareMathOperator{\IF}{if}
@@ -683,7 +686,7 @@ allocn</pre>
 \end{array}
 \qquad&#x2261;\qquad
 \begin{array}{lc}
-\IF{v = v_1}{\EVAL c_1}\\
+\if{v = v_1}{\EVAL c_1}\\
 \ELIF{v = v_2}{\EVAL c_2}\\[.5em]
 \qquad\vdots\\[.5em]
 \ELIF{v = v_n}{\EVAL c_n}\\
