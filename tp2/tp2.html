@@ -273,26 +273,36 @@ pre[data-line] .line-highlight[data-end]:after {
       <div class="mume markdown-preview  ">
       <p>$        $</p>
 <h2 id="organiza&#xE7;&#xE3;o-da-m&#xE1;quina">Organiza&#xE7;&#xE3;o da M&#xE1;quina</h2>
-<h3 id="pilhas">Pilhas</h3>
+<h3 id="elementos-da-m&#xE1;quina">Elementos da M&#xE1;quina</h3>
+<h4 id="pilhas">Pilhas</h4>
 <p>2 pilhas:</p>
 <ul>
 <li>Pilha de Execu&#xE7;&#xE3;o (valores: Inteiros, Reais, Endere&#xE7;os)</li>
 <li>Pilha de Chamadas: cont&#xE9;m pares de apontadores <span class="math inline">\((i,f)\)</span>. O endere&#xE7;o <span class="math inline">\(i\)</span> guarda o registo de instru&#xE7;&#xE3;o <span class="math inline">\(pc\)</span> e <span class="math inline">\(f\)</span> o registo <span class="math inline">\(fp\)</span> .</li>
 </ul>
-<h3 id="auxiliar">Auxiliar</h3>
-<ul>
-<li>1x Zona de C&#xF3;digo</li>
-<li>Heaps referenciadas por endere&#xE7;os
+<h4 id="heaps">Heaps</h4>
+<p>2 heaps (s&#xE3;o referenciadas por endere&#xE7;os):</p>
 <ul>
 <li>String Heap</li>
 <li>Structured Block Heap
 <ul>
 <li>Contem um certo n&#xFA;mero de valores (do mesmo tipo dos valores que se podem encontrar na pilha).</li>
 </ul></li>
-</ul></li>
-<li>4x registos</li>
 </ul>
-<h3 id="endere&#xE7;o">Endere&#xE7;o</h3>
+<h4 id="registos">Registos</h4>
+<p>4 registos:</p>
+<ul>
+<li><span class="math inline">\(sp\)</span> (stack pointer): aponta para o topo corrente da pilha. Ele aponta para a primeira c&#xE9;lula livre da pilha.</li>
+<li><span class="math inline">\(fp\)</span> (frame pointer): aponta para o endere&#xE7;o de base das vari&#xE1;veis locais.</li>
+<li><span class="math inline">\(gp\)</span> (global pointer): contem o endere&#xE7;o de base das vari&#xE1;veis globais.</li>
+<li><span class="math inline">\(pc\)</span> (program counter): aponta para a instru&#xE7;&#xE3;o corrente (da zona de c&#xF3;digo) por executar.</li>
+</ul>
+<h4 id="auxiliar">Auxiliar</h4>
+<ul>
+<li>1x Zona de C&#xF3;digo</li>
+</ul>
+<h3 id="conceitos">Conceitos</h3>
+<h4 id="endere&#xE7;o">Endere&#xE7;o</h4>
 <ul>
 <li>Pode apontar para 4 tipos de informa&#xE7;&#xE3;o:
 <ol type="1">
@@ -302,14 +312,7 @@ pre[data-line] .line-highlight[data-end]:after {
 <li>String</li>
 </ol></li>
 </ul>
-<h3 id="registo">Registo</h3>
-<ul>
-<li><span class="math inline">\(sp\)</span> (stack pointer): aponta para o topo corrente da pilha. Ele aponta para a primeira c&#xE9;lula livre da pilha.</li>
-<li><span class="math inline">\(fp\)</span> (frame pointer): aponta para o endere&#xE7;o de base das vari&#xE1;veis locais.</li>
-<li><span class="math inline">\(gp\)</span> (global pointer): contem o endere&#xE7;o de base das vari&#xE1;veis globais.</li>
-<li><span class="math inline">\(pc\)</span> (program counter): aponta para a instru&#xE7;&#xE3;o corrente (da zona de c&#xF3;digo) por executar.</li>
-</ul>
-<h3 id="instru&#xE7;&#xE3;o">Instru&#xE7;&#xE3;o</h3>
+<h4 id="instru&#xE7;&#xE3;o">Instru&#xE7;&#xE3;o</h4>
 <p>Aceitam 1 ou 2 par&#xE2;metros. Estes podem ser:</p>
 <ul>
 <li>constantes inteiras</li>
@@ -322,14 +325,18 @@ pre[data-line] .line-highlight[data-end]:after {
 </ul>
 <h3 id="conven&#xE7;&#xE3;o">Conven&#xE7;&#xE3;o</h3>
 <ul>
-<li>Empilhar um valor x significa colocar o valor x na c&#xE9;lula P[sp] e incrementar sp de 1.</li>
-<li>Empilhar n vezes um valor x significa iterar n vezes a opera&#xE7;&#xE3;o anterior.</li>
-<li>Retirar, ou tirar da pilha n valor consiste em decrementar de n o valor de sp.</li>
-<li>O topo da pilha representa o &#xFA;ltimo valor colocado na pilha, ou seja P[sp &#x2212; 1], o valor anterior representa o pen&#xFA;ltimo valor, o sub-topo colocado na pilha, ou seja P[sp &#x2212;2].</li>
-<li>Se x designar um endere&#xE7;o na pilha ent&#xE3;o x[n] designa um endere&#xE7;o situada n c&#xE9;lulas por cima.</li>
+<li>Empilhar um valor <code>x</code> &#x2261; <code>P[sp]:= x;sp++</code></li>
+<li>Empilhar <span class="math inline">\(n\)</span> vezes um valor <span class="math inline">\(x\)</span> &#x2261; iterar <span class="math inline">\(n\)</span> vezes a opera&#xE7;&#xE3;o anterior.</li>
+<li>Retirar, ou tirar da pilha <span class="math inline">\(n\)</span> valor consiste em decrementar de <span class="math inline">\(n\)</span> o valor de <span class="math inline">\(sp\)</span>.</li>
+<li>O topo da pilha representa o &#xFA;ltimo valor colocado na pilha, ou seja <span class="math inline">\(P[sp &#x2212; 1]\)</span>, o valor anterior representa o pen&#xFA;ltimo valor, o sub-topo colocado na pilha, ou seja <span class="math inline">\(P[sp &#x2212;2]\)</span>.</li>
+<li>Se <span class="math inline">\(x\)</span> designar um endere&#xE7;o na pilha ent&#xE3;o <span class="math inline">\(x[n]\)</span> designa um endere&#xE7;o situada <span class="math inline">\(n\)</span> c&#xE9;lulas por cima.</li>
 </ul>
 <h3 id="compara&#xE7;&#xE3;o">Compara&#xE7;&#xE3;o</h3>
-<p>O resultado duma opera&#xE7;&#xE3;o de compara&#xE7;&#xE3;o &#xE9; um inteiro que vale 0 ou 1. O inteiro 0 representa o valor booleano f also enquanto o valor 1 representa o valor verdade.</p>
+<span class="math display">\[\begin{array}{l}
+\operatorname{True}  &amp;&#x2261;&amp; 1\\
+\operatorname{False} &amp;&#x2261;&amp; 0
+\end{array}\]</span>
+<p>O resultado duma opera&#xE7;&#xE3;o de compara&#xE7;&#xE3;o &#xE9; um inteiro que vale <span class="math inline">\(0\)</span> ou <span class="math inline">\(1\)</span>.</p>
 <h3 id="opera&#xE7;&#xF5;es">Opera&#xE7;&#xF5;es</h3>
 <ul>
 <li><span class="math inline">\(\mathop{\mathrm{inf}}&#x2261; P[sp-2] &lt; P[sp-1]\)</span></li>
@@ -663,6 +670,8 @@ storeg 1
 // int num2[size];
 pushg 1
 allocn</pre>
+<h2 id="convers&#xF5;es">Convers&#xF5;es</h2>
+<h3 id="case">case</h3>
 <p><span class="math display">\[
 \DeclareMathOperator{\CASE}{\color{blue}{case}}
 \newcommand{\if}[2]{\operatorname{\color{blue}{if}}\ #1\!:\\\qquad{#2}}
@@ -693,23 +702,75 @@ allocn</pre>
 \end{array}
 \]</span></p>
 <p>Note que &#x201C;push&#x201D; n&#xE3;o &#xE9; um comando.</p>
-<p>push v</p>
-<p>dup 1 push v_1 equal</p>
-<p>jz e_2 c_1 jump e_f</p>
-<p>e_2: dup 1 push v_2 equal</p>
-<p>jz e_3 c_2 jump e_f . . . e_n: dup 1 push v_n equal</p>
-<p>jz e_f c_n</p>
-<p>e_f: c_f</p>
+<pre class="text language-text language-txt" data-role="codeBlock" data-info="txt">push v
+
+dup 1
+push v_1
+equal
+
+jz e_2
+c_1
+jump e_f
+
+e_2:
+dup 1
+push v_2
+equal
+
+jz e_3
+c_2
+jump e_f
+.
+.
+.
+e_n:
+dup 1
+push v_n
+equal
+
+jz e_f
+c_n
+
+e_f:
+c_f</pre>
+<h3 id="while">while</h3>
+<pre class="text language-text language-txt" data-role="codeBlock" data-info="txt">c_i
+(while cond
+  c
+)
+c_f</pre>
+<pre class="text language-text language-txt" data-role="codeBlock" data-info="txt">c_i
+
+// --------------------------------------------------
+e_i:
+eval(cond) //returns 0 or 1
+
+jz e_f \\if 0 then jump to e_f
+c
+jump e_i
+
+e_f:
+// --------------------------------------------------
+c_f</pre>
 
       </div>
       <div class="md-sidebar-toc"><ul>
 <li><a href="#organiza%C3%A7%C3%A3o-da-m%C3%A1quina">Organiza&#xE7;&#xE3;o da M&#xE1;quina</a>
 <ul>
+<li><a href="#elementos-da-m%C3%A1quina">Elementos da M&#xE1;quina</a>
+<ul>
 <li><a href="#pilhas">Pilhas</a></li>
+<li><a href="#heaps">Heaps</a></li>
+<li><a href="#registos">Registos</a></li>
 <li><a href="#auxiliar">Auxiliar</a></li>
+</ul>
+</li>
+<li><a href="#conceitos">Conceitos</a>
+<ul>
 <li><a href="#endere%C3%A7o">Endere&#xE7;o</a></li>
-<li><a href="#registo">Registo</a></li>
 <li><a href="#instru%C3%A7%C3%A3o">Instru&#xE7;&#xE3;o</a></li>
+</ul>
+</li>
 <li><a href="#conven%C3%A7%C3%A3o">Conven&#xE7;&#xE3;o</a></li>
 <li><a href="#compara%C3%A7%C3%A3o">Compara&#xE7;&#xE3;o</a></li>
 <li><a href="#opera%C3%A7%C3%B5es">Opera&#xE7;&#xF5;es</a></li>
@@ -722,6 +783,12 @@ allocn</pre>
 <li><a href="#ler-um-inteiro-n-depois-ler-n-n%C3%BAmeros-e-escrever-o-menor-deles">2 - ler um inteiro N, depois ler N n&#xFA;meros e escrever o menor deles</a></li>
 <li><a href="#ler-n-constante-do-programa-n%C3%BAmeros-e-calcular-e-imprimir-o-seu-produt%C3%B3rio">3 - ler N (constante do programa) n&#xFA;meros e calcular e imprimir o seu produt&#xF3;rio</a></li>
 <li><a href="#contar-e-imprimir-os-n%C3%BAmeros-impares-de-uma-sequ%C3%AAncia-de-n%C3%BAmeros-naturais">4 - contar e imprimir os n&#xFA;meros impares de uma sequ&#xEA;ncia de n&#xFA;meros naturais</a></li>
+</ul>
+</li>
+<li><a href="#convers%C3%B5es">Convers&#xF5;es</a>
+<ul>
+<li><a href="#case">case</a></li>
+<li><a href="#while">while</a></li>
 </ul>
 </li>
 </ul>
