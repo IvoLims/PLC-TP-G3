@@ -670,7 +670,80 @@ storeg 1
 // int num2[size];
 pushg 1
 allocn</pre>
+<h3 id="invocar-e-usar-num-programa-seu-uma-fun&#xE7;&#xE3;o-potencia-que-come&#xE7;a-por-ler-do-input-a-base-b-e-o-expoente-e-e-retorna-o-valor-be">6 - invocar e usar num programa seu uma fun&#xE7;&#xE3;o <code>potencia()</code>, que come&#xE7;a por ler do input a base <span class="math inline">\(B\)</span> e o expoente <span class="math inline">\(E\)</span> e retorna o valor <span class="math inline">\(B^E\)</span></h3>
+<pre class="text language-text language-c" data-role="codeBlock" data-info="c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
+
+<span class="token keyword keyword-int">int</span> <span class="token function">potencia</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+  <span class="token keyword keyword-int">int</span> b<span class="token punctuation">,</span> e<span class="token punctuation">,</span> res<span class="token punctuation">;</span>
+
+  <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">&quot;%d&quot;</span><span class="token punctuation">,</span><span class="token operator">&amp;</span>b<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">&quot;%d&quot;</span><span class="token punctuation">,</span><span class="token operator">&amp;</span>e<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  res <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+
+  <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span><span class="token punctuation">;</span>e<span class="token operator">&gt;</span><span class="token number">0</span><span class="token punctuation">;</span>e<span class="token operator">--</span><span class="token punctuation">)</span> res <span class="token operator">*=</span> b<span class="token punctuation">;</span>
+
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">&quot;%d&quot;</span><span class="token punctuation">,</span>res<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+<pre class="text language-text language-lisp" data-role="codeBlock" data-info="lisp">&#x2248; <span class="token punctuation">(</span><span class="token car">writei</span> <span class="token punctuation">(</span><span class="token car">pow</span> <span class="token punctuation">(</span><span class="token car">atoi</span> <span class="token punctuation">(</span><span class="token car">read</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">(</span><span class="token car">atoi</span> <span class="token punctuation">(</span><span class="token car">read</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span></pre>
+<pre class="text language-text language-txt" data-role="codeBlock" data-info="txt">start
+// (writei (pow (atoi (read)) (atoi (read))))
+// S&#xF3; funciona at&#xE9; 2^30
+
+// chamar pow
+pushn 1
+
+// base
+read
+atoi
+
+// expoente
+read
+atoi
+
+pusha pow
+call
+pop 2
+// fim chamar pow
+
+writei
+stop
+
+pow:
+pushi 1
+storel -3 // guardar 1 como resultado
+
+// while (expoente &gt; 0)
+rep:
+pushl -1
+jz end
+pushl -3
+pushl -2
+mul
+storel -3
+pushl -1
+pushi 1
+sub
+storel -1
+jump rep
+end:
+return</pre>
+<h2 id="primitivas">Primitivas</h2>
+<ul>
+<li><code>decl &#x2237; [(WORD,TYPE)]</code> : Makes the WORDs IDs</li>
+<li><code>deprim</code> : definir fun&#xE7;&#xE3;o usando c&#xF3;digo m&#xE1;quina</li>
+<li><code>let &#x2237; [(ID,VALUE)]</code> : definir algo</li>
+<li><code>while &#x2237; (condition,body) &#x2192; ()</code> : executes body if condition = 1</li>
+<li><code>case &#x2237; (v,[(v_i,body_i)]) &#x2192; ()</code> : executes body_i if v = v_i</li>
+</ul>
 <h2 id="convers&#xF5;es">Convers&#xF5;es</h2>
+<h3 id="function">function</h3>
+<p>f &#x2237; p1,p2,&#x2026;,pn &#x2192; r1,r2,&#x2026;,rk</p>
+<p>start pushn k push p1 push p2 &#x2026; push pn</p>
+<p>pusha f call pop n // remove arguments from stack // k top args are the result of f stop</p>
+<p>f: pushl -n // p1 pushl -n+1 // p2 &#x2026; pushl -1 // pn storel (-n-k) // r1 storel (-n-k+1) // r2 &#x2026; storel (-n-1) // rn</p>
+<p>return</p>
 <h3 id="case">case</h3>
 <p><span class="math display">\[
 \DeclareMathOperator{\CASE}{\color{blue}{case}}
@@ -783,10 +856,13 @@ c_f</pre>
 <li><a href="#ler-um-inteiro-n-depois-ler-n-n%C3%BAmeros-e-escrever-o-menor-deles">2 - ler um inteiro N, depois ler N n&#xFA;meros e escrever o menor deles</a></li>
 <li><a href="#ler-n-constante-do-programa-n%C3%BAmeros-e-calcular-e-imprimir-o-seu-produt%C3%B3rio">3 - ler N (constante do programa) n&#xFA;meros e calcular e imprimir o seu produt&#xF3;rio</a></li>
 <li><a href="#contar-e-imprimir-os-n%C3%BAmeros-impares-de-uma-sequ%C3%AAncia-de-n%C3%BAmeros-naturais">4 - contar e imprimir os n&#xFA;meros impares de uma sequ&#xEA;ncia de n&#xFA;meros naturais</a></li>
+<li><a href="#invocar-e-usar-num-programa-seu-uma-fun%C3%A7%C3%A3o-potencia-que-come%C3%A7a-por-ler-do-input-a-base-b-e-o-expoente-e-e-retorna-o-valor-be">6 - invocar e usar num programa seu uma fun&#xE7;&#xE3;o <code>potencia()</code>, que come&#xE7;a por ler do input a base <span class="mathjax-exps">$B$</span> e o expoente <span class="mathjax-exps">$E$</span> e retorna o valor <span class="mathjax-exps">$B^E$</span></a></li>
 </ul>
 </li>
+<li><a href="#primitivas">Primitivas</a></li>
 <li><a href="#convers%C3%B5es">Convers&#xF5;es</a>
 <ul>
+<li><a href="#function">function</a></li>
 <li><a href="#case">case</a></li>
 <li><a href="#while">while</a></li>
 </ul>
