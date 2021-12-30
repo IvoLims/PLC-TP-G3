@@ -86,6 +86,9 @@ def store_l(p):
 def jump(label):
     return f'JUMP {label}'
 
+def jz(label):
+    return f'JZ {label}'
+
 CALL = 'CALL'
 RETURN = 'RETURN'
 MULT = 'MUL'
