@@ -167,9 +167,9 @@ def eval_expr(p):
                     parser.global_vars,
                     var_type)
                 if var_type == 'array':
-                    parser.ids[var_name].end = parser.ids[var_name].order + pair[2] - 1
-                    parser.global_vars += pair[2]
-                    commands.append(pair[2])
+                    parser.ids[var_name].end = parser.ids[var_name].order + int(pair[2]) - 1
+                    parser.global_vars += int(pair[2])
+                    commands.append(push_n(pair[2]))
                 else:
                     parser.global_vars += 1
                     commands.append(push_n(1))
@@ -184,7 +184,7 @@ def eval_expr(p):
                 commands.append(store_l(parser.ids[var_name].order))
         case 'aref':
              if type(p[1]) != list and p[1] in parser.ids and type(parser.ids[p[1]]) == Var:
-                 commands.append(push_l(parser.ids[p[1]].order + p[2]))
+                commands.append(push_l(parser.ids[p[1]].order + int(p[2])))
         # INCOMPLETO
         case 'while':
             begin_while = 'l'+ str(parser.label_count)
