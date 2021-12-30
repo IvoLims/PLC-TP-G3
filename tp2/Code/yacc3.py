@@ -185,6 +185,18 @@ def eval_expr(p):
         case 'aref':
              if type(p[1]) != list and p[1] in parser.ids and type(parser.ids[p[1]]) == Var:
                  commands.append(push_l(parser.ids[p[1]].order + p[2]))
+        # INCOMPLETO
+        case 'while':
+            begin_while = 'l'+ str(parser.label_count)
+            parser.label_count += 1
+            end_while = 'l'+ str(parser.label_count)
+            parser.label_count += 1
+            commands.append(begin_while + ':')
+            # commands.append(<COND>)
+            commands.append(jz(end_while))
+            # commands.append(<BODY>)
+            commands.append(jump(begin_while))
+            commands.append(end_while + ':')
         case ('mul' | 'add' | 'sub' | 'div' |
               'fmul' | 'fadd' | 'fsub' | 'fdiv' | 'mod' |
               'inf' | 'infeq' | 'sup' | 'supeq'
