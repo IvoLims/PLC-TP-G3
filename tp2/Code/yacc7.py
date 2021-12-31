@@ -2,7 +2,6 @@ import ply.yacc as yacc
 import sys
 from lex7 import tokens
 import re
-
 """
 expr : ID | STR | num | list
 num  : REAL | INT
@@ -10,7 +9,10 @@ list : ( seq )
 seq  : ε | expr seq
 """
 
-commands = []
+def get_label1():
+    lab = f'la{parser.label_count1}'
+    parser.label_count1 += 1
+    return lab
 
 class Var:
     def __init__(self, name, order, var_type):
@@ -20,17 +22,15 @@ class Var:
         self.value = None
 
 class FUNC:
-    def __init__(self,name,nargs,body,kind):
+    def __init__(self,name,nargs,nouts,pos):
         self.name = name
         self.nargs = nargs
-        self.body = body
-        self.kind = kind
-
-    def sub(self,vars):
-        return [re.sub(rf'\#{i}',f'"{v}"',s)
-                for i,v in enumerate(vars)
-                for s in self.body
-                ]
+        self.nouts = nouts
+        self.pos = pos
+    def aref(self,argnum):
+        return -self.nargs + int(argnum) - 1
+    def rref(self,resnum):
+        return -self.nargs - self.nouts + int(resnum) - 1
 
 def is_id(p):
     return type(p) == str and p[0] != '"'
@@ -51,14 +51,22 @@ def push_rec(p,commands):
 
 def push(p):
     t = type(p)
+    if t == list:
+        return False
     if t == int:
         return f'PUSHI {p}'
     elif t == float:
         return f'PUSHF {p}'
+    elif t == FUNC:
+        return f'PUSHA {p.pos}'
     elif is_str(p):
         return f'PUSHS {p}'
     elif is_var(p):
         return push_l(parser.ids[p].order)
+    elif p[0] == '#':
+        return push_l(parser.funcstack[-1].aref(p[1:]))
+    elif p[0] == '$':
+        return push_l(parser.funcstack[-1].rref(p[1:]))
     else:
         return False
 
@@ -115,10 +123,12 @@ CALL = 'CALL'
 RETURN = 'RETURN'
 MULT = 'MUL'
 EQUAL = 'EQUAL'
+START = 'START'
+STOP = 'STOP'
 
 ##########################################################################################
 
-def g_eval_expr(p,commands):
+def g_eval_expr(p,commands,astop=None):
     """
     3 relevant cases:
         - subexpression
@@ -146,13 +156,35 @@ def g_eval_expr(p,commands):
             for pair in p[1:]:
                 var_name = pair[0]
                 var_value = pair[1]
-
-                pcom = push(var_value)
-                if pcom :
-                    commands.append(pcom)
+                push_rec(var_value,commands)
+                # pcom = push(var_value)
+                # if pcom :
+                #     commands.append(pcom)
+                # else:
+                #     g_eval_expr(p[1],commands)
+                if var_name[0] == '#':
+                    ref = parser.funcstack[-1].aref(var_name[1:])
+                elif var_name[0] == '$':
+                    print('ref -------',var_name)
+                    ref = parser.funcstack[-1].rref(var_name[1:])
                 else:
-                    g_eval_expr(p[1],commands)
-                commands.append(store_l(parser.ids[var_name].order))
+                    ref = parser.ids[var_name].order
+                commands.append(store_l(ref))
+        case 'mirror':
+            commands.append(r'⊕')
+            commands.append(push(p[1])[6:])
+            commands.append(r'⊕')
+        case 'mdecl':
+            parser.ids[p[1]] = Var(p[1],parser.global_vars,'matrix')
+            parser.ids[p[1]].dim1 = p[2]
+            parser.ids[p[1]].dim2 = p[3]
+            commands.append(push_n(p[2]*p[3]))
+            parser.global_vars += p[2]*p[3]
+        case 'mref':
+            commands.append(push_l(parser.ids[p[1]].order + p[2]*parser.ids[p[1]].dim2 + p[3]))
+        case 'mset':
+            commands.extend([push(p[4]), store_l(
+                parser.ids[p[1]].order + p[2]*parser.ids[p[1]].dim2+p[3])])
         case 'aref':
             if type(p[1]) != list and p[1] in parser.ids and type(parser.ids[p[1]]) == Var:
                 commands.append(push_l(parser.ids[p[1]].order + int(p[2])))
@@ -160,90 +192,96 @@ def g_eval_expr(p,commands):
             commands.extend([push(p[3]), store_l(
                 parser.ids[p[1]].order + int(p[2]))])
         case 'while':
-            begin_while = 'l' + str(parser.label_count)
-            parser.label_count += 1
-            end_while = 'l' + str(parser.label_count)
-            parser.label_count += 1
+            begin_while = get_label1()
+            end_while = get_label1()
             commands.append(begin_while + ':')
-            pcond = push(p[1])
-            if pcond:
-                commands.append(pcond)
-            else:
-                g_eval_expr(p[1],commands)
+            push_rec(p[1],commands)
+            # pcond = push(p[1])
+            # if pcond:
+            #     commands.append(pcond)
+            # else:
+            #     g_eval_expr(p[1],commands)
             commands.append(jz(end_while))
-            pbody = push(p[2])
-            if pbody:
-                commands.append(pbody)
-            else:
-                g_eval_expr(p[2],commands)
+            for body_part in p[2]:
+                push_rec(body_part,commands)
+
+            # pbody = push(p[2])
+            # if pbody:
+            #     commands.append(pbody)
+            # else:
+            #     g_eval_expr(p[2],commands)
             commands.append(jump(begin_while))
             commands.append(end_while + ':')
         case ('mul' | 'add' | 'sub' | 'div' |
               'fmul' | 'fadd' | 'fsub' | 'fdiv' | 'mod' |
               'inf' | 'infeq' | 'sup' | 'supeq'
-              'finf' | 'finfeq' | 'fsup' | 'fsupeq'):
+              'finf' | 'finfeq' | 'fsup' | 'fsupeq'| 'equal'):
             for arg in p[1:]:
-                parg = push(arg)
-                if parg:
-                    commands.append(parg)
-                else:
-                    g_eval_expr(arg,commands)
+                push_rec(arg,commands)
+                # parg = push(arg)
+                # if parg:
+                #     commands.append(parg)
+                # else:
+                #     g_eval_expr(arg,commands)
             commands.append(p[0].upper())
-        case 'writei' | 'writef' | 'writes':
-            pcom = push(p[1])
-            if pcom:
-                commands.append(pcom)
-            else:
-                g_eval_expr(p[1],pcom)
+        case 'writei' | 'writef' | 'writes' | 'atoi' | 'atof' | 'itof' | 'ftoi' | 'stri' | 'strf':
+            push_rec(p[1],commands)
             commands.append(p[0].upper())
         case 'read':
             commands.append(p[0].upper())
+        case 'goto':
+            commands.append('goto' + jump(p[1]))
+        case 'label':
+            commands.append('goto' + p[1])
+        case 'call':
+            parser.funcstack.append(parser.ids[p[1]])
+            commands.append(push_n(parser.ids[p[1]].nouts))
+            for arg in p[2:]:
+                push_rec(arg,commands)
+            push_rec(p[1],commands)
+            commands.extend([push(parser.ids[p[1]]),CALL,pop(parser.ids[p[1]].nargs)])
+        case 'defun':
+            if astop is not None:
+                astop.append(True)
+            parser.ids[p[1]] = FUNC(p[1],p[2],p[3],get_label1())
+            parser.funcstack.append(parser.ids[p[1]])
+            commands.append(parser.ids[p[1]].pos + ":")
+            for body_part in p[4]:
+                push_rec(body_part,commands)
+            commands.append(RETURN)
+            # parser.funcstack.pop()
         case 'case':
-            pcond = push(p[1])
-            if pcond:
-                commands.append(pcond)
-            else:
-                g_eval_expr(p[1],commands)
+            push_rec(p[1],commands)
+            # pcond = push(p[1])
+            # if pcond:
+            #     commands.append(pcond)
+            # else:
+            #     g_eval_expr(p[1],commands)
             commands.append(dup(1))
             end_case = 'l' + str(parser.label_count + len(p[2:]))
             parser.label_count += 1
-            for case0 in p[2:3]:
+            for i,case0 in enumerate(p[2:]):
                 expr1,expr2 = case0[0],case0[1]
-                pval = push(expr1)
-                if pval:
-                    commands.append(pval)
-                else:
-                    g_eval_expr(expr1,commands)
-                pcod = push(expr2)
-                commands.append(EQUAL)
-                next_case_label = 'l' + str(parser.label_count)
-                parser.label_count += 1
-                commands.append(jz(next_case_label))
-                if pcod:
-                    commands.append(pcod)
-                else:
-                    g_eval_expr(expr2,commands)
-                commands.append(jump(end_case))
-            for i,case0 in enumerate(p[3:]):
-                expr1,expr2 = case0[0],case0[1]
-                commands.append(next_case_label + ":")
-                commands.append(dup(1))
-                pval = push(expr1)
-                if pval:
-                    commands.append(pval)
-                else:
-                    g_eval_expr(expr1,commands)
-                commands.append(EQUAL)
-                next_case_label = 'l' + str(parser.label_count)
-                parser.label_count += 1
-                commands.append(jz(next_case_label))
-                pcod = push(expr2)
-                if pcod:
-                    commands.append(pcod)
-                else:
-                    g_eval_expr(expr2,commands)
-                if i != len(p[3:]) - 1:
+                if i == 0:
+                    push_rec(expr1,commands)
+                    commands.append(EQUAL)
+                    next_case_label = 'l' + str(parser.label_count)
+                    parser.label_count += 1
+                    commands.append(jz(next_case_label))
+                    for body_part in expr2:
+                        push_rec(body_part,commands)
                     commands.append(jump(end_case))
+                else:
+                    commands.append(next_case_label + ":")
+                    commands.append(dup(1))
+                    push_rec(expr1,commands)
+                    commands.append(EQUAL)
+                    next_case_label = 'l' + str(parser.label_count)
+                    parser.label_count += 1
+                    commands.append(jz(next_case_label))
+                    push_rec(expr2,commands)
+                    if i != len(p[2:]) - 1:
+                        commands.append(jump(end_case))
             commands.append(next_case_label + ':')
     return commands
 
@@ -275,6 +313,22 @@ def p_expr_list(p):
     """expr : list"""
     p[0] = p[1]
     print('p_expr_list =', p[0])
+    if p[0][0] == 'do':
+        res1 = [START]
+        res2 = [STOP]
+        for expr in p[0][1:]:
+            astop = []
+            res = g_eval_expr(expr,[],astop)
+            print('astop',astop)
+            if astop:
+                res2.extend(res)
+            else:
+                res1.extend(res)
+        tres = res1 + res2
+        print(tres)
+        pre_mirror = '\n'.join(tres)
+        post_mirror = re.sub(r'\n⊕\n([^⊕]+)⊕\n',r' \1',pre_mirror)
+        print(post_mirror)
 
 # fim da expressao
 def p_list(p):
@@ -309,14 +363,15 @@ class Object(object):
     pass
 
 parser.funcs = {}
-parser.stack = [commands]
 parser.states = Object()
 parser.states.decl = False
 # where identifiers will be stored
 parser.types = {'int', 'real', 'string'}
 parser.functions = {'decl', 'while', 'let', 'defprim', 'defun'}
+parser.funcstack = []
 parser.ids = dict.fromkeys(parser.functions.union(parser.types))
 parser.exito = True
+parser.label_count1 = 0
 parser.global_vars = 0
 parser.label_count = 0
 parser.label_count1 = 0
@@ -334,22 +389,23 @@ parser.casestack = []
 
 # print(g_eval_expr(['decl', ['x', 'int']],[]))
 # print(g_eval_expr(['while', ['infeq', 'x', 3], ['let', ['x', ['add', 'x', 1]]]],[]))
-print(g_eval_expr(['case', ['infeq', 1, 2], [3, ['add', 4, 5]], [6, ['sub', 7, 8]]],[]))
-
-# if __name__ == "__main__":
-#     text = ''
-#     for line in sys.stdin:
-#         match line:
-#             case '_@_\n':
-#                 print(commands)
-#                 parser.parse(text)
-#                 tok = parser.token()
-#                 while tok:
-#                     print(tok)
-#                     tok = parser.token()
-#                 text = ''
-#             case _:
-#                 text += line
+# print(g_eval_expr(['case', ['infeq', 1, 2], [3, ['add', 4, 5]], [6, ['sub', 7, 8]]],[]))
+# print(g_eval_expr(['decl', ['n', 'int'], ['num', 'int'], ['min', 'int'], ['i', 'int']],[]))
+# print(g_eval_expr(['let', ['min', 0], ['i', 0], ['n', 3]],[]))
+# print(g_eval_expr(['while', ['inf', 'i', 'n'], ['let', ['num', ['read']]]],[]))
+if __name__ == "__main__":
+    text = ''
+    for line in sys.stdin:
+        match line:
+            case '_@_\n':
+                parser.parse(text)
+                tok = parser.token()
+                while tok:
+                    print(tok)
+                    tok = parser.token()
+                text = ''
+            case _:
+                text += line
 
 if parser.exito:
     print("Parsing finished successfully!")

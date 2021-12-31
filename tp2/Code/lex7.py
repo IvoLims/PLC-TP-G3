@@ -8,11 +8,11 @@ t_LP  = r"\("
 t_RP  = r"\)"
 
 def t_REAL(t):
-    r"[0-9]*\.[0-9]+"
+    r"[+-]?[0-9]*\.[0-9]+"
     return t
 
 def t_INT(t):
-    r"[0-9]+"
+    r"[+-]?[0-9]+"
     return t
 
 def t_ID(t):
@@ -20,7 +20,7 @@ def t_ID(t):
     return t
 
 def t_STR(t):
-    r'"([^"]+|.)*"'
+    r'"[^"]*"'
     return t
 
 # declaração dos Carateres que podem aparecer no texto de entrada e que devem ser ignorados
