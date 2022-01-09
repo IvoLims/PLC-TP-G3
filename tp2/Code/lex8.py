@@ -1,26 +1,32 @@
 import ply.lex as lex
 import sys
 
-tokens = ["REAL", "INT", "ID", "STR" ,"LP", "RP"]
+tokens = ["REAL", "INT", "ID", "STR" ,"LB", "RB","AT","SC", "WORD"]
 
 # declaração das Palavras-Reservadas e dos Simbolos de Classe (variáveis)
-t_LP  = r"\("
-t_RP  = r"\)"
+t_LB  = r"\{"
+t_RB  = r"\}"
+t_AT  = r"\@"
+t_SC  = r"\;"
 
 def t_REAL(t):
-    r"[+-]?[0-9]*\.[0-9]+"
+    r"[0-9]*\.[0-9]+"
     return t
 
 def t_INT(t):
-    r"[+-]?[0-9]+"
+    r"[0-9]+"
     return t
 
 def t_ID(t):
-    r"[-+?`,*/!#$@%^&=.a-zA-Z0-9_]+"
+    r"@[-+*/!%^&=.a-zA-Z0-9_]+"
+    return t
+
+def t_WORD(t):
+    r'[-+*/!%^&=.a-zA-Z0-9_]+'
     return t
 
 def t_STR(t):
-    r'"[^"]*"'
+    r'"([^"]+|.)*"'
     return t
 
 # declaração dos Carateres que podem aparecer no texto de entrada e que devem ser ignorados

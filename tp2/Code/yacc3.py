@@ -32,6 +32,20 @@ storel (-n-1)   // rn
 return
 """
 
+def stack_push(p,stack):
+    if type(p) != list:  # is not subexpression
+        if p in parser.ids:  # is variable
+            stack.append(push_l(parser.ids[p].order))
+        else:  # is primitive value (string, int, float)
+            stack.append(push(p))
+
+def com_push(p):
+    if type(p) != list:  # is not subexpression
+        if p in parser.ids:  # is variable
+            commands.append(push_l(parser.ids[p].order))
+        else:  # is primitive value (string, int, float)
+            commands.append(push(p))
+
 
 def push(p):
     try:
@@ -57,6 +71,10 @@ def write(p):
         return f'WRITEF'
     elif p == 'str':
         return f'WRITES'
+
+
+def dup(p):
+    return f'DUP {p}'
 
 
 def push_l(p):
@@ -86,12 +104,15 @@ def store_l(p):
 def jump(label):
     return f'JUMP {label}'
 
+
 def jz(label):
     return f'JZ {label}'
+
 
 CALL = 'CALL'
 RETURN = 'RETURN'
 MULT = 'MUL'
+EQUAL = 'EQUAL'
 
 
 class Func:
@@ -150,7 +171,8 @@ NUM : INT
 """
 
 
-def eval_expr(p):
+def g_eval_expr(p):
+    commands = []
     """
     3 relevant cases:
         - subexpression
@@ -167,7 +189,8 @@ def eval_expr(p):
                     parser.global_vars,
                     var_type)
                 if var_type == 'array':
-                    parser.ids[var_name].end = parser.ids[var_name].order + int(pair[2]) - 1
+                    parser.ids[var_name].end = parser.ids[var_name].order + \
+                        int(pair[2]) - 1
                     parser.global_vars += int(pair[2])
                     commands.append(push_n(pair[2]))
                 else:
@@ -177,19 +200,23 @@ def eval_expr(p):
             for pair in p[1:]:
                 var_name = pair[0]
                 var_value = pair[1]
-                if type(var_value) != list and var_value != list and var_value in parser.ids and type(parser.ids[var_value]) == Var:
+                if type(var_value) != list and var_value in parser.ids and type(parser.ids[var_value]) == Var:
                     commands.append(push_l(parser.ids[var_value].order))
                 elif type(var_value) != list:
                     commands.append(push(var_value))
-                commands.append(store_l(parser.ids[var_name].order))
+                if type(var_name) != list and var_name in parser.ids and type(parser.ids[var_name]) == Var:
+                    commands.append(store_l(parser.ids[var_name].order))
         case 'aref':
-             if type(p[1]) != list and p[1] in parser.ids and type(parser.ids[p[1]]) == Var:
+            if type(p[1]) != list and p[1] in parser.ids and type(parser.ids[p[1]]) == Var:
                 commands.append(push_l(parser.ids[p[1]].order + int(p[2])))
+        case 'aset':
+            commands.extend([push(p[3]), store_l(
+                parser.ids[p[1]].order + int(p[2]))])
         # INCOMPLETO
         case 'while':
-            begin_while = 'l'+ str(parser.label_count)
+            begin_while = 'l' + str(parser.label_count)
             parser.label_count += 1
-            end_while = 'l'+ str(parser.label_count)
+            end_while = 'l' + str(parser.label_count)
             parser.label_count += 1
             commands.append(begin_while + ':')
             # commands.append(<COND>)
@@ -219,6 +246,91 @@ def eval_expr(p):
         # case 'defun':
         #     parser.ids[p[1][0]] = Func(p[1][0],p[1][1],p[1][2],parser.label_count)
         #     parser.label_count += 1
+    return commands
+
+
+def eval_expr(p):
+    """
+    3 relevant cases:
+        - subexpression
+        - variable
+        - primitive value
+    """
+    match p[0]:
+        case 'decl':
+            for pair in p[1:]:
+                var_name = pair[0]
+                var_type = pair[1]
+                parser.ids[var_name] = Var(
+                    var_name,
+                    parser.global_vars,
+                    var_type)
+                if var_type == 'array':
+                    parser.ids[var_name].end = parser.ids[var_name].order + \
+                        int(pair[2]) - 1
+                    parser.global_vars += int(pair[2])
+                    commands.append(push_n(pair[2]))
+                else:
+                    parser.global_vars += 1
+                    commands.append(push_n(1))
+        case 'let':
+            for pair in p[1:]:
+                var_name = pair[0]
+                var_value = pair[1]
+                if type(var_value) != list and var_value in parser.ids and type(parser.ids[var_value]) == Var:
+                    commands.append(push_l(parser.ids[var_value].order))
+                elif type(var_value) != list:
+                    commands.append(push(var_value))
+                if type(var_name) != list and var_name in parser.ids and type(parser.ids[var_name]) == Var:
+                    commands.append(store_l(parser.ids[var_name].order))
+        case 'aref':
+            if type(p[1]) != list and p[1] in parser.ids and type(parser.ids[p[1]]) == Var:
+                commands.append(push_l(parser.ids[p[1]].order + int(p[2])))
+        case 'aset':
+            commands.extend([push(p[3]), store_l(
+                parser.ids[p[1]].order + int(p[2]))])
+        # INCOMPLETO
+        case 'while':
+            commands.append(jump(parser.whilestack[-1]['begin_while']))
+            commands.append(parser.whilestack[-1]['end_while'] + ':')
+            parser.whilestack.pop()
+        #     begin_while = 'l'+ str(parser.label_count)
+        #     parser.label_count += 1
+        #     end_while = 'l'+ str(parser.label_count)
+        #     parser.label_count += 1
+        #     commands.append(begin_while + ':')
+        #     # commands.append(<COND>)
+        #     commands.append(g_eval_expr(p[1]))
+        #     commands.append(jz(end_while))
+        #     # commands.append(<BODY>)
+        #     commands.append(g_eval_expr(p[2]))
+        #     commands.append(jump(begin_while))
+        #     commands.append(end_while + ':')
+        # case ('mul' | 'add' | 'sub' | 'div' |
+        #       'fmul' | 'fadd' | 'fsub' | 'fdiv' | 'mod' |
+        #       'inf' | 'infeq' | 'sup' | 'supeq'
+        #       'finf' | 'finfeq' | 'fsup' | 'fsupeq'):
+        #     for arg in p[1:]:
+        #         if type(arg) != list:
+        #             if arg in parser.ids and type(parser.ids[p[1]]) == Var:
+        #                 commands.append(push_l(parser.ids[arg].order))
+        #             else:
+        #                 commands.append(push(arg))
+        #     commands.append(p[0].upper())
+        case 'writei' | 'writef' | 'writes':
+            if type(p[1]) != list and p[1] in parser.ids and type(parser.ids[p[1]]) == Var:
+                commands.append(push_l(parser.ids[p[1]].order))
+            elif type(p[1]) != list:
+                commands.append(push(p[1]))
+            commands.append(p[0].upper())
+        case 'read':
+            commands.append(p[0].upper())
+        case 'case':
+            commands.append(parser.casestack[-1]['e_f'] + ':')
+            parser.casestack.pop()
+        # case 'defun':
+        #     parser.ids[p[1][0]] = Func(p[1][0],p[1][1],p[1][2],parser.label_count)
+        #     parser.label_count += 1
     print(commands)
 
 
@@ -236,11 +348,13 @@ def eval_expr_dynamic_type(p):
             commands.append(push_n(len(p[1:])))
         case 'let':
             for pair in p[1:]:
+                print('TYPE =====', type(pair[0]))
                 var_name = pair[0]
                 var_value = pair[1]
-                if type(var_value) != list:
-                    commands.append(push(var_value))
-                commands.append(store_l(parser.ids[var_name].order))
+                if var_name in parser.ids and type(parser.ids[var_name]) == Var:
+                    if type(var_value) != list:
+                        commands.append(push(var_value))
+                    commands.append(store_l(parser.ids[var_name].order))
         case ('mul' | 'add' | 'sub' | 'div' |
               'fmul' | 'fadd' | 'fsub' | 'fdiv' | 'mod' |
               'inf' | 'infeq' | 'sup' | 'supeq'
@@ -299,6 +413,7 @@ def lista(p):
 
 def p_list(p):
     """LIST : LP ELEMS RP"""
+    print('=========',p[2])
     p[0] = p[2]
     eval_expr(p[0])
     print(p[0])
@@ -309,40 +424,75 @@ def p_list_empty(p):
     p[0] = None
 
 
-def p_elems_elem(p):
-    """ELEMS : ELEM"""
-    p[0] = [p[1]]
+def p_elems_empty(p):
+    """ELEMS : """
+    p[0] = []
 
 
-def p_elems_elem_elems(p):
+def p_elems(p):
     """ELEMS : ELEMS ELEM"""
     p[0] = p[1]
     p[0].append(p[2])
+    match p[0][0]:
+        case 'while':
+            if len(p[0]) == 1:
+                begin_while = 'l' + str(parser.label_count)
+                parser.whilestack.append({'begin_while': begin_while})
+                parser.label_count += 1
+                commands.append(begin_while + ':')
+            elif len(p[0]) == 2:
+                end_while = 'l' + str(parser.label_count)
+                parser.label_count += 1
+                commands.append(jz(end_while))
+                parser.whilestack[-1]['end_while'] = end_while
+        case 'case':
+            if len(p[0]) == 1:
+                parser.casestack.append({'e_f': get_label2()})
+                parser.casestack[-1]['stack'] = []
+            elif len(p[0]) == 2:
+                com_push(p[0][-1])
+                commands.append(dup(1))
+            else:
+                # com_push(p[0][-1][0])
+                next_case_label = get_label1()
+                commands.extend([EQUAL, jz(next_case_label)])
+                # com_push(p[0][-1][1])
+                commands.append(next_case_label+ ':')
+        case ('mul' | 'add' | 'sub' | 'div' |
+              'fmul' | 'fadd' | 'fsub' | 'fdiv' | 'mod' |
+              'inf' | 'infeq' | 'sup' | 'supeq'
+              'finf' | 'finfeq' | 'fsup' | 'fsupeq'):
+            if len(p[0]) == 3:
+                for arg in p[0][1:]:
+                    print('arg = ',arg)
+                    com_push(arg)
+                commands.append(p[0][0].upper())
+
 
 
 def p_elem_atom(p):
     """ELEM : ATOM"""
     p[0] = p[1]
 
-
 def p_elem_list(p):
     """ELEM : LIST"""
     p[0] = p[1]
 
-
 def p_atom(p):
-    """ATOM : WORD
-            | NUM"""
+    """ATOM : WORD"""
     p[0] = p[1]
     if p[0] in parser.ids:
         print('ID')
 
 
-def p_atom_num(p):
-    """NUM : INT
-           | REAL"""
-    p[0] = p[1]
-    print('NUM')
+def p_atom_int(p):
+    """ATOM : INT"""
+    p[0] = int(p[1])
+
+
+def p_atom_REAL(p):
+    """ATOM : REAL"""
+    p[0] = float(p[1])
 
 
 def p_error(p):
@@ -356,7 +506,7 @@ parser = yacc.yacc()
 class Object(object):
     pass
 
-
+parser.stack = [commands]
 parser.states = Object()
 parser.states.decl = False
 # where identifiers will be stored
@@ -366,8 +516,24 @@ parser.ids = dict.fromkeys(parser.functions.union(parser.types))
 parser.exito = True
 parser.global_vars = 0
 parser.label_count = 0
+parser.label_count1 = 0
+parser.label_count2 = 0
 parser.local_vars = {}
 parser.decls = []
+parser.whilestack = []
+parser.casestack = []
+
+
+def get_label1():
+    lab = f'l1-{parser.label_count1}'
+    parser.label_count1 += 1
+    return lab
+
+
+def get_label2():
+    lab = f'l2-{parser.label_count2}'
+    parser.label_count1 += 1
+    return lab
 
 
 def restart_states():
@@ -382,11 +548,14 @@ def restart_states():
 
 if __name__ == "__main__":
     for line in sys.stdin:
-        parser.parse(line)
-        tok = parser.token()
-        while tok:
-            print(tok)
+        if line == '_@_\n':
+            print('\n'.join(commands))
+        else:
+            parser.parse(line)
             tok = parser.token()
+            while tok:
+                print(tok)
+                tok = parser.token()
 
 if parser.exito:
     print("Parsing finished successfully!")
