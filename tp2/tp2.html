@@ -271,7 +271,7 @@ pre[data-line] .line-highlight[data-end]:after {
     </head>
     <body for="html-export">
       <div class="mume markdown-preview  ">
-      <p>$        $</p>
+      <p>$         $</p>
 <h2 id="organiza&#xE7;&#xE3;o-da-m&#xE1;quina">Organiza&#xE7;&#xE3;o da M&#xE1;quina</h2>
 <h3 id="elementos-da-m&#xE1;quina">Elementos da M&#xE1;quina</h3>
 <h4 id="pilhas">Pilhas</h4>
@@ -343,6 +343,9 @@ pre[data-line] .line-highlight[data-end]:after {
 <li><span class="math inline">\(\mathop{\mathrm{jump}}\textrm{label} &#x2261; pc:=\mathop{\mathrm{addressof}}(\textrm{label})\)</span></li>
 <li><span class="math inline">\(\mathop{\mathrm{jz}}\textrm{label}\ &#x2261;\ \mathop{\mathrm{if}}\ !P[sp-1]: pc = \textrm{label}\ &#x2248;\ \mathop{\mathrm{if}}\ !P[sp-1]: \mathop{\mathrm{jump}}\mathop{\mathrm{addressof}}(\textrm{label})\)</span></li>
 <li><span class="math inline">\(\mathop{\mathrm{pusha}}\textrm{label} &#x2261; \mathop{\mathrm{pusha}}\mathop{\mathrm{addressof}}(\textrm{label})\)</span></li>
+<li><span class="math inline">\(\mathop{\mathrm{add}}&#x2261; P[sp-2] + P[sp-1]\)</span></li>
+<li><span class="math inline">\(\operatorname{STOREN} &#x2261; P[sp-3][P[sp-2]] := P[sp-1]\)</span> ou seja, addr,pos,value.</li>
+<li><span class="math inline">\(\operatorname{PADD} &#x2261; P[sp-2] + P[sp-1]\)</span> onde <span class="math inline">\(P[sp-2] : \textrm{addr}\)</span> e <span class="math inline">\(P[sp-1] : \textrm{INT}\)</span></li>
 </ul>
 <h2 id="language-20">Language 2.0</h2>
 <h3 id="declaration">Declaration</h3>
@@ -402,7 +405,7 @@ def bfunction while { label start: <cond> case 0: goto end case 1:
 <p>goto start label end: }</p>
 <p>begin function pow b e :: r1 // r1 := 1 pint 1 pref r1 sref</p>
 <p>[pint 1, pref r1, sref] &#x2192; [PUSHI 1, pref r1, sref] &#x2192; [PUSHI 1, sref (addr(r1))] &#x2192; [PUSHI 1, STOREL &lt;addr(r1)&gt;]</p>
-<p>a[3] := 13 a<a href="#section">5</a> := 15 a[7] := 17</p>
+<p>a[3] := 13 a[5] := 15 a[7] := 17</p>
 <p>pint 13 gref a //a[0] pint 3 add // a[3] sref // a[3] := 13</p>
 <p>pint 15 gref a pint 5 add sref</p>
 <p>sref addr_r1 = stack.pop() commands.append(f&#x2019;STOREL {addr_r1}&#x2019;)</p>
@@ -783,18 +786,29 @@ writei</pre>
 
     <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span></pre>
-<pre class="text language-text language-txt" data-role="codeBlock" data-info="txt">// int i, size;
-pushn 2
+<pre class="text language-text language-lisp" data-role="codeBlock" data-info="lisp"><span class="token punctuation">(</span><span class="token keyword keyword-do">do</span>
+  <span class="token punctuation">(</span><span class="token car">decl</span> <span class="token punctuation">(</span><span class="token car">i</span> int<span class="token punctuation">)</span> <span class="token punctuation">(</span><span class="token car">size</span> int<span class="token punctuation">)</span> <span class="token punctuation">(</span><span class="token car">num2</span> array<span class="token punctuation">)</span><span class="token punctuation">)</span>
+  <span class="token punctuation">(</span><span class="token keyword keyword-let">let</span> <span class="token punctuation">(</span><span class="token car">i</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">(</span><span class="token car">size</span> <span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+  <span class="token punctuation">(</span><span class="token car">setsize</span> num2 size<span class="token punctuation">)</span>
 
-// scanf(&quot;%d&quot;,&amp;size);
-read
-atoi
-storeg 1
+  <span class="token punctuation">(</span><span class="token keyword keyword-while">while</span> <span class="token punctuation">(</span><span class="token car">inf</span> i size<span class="token punctuation">)</span> <span class="token punctuation">(</span>
+        <span class="token punctuation">(</span><span class="token car">aset</span> num2 i <span class="token punctuation">(</span><span class="token car">atoi</span> <span class="token punctuation">(</span><span class="token car">read</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+        <span class="token punctuation">(</span><span class="token keyword keyword-let">let</span> <span class="token punctuation">(</span><span class="token car">i</span> <span class="token punctuation">(</span><span class="token car">add</span> i <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token punctuation">)</span>
+  <span class="token punctuation">)</span>
 
-// int num2[size];
-pushg 1
-allocn</pre>
-<h4 id="section">5</h4>
+  <span class="token punctuation">(</span><span class="token keyword keyword-let">let</span> <span class="token punctuation">(</span><span class="token car">i</span> <span class="token punctuation">(</span><span class="token car">sub</span> i <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+  <span class="token punctuation">(</span><span class="token keyword keyword-while">while</span> <span class="token punctuation">(</span><span class="token car">supeq</span> i <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">(</span>
+        <span class="token punctuation">(</span><span class="token car">case</span> <span class="token punctuation">(</span><span class="token car">mod</span> <span class="token punctuation">(</span><span class="token car">aref</span> num2 i<span class="token punctuation">)</span> <span class="token number">2</span><span class="token punctuation">)</span>
+            <span class="token punctuation">(</span><span class="token number">1</span> <span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token car">writei</span> <span class="token punctuation">(</span><span class="token car">aref</span> num2 i<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+        <span class="token punctuation">)</span>
+        <span class="token punctuation">(</span><span class="token keyword keyword-let">let</span> <span class="token punctuation">(</span><span class="token car">i</span> <span class="token punctuation">(</span><span class="token car">sub</span> i <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token punctuation">)</span>
+  <span class="token punctuation">)</span>
+<span class="token punctuation">)</span>
+</pre>
+<h4 id="ler-e-armazenar-n-n&#xFA;meros-num-array-imprimir-os-valores-por-ordem-inversa">5 - ler e armazenar N n&#xFA;meros num array; imprimir os valores por ordem inversa</h4>
 <pre class="text language-text language-c" data-role="codeBlock" data-info="c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
 
 <span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
@@ -822,9 +836,25 @@ allocn</pre>
   <span class="token keyword keyword-return">return</span> <span class="token number">1</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span></pre>
 <pre class="text language-text language-lisp" data-role="codeBlock" data-info="lisp"><span class="token punctuation">(</span><span class="token keyword keyword-do">do</span>
+  <span class="token punctuation">(</span><span class="token car">decl</span> <span class="token punctuation">(</span><span class="token car">i</span> int<span class="token punctuation">)</span> <span class="token punctuation">(</span><span class="token car">size</span> int<span class="token punctuation">)</span> <span class="token punctuation">(</span><span class="token car">num2</span> array<span class="token punctuation">)</span><span class="token punctuation">)</span>
+  <span class="token punctuation">(</span><span class="token keyword keyword-let">let</span> <span class="token punctuation">(</span><span class="token car">i</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">(</span><span class="token car">size</span> <span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+  <span class="token punctuation">(</span><span class="token car">setsize</span> num2 size<span class="token punctuation">)</span>
+  <span class="token punctuation">(</span><span class="token car">defun</span> readInt <span class="token number">0</span> <span class="token number">1</span> <span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token keyword keyword-let">let</span> <span class="token punctuation">(</span><span class="token car">$1</span> <span class="token punctuation">(</span><span class="token car">atoi</span> <span class="token punctuation">(</span><span class="token car">read</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
 
-<span class="token punctuation">)</span>
-</pre>
+  <span class="token punctuation">(</span><span class="token keyword keyword-while">while</span> <span class="token punctuation">(</span><span class="token car">inf</span> i size<span class="token punctuation">)</span> <span class="token punctuation">(</span>
+        <span class="token punctuation">(</span><span class="token car">aset</span> num2 i <span class="token punctuation">(</span><span class="token car">call</span> readInt<span class="token punctuation">)</span><span class="token punctuation">)</span>
+        <span class="token punctuation">(</span><span class="token keyword keyword-let">let</span> <span class="token punctuation">(</span><span class="token car">i</span> <span class="token punctuation">(</span><span class="token car">add</span> i <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token punctuation">)</span>
+  <span class="token punctuation">)</span>
+
+  <span class="token punctuation">(</span><span class="token keyword keyword-let">let</span> <span class="token punctuation">(</span><span class="token car">i</span> <span class="token punctuation">(</span><span class="token car">sub</span> i <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+  <span class="token punctuation">(</span><span class="token keyword keyword-while">while</span> <span class="token punctuation">(</span><span class="token car">supeq</span> i <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">(</span>
+        <span class="token punctuation">(</span><span class="token car">writei</span> <span class="token punctuation">(</span><span class="token car">aref</span> num2 i<span class="token punctuation">)</span><span class="token punctuation">)</span>
+        <span class="token punctuation">(</span><span class="token keyword keyword-let">let</span> <span class="token punctuation">(</span><span class="token car">i</span> <span class="token punctuation">(</span><span class="token car">sub</span> i <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token punctuation">)</span>
+  <span class="token punctuation">)</span>
+<span class="token punctuation">)</span></pre>
 <h4 id="invocar-e-usar-num-programa-seu-uma-fun&#xE7;&#xE3;o-potencia-que-come&#xE7;a-por-ler-do-input-a-base-b-e-o-expoente-e-e-retorna-o-valor-be">6 - invocar e usar num programa seu uma fun&#xE7;&#xE3;o <code>potencia()</code>, que come&#xE7;a por ler do input a base <span class="math inline">\(B\)</span> e o expoente <span class="math inline">\(E\)</span> e retorna o valor <span class="math inline">\(B^E\)</span></h4>
 <pre class="text language-text language-c" data-role="codeBlock" data-info="c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
 
@@ -1044,7 +1074,7 @@ c_f</pre>
 <li><a href="#ler-um-inteiro-n-depois-ler-n-n%C3%BAmeros-e-escrever-o-menor-deles">2 - ler um inteiro N, depois ler N n&#xFA;meros e escrever o menor deles</a></li>
 <li><a href="#ler-n-constante-do-programa-n%C3%BAmeros-e-calcular-e-imprimir-o-seu-produt%C3%B3rio">3 - ler N (constante do programa) n&#xFA;meros e calcular e imprimir o seu produt&#xF3;rio</a></li>
 <li><a href="#contar-e-imprimir-os-n%C3%BAmeros-impares-de-uma-sequ%C3%AAncia-de-n%C3%BAmeros-naturais">4 - contar e imprimir os n&#xFA;meros impares de uma sequ&#xEA;ncia de n&#xFA;meros naturais</a></li>
-<li><a href="#section">5</a></li>
+<li><a href="#ler-e-armazenar-n-n%C3%BAmeros-num-array-imprimir-os-valores-por-ordem-inversa">5 - ler e armazenar N n&#xFA;meros num array; imprimir os valores por ordem inversa</a></li>
 <li><a href="#invocar-e-usar-num-programa-seu-uma-fun%C3%A7%C3%A3o-potencia-que-come%C3%A7a-por-ler-do-input-a-base-b-e-o-expoente-e-e-retorna-o-valor-be">6 - invocar e usar num programa seu uma fun&#xE7;&#xE3;o <code>potencia()</code>, que come&#xE7;a por ler do input a base <span class="mathjax-exps">$B$</span> e o expoente <span class="mathjax-exps">$E$</span> e retorna o valor <span class="mathjax-exps">$B^E$</span></a></li>
 </ul>
 </li>

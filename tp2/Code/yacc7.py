@@ -9,8 +9,7 @@ import operator as op
 
 
 """
-expr : ID | STR | num | list
-num  : REAL | INT
+expr : ID | STR | INT | REAL | list
 list : ( seq )
 seq  : ε | expr seq
 """
@@ -174,6 +173,9 @@ STOP = 'STOP'
 ADD = 'ADD'
 SUB = 'SUB'
 PADD = 'PADD'
+PUSHGP = 'PUSHGP'
+STOREN = 'STOREN'
+LOADN = 'LOADN'
 ##########################################################################################
 
 def g_eval_expr(p,commands,astop=None,parse_state=None):
@@ -247,17 +249,24 @@ def g_eval_expr(p,commands,astop=None,parse_state=None):
             commands.extend([push(p[4]), store_l(
                 parser.ids[p[1]].order + p[2]*parser.ids[p[1]].dim2+p[3])])
         case 'aref':
+            # (aref array_name index)
             if type(p[1]) != list and p[1] in parser.ids and type(parser.ids[p[1]]) == Var:
-                commands.append(push_l(parser.ids[p[1]].order + int(p[2])))
+                commands.append(PUSHGP)
+                push_rec(parser.ids[p[1]].order,commands,parse_state)
+                commands.append(PADD)
+                push_rec(p[2],commands,parse_state)
+                commands.append(LOADN)
+                # commands.append(push_l(parser.ids[p[1]].order + int(p[2])))
         case 'aset':
             # (aset array_name index value)
             print('------------------aset')
+            commands.append(PUSHGP)
+            push_rec(parser.ids[p[1]].order,commands,parse_state)
+            commands.append(PADD)
+            push_rec(p[2],commands,parse_state)
+            # commands.append(PADD)
             push_rec(p[3],commands,parse_state)
-            # push_rec(p[1].order)
-            # push_rec(p[2])
-            instructions = parse_state['commands_so_far'] + g_eval_expr(p[2],[])
-            commands.append(store_l(
-                parser.ids[p[1]].order + int(vms(instructions,'i'))))
+            commands.append(STOREN)
         case 'while':
             begin_while = get_label1()
             end_while = get_label1()
@@ -281,7 +290,7 @@ def g_eval_expr(p,commands,astop=None,parse_state=None):
             commands.append(end_while + ':')
         case ('mul' | 'add' | 'sub' | 'div' |
               'fmul' | 'fadd' | 'fsub' | 'fdiv' | 'mod' |
-              'inf' | 'infeq' | 'sup' | 'supeq'
+              'inf' | 'infeq' | 'sup' | 'supeq' |
               'finf' | 'finfeq' | 'fsup' | 'fsupeq'| 'equal'):
             for arg in p[1:]:
                 push_rec(arg,commands,parse_state)
@@ -292,6 +301,7 @@ def g_eval_expr(p,commands,astop=None,parse_state=None):
                 #     g_eval_expr(arg,commands)
             commands.append(p[0].upper())
         case 'writei' | 'writef' | 'writes' | 'atoi' | 'atof' | 'itof' | 'ftoi' | 'stri' | 'strf':
+            print('------------------write',p[0])
             push_rec(p[1],commands,parse_state)
             commands.append(p[0].upper())
         case 'read':
@@ -394,9 +404,8 @@ def p_expr_list(p): #quando programa termina
                 res2.extend(res)
             else:
                 res1.extend(res)
-            parse_state['commands_so_far'] = res1 + res2
+            parse_state['commands_so_far'] = [START] + res1 + [STOP] + res2
         commands = parse_state['commands_so_far']
-        commands = [START] + commands + [STOP]
         print(commands)
         vms(commands)
         pre_mirror = '\n'.join(commands)
