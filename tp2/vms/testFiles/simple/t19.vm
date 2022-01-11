@@ -1,0 +1,38 @@
+start
+// (writei (pow (atoi (read)) (atoi (read))))
+// Só funciona até 2^30
+// chamar pow
+pushn 1
+//arg1
+read
+atoi
+//arg2
+read
+atoi
+
+pusha pow
+call
+pop 2
+// fim chamar pow
+
+writei
+stop
+
+pow:
+pushi 1   // guardar 1
+storel -3 // guardar resultado
+
+rep:
+pushl -1
+jz end
+pushl -3
+pushl -2
+mul
+storel -3
+pushl -1
+pushi 1
+sub
+storel -1
+jump rep
+end:
+return

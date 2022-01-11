@@ -1,0 +1,12 @@
+// int i, size;
+pushn 2
+
+// scanf("%d",&size);
+read
+atoi
+storeg 1
+load 0
+
+// int num2[size];
+pushg 1
+allocn

@@ -1,0 +1,18 @@
+start
+pushi 1
+pushi 2
+pushl 1
+pusha e0
+call
+pushg 0
+writei
+stop
+
+e0:
+pushl 1
+add
+return
+
+e1:
+mul
+return

@@ -1,0 +1,36 @@
+//start
+//alloc 10
+//pushn 1
+//pushi 3
+//storel 1
+//
+//pushl 0
+//pushl 1
+//pushi 6
+//storen
+//
+//pushl 1
+//writei
+//pushgp
+//stop
+
+
+//
+
+start
+pushn 10
+pushn 1
+pushi 3
+storel 1
+
+pushgp
+pushl 1
+pushi 6
+storen
+
+pushl 1
+writei
+pushgp
+stop
+
+//STOREN ≡ P[sp-3][P[sp-2]] := P[sp-1]

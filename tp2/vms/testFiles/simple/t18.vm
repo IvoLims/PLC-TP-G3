@@ -1,0 +1,108 @@
+PUSHN 5
+START
+//r=0
+PUSHI 0
+STOREG 4
+//call(Potencia)
+PUSHA E2
+CALL
+//write(r)
+PUSHG 4
+WRITEI
+STOP
+//Em Potencia
+E2:
+//b
+READ
+ATOI
+STOREG 0
+//b1
+PUSHG 0
+STOREG 2
+//e
+READ
+ATOI
+STOREG 1
+//i
+PUSHI 0
+STOREG 3
+//r
+PUSHI 0
+STOREG 4
+//(while (< i (let ( sub(e 1))))
+E0:
+PUSHG 1
+PUSHI 1
+SUB
+PUSHG 1
+PUSHG 0
+INF
+// (let(b mult(b b1)))
+JZ E1
+PUSHG 2
+PUSHG 0
+MUL
+STOREG 0
+//i++
+PUSHI 1
+PUSHG 3
+STOREG 3
+JUMP E0
+E1:
+PUSHG 4
+STOREL -1
+RETURN
+STOP
+////
+
+pow ∷ p1,p2 → r1
+
+start
+
+// chamar pow
+pushn 1
+push arg1
+push arg2
+
+pusha pow
+call
+pop 2
+// fim chamar pow
+
+writei
+stop
+
+pow:
+pushl -2  // arg1 (base)
+pushl -1  // arg2 (expoente)
+pushi 1   // guardar 1
+storel -3 // guardar resultado
+
+rep:
+pushl -1
+jz end
+pushl -3
+pushl -2
+mul
+storel -3
+pushl -1
+pushi 1
+sub
+storel -1
+jump rep
+end:
+return
+
+
+// repeat ∷ (a1) → ()
+repeat:
+pushl -1
+jz end
+<body>
+pushl -1
+pushi 1
+sub
+storel -1
+jump repeat
+end:
+return

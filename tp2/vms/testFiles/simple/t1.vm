@@ -1,0 +1,40 @@
+// Operacoes sobre Inteiros 1
+START
+PUSHI -0
+PUSHI 0
+ADD
+PUSHI -213123123131
+ADD
+PUSHI 0
+PUSHI 1(do
+  (decl (i int) (size int) (num2 array))
+  (let (i 0) (size 2))
+  (setsize num2 size)
+
+  (while (inf i size) (
+        (aset num2 i (atoi (read)))
+        (let (i (add i 1)))
+    )
+  )
+
+  (while (sup i 0) (
+        (case (mod i 2)
+            (1 (writei (aref num2 i)))
+        )
+        (let (i (sub i 1)))
+    )
+  )
+)
+_@_
+
+PUSHI -2
+SUB
+PUSHI 33
+MUL
+PUSHI 1123148
+DIV
+PUSHI 1233
+ADD
+MOD
+WRITEI
+STOP

@@ -1,0 +1,62 @@
+// int n,num,min,i;
+PUSHN 4
+
+START
+
+
+//min = 0;
+PUSHI 0
+STOREG 2 // min
+
+//i = 0;
+PUSHI 0
+STOREG 3 // i
+
+// scanf("%d",&n);
+READ
+ATOI
+STOREG 0 //n
+
+
+E0:
+// i < n
+PUSHG 3
+PUSHG 0
+INF
+
+JZ E1
+//scanf("%d",&num);
+READ
+ATOI
+STOREG 1
+
+//if(i == 0) min = num
+PUSHG 3
+PUSHI 0
+EQUAL
+JZ E3
+PUSHG 1
+STOREG 2
+E3:
+//if(min > num) min = num;
+PUSHG 2
+PUSHG 1
+SUP
+JZ E4
+PUSHG 1
+STOREG 2
+E4:
+
+//i++
+PUSHG 3
+PUSHI 1
+ADD
+STOREG 3
+
+JUMP E0
+E1:
+
+//printf("Min Value: %d\n",min);
+PUSHG 2
+WRITEI
+STOP

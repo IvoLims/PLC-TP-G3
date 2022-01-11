@@ -1,0 +1,5 @@
+pushi 11
+start
+pushl 0
+writei
+stop

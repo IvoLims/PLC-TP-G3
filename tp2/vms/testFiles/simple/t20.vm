@@ -1,0 +1,17 @@
+pushn 1
+pushi 10
+storel 0
+
+while:
+pushl 0
+pushi 0
+supeq
+jz e1
+pushl 0
+pushi 1
+sub
+storel 0
+jump while
+e1:
+pushl 0
+writei

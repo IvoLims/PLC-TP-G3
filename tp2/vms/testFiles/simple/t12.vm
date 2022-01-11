@@ -1,0 +1,48 @@
+// int i,n,p,num;
+pushn 4
+
+// p = 1;
+pushi 1
+storeg 2
+
+// scanf("%d",&n);
+read
+atoi
+storeg 1
+
+// i = 0;
+pushi 1
+storeg 0
+
+e0: // start cycle
+// i ≤ n
+pushg 0
+pushg 1
+infeq
+
+jz e1 // end cycle if condition is false
+
+// scanf("%d",&num);
+read
+atoi
+storeg 3
+
+// p *= num
+pushg 2
+pushg 3
+mul
+storeg 2
+
+// i++
+pushg 0
+pushi 1
+add
+storeg 0
+
+// re-cycle
+jump e0
+
+e1:
+// (print p)
+pushg 2
+writei

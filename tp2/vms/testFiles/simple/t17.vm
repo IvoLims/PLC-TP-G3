@@ -1,0 +1,25 @@
+start
+
+// invocar funcao soma3
+pushn 1
+pushi arg1
+pushi arg2
+pushi arg3
+
+pusha soma3
+call
+pop 3
+// fim da invocacao
+
+writei
+stop
+
+soma3:
+pushl -3 // p1
+pushl -2 // p2
+pushl -1 // p3
+add
+add
+
+storel -4   // r1
+return

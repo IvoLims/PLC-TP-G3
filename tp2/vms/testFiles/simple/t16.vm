@@ -1,0 +1,18 @@
+start
+pushi 0
+pushi 13
+pushi 15
+
+pusha f1
+call
+pop 2
+
+writei
+stop
+
+f1:
+pushl -2
+pushl -1
+mul
+storel -3
+return

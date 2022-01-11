@@ -1,0 +1,13 @@
+START
+E0:
+PUSHI 2
+PUSHI 3
+ADD
+WRITEI
+PUSHS "introduz um inteiro?\n"
+writes
+read
+atoi
+not
+JZ E0
+STOP

@@ -1,0 +1,21 @@
+alloc 2
+alloc 2
+alloc 2
+
+    pushg 0
+    pushi 1
+    store 0
+
+    pushg 0
+    pushi 2
+    store 1
+
+    pushg 1
+    pushi 3
+    store 0
+
+    pushg 1
+    pushi 4
+    store 1
+pushg 0
+load 1
