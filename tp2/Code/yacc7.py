@@ -244,6 +244,7 @@ def g_eval_expr(p,commands,astop=None,parse_state=None):
             commands.append(push_n(p[2]*p[3]))
             parser.global_vars += p[2]*p[3]
         case 'mref':
+            # (mref array_name row col)
             commands.append(push_l(parser.ids[p[1]].order + p[2]*parser.ids[p[1]].dim2 + p[3]))
         case 'mset':
             commands.extend([push(p[4]), store_l(
@@ -312,7 +313,7 @@ def g_eval_expr(p,commands,astop=None,parse_state=None):
             commands.append('goto' + p[1])
         case 'call':
             parser.funcstack.append(parser.ids[p[1]])
-            commands.append(push_n(parser.ids[p[1]].nouts))
+            commands.append(push_n(parser.ids[p[1]].nouts+parser.ids[p[1]].nargs))
             for arg in p[2:]:
                 push_rec(arg,commands,parse_state)
             push_rec(p[1],commands,parse_state)
@@ -476,114 +477,6 @@ parser.casestack = []
 # print(g_eval_expr(['let', ['min', 0], ['i', 0], ['n', 3]],[]))
 # print(g_eval_expr(['while', ['inf', 'i', 'n'], ['let', ['num', ['read']]]],[]))
 
-
-################ Types
-
-Symbol = str          # A Lisp Symbol is implemented as a Python str
-List   = list         # A Lisp List is implemented as a Python list
-Number = (int, float) # A Lisp Number is implemented as a Python int or float
-
-################ Parsing: parse, tokenize, and read_from_tokens
-
-
-################ Environments
-
-def standard_env():
-    "An environment with some Scheme standard procedures."
-    env = Env()
-    env.update(vars(math)) # sin, cos, sqrt, pi, ...
-    env.update({
-        'abs':     abs,
-        'append':  op.add,
-        'begin':   lambda *x: x[-1],
-        'car':     lambda x: x[0],
-        'cdr':     lambda x: x[1:],
-        'cons':    lambda x,y: [x] + y,
-        'eq?':     op.is_,
-        'equal?':  op.eq,
-        'length':  len,
-        'list':    lambda *x: list(x),
-        'list?':   lambda x: isinstance(x,list),
-        'map':     map,
-        'not':     op.not_,
-        'null?':   lambda x: x == [],
-        'number?': lambda x: isinstance(x, Number),
-        'procedure?': callable,
-        'round':   round,
-        'symbol?': lambda x: isinstance(x, Symbol),
-        'mul': lambda x,y : f"{x} ; {y} ; mul",
-        'echo': lambda x : f"pushi {x}",
-    })
-    return env
-
-class Env(dict):
-    "An environment: a dict of {'var':val} pairs, with an outer Env."
-    def __init__(self, parms=(), args=(), outer=None):
-        self.update(zip(parms, args))
-        self.outer = outer
-    def find(self, var):
-        "Find the innermost Env where var appears."
-        return self if (var in self) else self.outer.find(var)
-
-global_env = standard_env()
-
-################ Interaction: A REPL
-
-def repl(prompt='lis.py> '):
-    "A prompt-read-eval-print loop."
-    while True:
-        val = eval1(parser.parse(input(prompt)))
-        if val is not None:
-            print(lispstr(val))
-
-def lispstr(exp):
-    "Convert a Python object back into a Lisp-readable string."
-    if isinstance(exp, List):
-        return '(' + ' '.join(map(lispstr, exp)) + ')'
-    else:
-        return str(exp)
-
-################ Procedures
-
-class Procedure(object):
-    "A user-defined Scheme procedure."
-    def __init__(self, parms, body, env):
-        self.parms, self.body, self.env = parms, body, env
-    def __call__(self, *args):
-        return eval1(self.body, Env(self.parms, args, self.env))
-
-################ eval
-
-def eval1(x, env=global_env):
-    "Evaluate an expression in an environment."
-    if isinstance(x, Symbol):      # variable reference
-        return env.find(x)[x]
-    elif not isinstance(x, List):  # constant literal
-        return x
-    elif x[0] == 'quote':          # (quote exp)
-        (_, exp) = x
-        return exp
-    elif x[0] == 'if':             # (if test conseq alt)
-        (_, test, conseq, alt) = x
-        exp = (conseq if eval1(test, env) else alt)
-        return eval1(exp, env)
-    elif x[0] == 'define':         # (define var exp)
-        (_, var, exp) = x
-        env[var] = eval1(exp, env)
-    elif x[0] == 'set!':           # (set! var exp)
-        (_, var, exp) = x
-        env.find(var)[var] = eval1(exp, env)
-    elif x[0] == 'lambda':         # (lambda (var...) body)
-        (_, parms, body) = x
-        return Procedure(parms, body, env)
-    else:                          # (proc arg...)
-        proc = eval1(x[0], env)
-        args = [eval1(exp, env) for exp in x[1:]]
-        return proc(*args)
-
-# print(eval1(['begin', ['define', 'r', 10], ['*', 'pi', ['*', 'r', 'r']]]))
-
-# repl()
 if __name__ == "__main__":
     text = ''
     for line in sys.stdin:
