@@ -23,7 +23,31 @@
 </script>
 
 <style>
+@font-face{
+  font-family: 'JetBrainsMono';
+  src: url('https://cdn.jsdelivr.net/gh/JetBrains/JetBrainsMono/web/woff2/JetBrainsMono-Regular.woff2') format('woff2'),
+    url('https://cdn.jsdelivr.net/gh/JetBrains/JetBrainsMono/web/woff/JetBrainsMono-Regular.woff') format('woff'),
+    url('https://cdn.jsdelivr.net/gh/JetBrains/JetBrainsMono/ttf/JetBrainsMono-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
 
+@font-face {
+    font-family: "sf";
+    src: url("/home/useralef/.fonts/s/SF_Pro.ttf");
+}
+
+@page {
+  height:fit-content;
+  width: fit-content;
+  margin: 0;
+}
+@media print {
+  html, body {
+    width: 210mm;
+    height: 297mm;
+  }
+}
 
 @font-face {
   font-family: 'Raleway';
@@ -1963,7 +1987,7 @@ kioclient5 --platform offscreen move $file.pmd trash:/</code></pre>
 <h3 id="dot-output"><em>Dot</em> Output</h3>
 <pre><span style="color:#000000; font-weight:bold">graph</span>{
   <span style="color:#bf0303">&quot;Daniela da Cruz&quot;</span> <span style="color:#000000">--</span> <span style="color:#bf0303">&quot;Nuno Oliveira&quot;</span> [<span style="color:#0057ae">label</span>=<span style="color:#bf0303">&quot;11&quot;</span>]
-  <span style="color:#bf0303">&quot;Daniela da Cruz&quot;</span> <span style="color:#000000">--</span> <span style="color:#bf0303">&quot;Maria Joao Varanda Pereira&quot;</span> [<span style="color:#0057ae">label</span>=<span style="color:#bf0303">&quot;21&quot;</span>]
+  <span style="color:#bf0303">&quot;Daniela da Cruz&quot;</span> <span style="color:#000000">--</span> <span style="color:#bf0303">&quot;Maria Joao Varanda Pereira&quot;</span> [<span style="color:#0057ae">label</span>=<span style="color:#bf0303">&quot;25&quot;</span>]
   <span style="color:#bf0303">&quot;Daniela da Cruz&quot;</span> <span style="color:#000000">--</span> <span style="color:#bf0303">&quot;Pedro Rangel Henriques&quot;</span> [<span style="color:#0057ae">label</span>=<span style="color:#bf0303">&quot;39&quot;</span>]
 }</pre>
 <h3 id="html-output"><em>HTML</em> Output</h3>
@@ -2007,10 +2031,10 @@ kioclient5 --platform offscreen move $file.pmd trash:/</code></pre>
 &lt;P&gt;Type article appears 33 times&lt;/P&gt;
 &lt;P&gt;Type techreport appears 11 times&lt;/P&gt;
 &lt;P&gt;Type incollection appears 5 times&lt;/P&gt;
+&lt;P&gt;Type misc appears 1 time&lt;/P&gt;
 &lt;P&gt;Type phdthesis appears 1 time&lt;/P&gt;
-&lt;P&gt;Type book appears 1 time&lt;/P&gt;
 &lt;P&gt;Type mastersthesis appears 1 time&lt;/P&gt;
-&lt;P&gt;Type misc appears 1 time&lt;/P&gt;&lt;H2&gt;Author Graph&lt;/H2&gt;&lt;svg width=&quot;601pt&quot; height=&quot;131pt&quot;
+&lt;P&gt;Type book appears 1 time&lt;/P&gt;&lt;H2&gt;Author Graph&lt;/H2&gt;&lt;svg width=&quot;601pt&quot; height=&quot;131pt&quot;
  viewBox=&quot;0.00 0.00 601.39 131.00&quot; xmlns=&quot;http://www.w3.org/2000/svg&quot; xmlns:xlink=&quot;http://www.w3.org/1999/xlink&quot;&gt;
 &lt;g id=&quot;graph0&quot; class=&quot;graph&quot; transform=&quot;scale(1 1) rotate(0) translate(4 127)&quot;&gt;
 &lt;polygon fill=&quot;white&quot; stroke=&quot;transparent&quot; points=&quot;-4,4 -4,-127 597.39,-127 597.39,4 -4,4&quot;/&gt;
@@ -2042,7 +2066,7 @@ kioclient5 --platform offscreen move $file.pmd trash:/</code></pre>
 &lt;g id=&quot;edge2&quot; class=&quot;edge&quot;&gt;
 &lt;title&gt;Daniela da Cruz&amp;#45;&amp;#45;Maria Joao Varanda Pereira&lt;/title&gt;
 &lt;path fill=&quot;none&quot; stroke=&quot;black&quot; d=&quot;M259.34,-86.8C259.34,-72.05 259.34,-50.92 259.34,-36.18&quot;/&gt;
-&lt;text text-anchor=&quot;middle&quot; x=&quot;267.34&quot; y=&quot;-57.8&quot; font-family=&quot;Times,serif&quot; font-size=&quot;14.00&quot;&gt;21&lt;/text&gt;
+&lt;text text-anchor=&quot;middle&quot; x=&quot;267.34&quot; y=&quot;-57.8&quot; font-family=&quot;Times,serif&quot; font-size=&quot;14.00&quot;&gt;25&lt;/text&gt;
 &lt;/g&gt;
 &lt;!-- Pedro Rangel Henriques --&gt;
 &lt;g id=&quot;node4&quot; class=&quot;node&quot;&gt;
@@ -2088,16 +2112,16 @@ kioclient5 --platform offscreen move $file.pmd trash:/</code></pre>
 &lt;br&gt;Autores = Alberto Manuel Brandao Simoes, Jose Joao Dias de Almeida&lt;/P&gt;
 &lt;P&gt;Key = KMHVZ04
 &lt;br&gt;Title = &lt;SPAN&gt;Grammatical Approach to Problem Solving&lt;/SPAN&gt;
-&lt;br&gt;Autores = Maria Joao Varanda, Marjan Mernik, Pedro Rangel Henriques, Tomaz Kosar, Viljem Zumer&lt;/P&gt;
+&lt;br&gt;Autores = Maria Joao Varanda Pereira, Marjan Mernik, Pedro Rangel Henriques, Tomaz Kosar, Viljem Zumer&lt;/P&gt;
 &lt;P&gt;Key = HVMLGW05
 &lt;br&gt;Title = &lt;SPAN&gt;Automatic Generation of Language-based Tools using LISA System&lt;/SPAN&gt;
-&lt;br&gt;Autores = Hui Wu, Jeff Gray, Maria Joao Varanda, Marjan Mernik, Mitja Lenic, Pedro Rangel Henriques&lt;/P&gt;
+&lt;br&gt;Autores = Hui Wu, Jeff Gray, Maria Joao Varanda Pereira, Marjan Mernik, Mitja Lenic, Pedro Rangel Henriques&lt;/P&gt;
 &lt;P&gt;Key = RMHV06
 &lt;br&gt;Title = &lt;SPAN&gt;AspectLISA: an aspect-oriented compiler construction system based on attribute grammars&lt;/SPAN&gt;
-&lt;br&gt;Autores = Damijan Rebernak, Maria Joao Varanda, Marjan Mernik, Pedro Rangel Henriques&lt;/P&gt;
+&lt;br&gt;Autores = Damijan Rebernak, Maria Joao Varanda Pereira, Marjan Mernik, Pedro Rangel Henriques&lt;/P&gt;
 &lt;P&gt;Key = RMHCV06
 &lt;br&gt;Title = &lt;SPAN&gt;Specifying Languages using aspect-oriented approach: AspectLISA&lt;/SPAN&gt;
-&lt;br&gt;Autores = Damijan Rebernak, Daniela da Cruz, Maria Joao Varanda, Marjan Mernik, Pedro Rangel Henriques&lt;/P&gt;
+&lt;br&gt;Autores = Damijan Rebernak, Daniela da Cruz, Maria Joao Varanda Pereira, Marjan Mernik, Pedro Rangel Henriques&lt;/P&gt;
 &lt;P&gt;Key = GDH06
 &lt;br&gt;Title = &lt;SPAN&gt;AG-based interactive system to retrieve information from XML documents&lt;/SPAN&gt;
 &lt;br&gt;Autores = Alda Lopes Gancarski, Anne Doucet, Pedro Rangel Henriques&lt;/P&gt;
@@ -2136,7 +2160,7 @@ kioclient5 --platform offscreen move $file.pmd trash:/</code></pre>
 &lt;br&gt;Autores = Giovani Rubert Librelotto, Gustavo Arnold, Jaime Fonseca, Pedro Rangel Henriques&lt;/P&gt;
 &lt;P&gt;Key = CHV08ja
 &lt;br&gt;Title = &lt;SPAN&gt;Alma versus DDD&lt;/SPAN&gt;
-&lt;br&gt;Autores = Daniela da Cruz, Maria Joao Varanda, Pedro Rangel Henriques&lt;/P&gt;
+&lt;br&gt;Autores = Daniela da Cruz, Maria Joao Varanda Pereira, Pedro Rangel Henriques&lt;/P&gt;
 &lt;P&gt;Key = FPCH08jb
 &lt;br&gt;Title = &lt;SPAN&gt;Integration of the ST Language in a Model-Based Engineering Environment for Control Systems -- An Approach for Compiler Implementation&lt;/SPAN&gt;
 &lt;br&gt;Autores = Daniela da Cruz, Elisabete Ferreira, Pedro Rangel Henriques, Rogerio Paulo&lt;/P&gt;
@@ -2145,7 +2169,7 @@ kioclient5 --platform offscreen move $file.pmd trash:/</code></pre>
 &lt;br&gt;Autores = Daniela da Cruz, Maria Joao Varanda Pereira, Marjan Mernik, Pedro Rangel Henriques&lt;/P&gt;
 &lt;P&gt;Key = CHV07
 &lt;br&gt;Title = &lt;SPAN&gt;Constructing program animations using a pattern-based approach&lt;/SPAN&gt;
-&lt;br&gt;Autores = Daniela da Cruz, Maria Joao Varanda, Pedro Rangel Henriques&lt;/P&gt;
+&lt;br&gt;Autores = Daniela da Cruz, Maria Joao Varanda Pereira, Pedro Rangel Henriques&lt;/P&gt;
 &lt;P&gt;Key = LARH09
 &lt;br&gt;Title = &lt;SPAN&gt;Topic Maps Constraint Languages: understanding and comparing&lt;/SPAN&gt;
 &lt;br&gt;Autores = Giovani Rubert Librelotto, Jose Carlos Ramalho, Pedro Rangel Henriques, Renato Preigschadt de Azevedo&lt;/P&gt;
@@ -2334,61 +2358,61 @@ kioclient5 --platform offscreen move $file.pmd trash:/</code></pre>
 &lt;br&gt;Autores = Alberto Manuel Brandao Simoes, Analia Lourenco, Jose Joao Dias de Almeida&lt;/P&gt;
 &lt;P&gt;Key = HKMVZ03
 &lt;br&gt;Title = &lt;SPAN&gt;Grammatical Approach to Problem Solving&lt;/SPAN&gt;
-&lt;br&gt;Autores = Maria Joao Varanda, Marjan Mernik, Pedro Rangel Henriques, Tomaz Kosar, Viljem Zumer&lt;/P&gt;
+&lt;br&gt;Autores = Maria Joao Varanda Pereira, Marjan Mernik, Pedro Rangel Henriques, Tomaz Kosar, Viljem Zumer&lt;/P&gt;
 &lt;P&gt;Key = VH01
 &lt;br&gt;Title = &lt;SPAN&gt;Visualization / Animation of Programs based on Abstract Representations and Formal Mappings&lt;/SPAN&gt;
-&lt;br&gt;Autores = Maria Joao Varanda, Pedro Rangel Henriques&lt;/P&gt;
+&lt;br&gt;Autores = Maria Joao Varanda Pereira, Pedro Rangel Henriques&lt;/P&gt;
 &lt;P&gt;Key = VH02
 &lt;br&gt;Title = &lt;SPAN&gt;Automatic Generation of Language-based Tools&lt;/SPAN&gt;
-&lt;br&gt;Autores = Maria Joao Varanda, Marjan Mernik, Mitja Lenic, Pedro Rangel Henriques&lt;/P&gt;
+&lt;br&gt;Autores = Maria Joao Varanda Pereira, Marjan Mernik, Mitja Lenic, Pedro Rangel Henriques&lt;/P&gt;
 &lt;P&gt;Key = VH03
 &lt;br&gt;Title = &lt;SPAN&gt;Visualization / Animation of Programs in Alma: obtaining different results&lt;/SPAN&gt;
-&lt;br&gt;Autores = Maria Joao Varanda, Pedro Rangel Henriques&lt;/P&gt;
+&lt;br&gt;Autores = Maria Joao Varanda Pereira, Pedro Rangel Henriques&lt;/P&gt;
 &lt;P&gt;Key = RMHVC06
 &lt;br&gt;Title = &lt;SPAN&gt; Specifying Languages using Aspect-oriented Approach: AspectLISA&lt;/SPAN&gt;
 &lt;br&gt;Autores = Damijan Rebernak, Daniela da Cruz, Maria Joao Varanda Pereira, Marjan Mernik, Pedro Rangel Henriques&lt;/P&gt;
 &lt;P&gt;Key = BHVU07d
 &lt;br&gt;Title = &lt;SPAN&gt;PICS una Herramienta para la Comprensión e Inspección de Programas&lt;/SPAN&gt;
-&lt;br&gt;Autores = Maria Joao Varanda, Mario Beron, Pedro Rangel Henriques, Roberto Uzal&lt;/P&gt;
+&lt;br&gt;Autores = Maria Joao Varanda Pereira, Mario Beron, Pedro Rangel Henriques, Roberto Uzal&lt;/P&gt;
 &lt;P&gt;Key = BHVU07c
 &lt;br&gt;Title = &lt;SPAN&gt;Program Inspection to Incerconnect Behavioral and Operational View for Program Comprehension&lt;/SPAN&gt;
-&lt;br&gt;Autores = Maria Joao Varanda, Mario Beron, Pedro Rangel Henriques, Roberto Uzal&lt;/P&gt;
+&lt;br&gt;Autores = Maria Joao Varanda Pereira, Mario Beron, Pedro Rangel Henriques, Roberto Uzal&lt;/P&gt;
 &lt;P&gt;Key = BHVU07b
 &lt;br&gt;Title = &lt;SPAN&gt;Comprension de Programas por Inspeccion Visual y Animacion&lt;/SPAN&gt;
-&lt;br&gt;Autores = Maria Joao Varanda, Mario Beron, Pedro Rangel Henriques, Roberto Uzal&lt;/P&gt;
+&lt;br&gt;Autores = Maria Joao Varanda Pereira, Mario Beron, Pedro Rangel Henriques, Roberto Uzal&lt;/P&gt;
 &lt;P&gt;Key = BHVU07a
 &lt;br&gt;Title = &lt;SPAN&gt;Static and Dynamic Strategies to Understand C Programs by Code Annotation&lt;/SPAN&gt;
-&lt;br&gt;Autores = Maria Joao Varanda, Mario Beron, Pedro Rangel Henriques, Roberto Uzal&lt;/P&gt;
+&lt;br&gt;Autores = Maria Joao Varanda Pereira, Mario Beron, Pedro Rangel Henriques, Roberto Uzal&lt;/P&gt;
 &lt;P&gt;Key = CHLB07a
 &lt;br&gt;Title = &lt;SPAN&gt;O Sitio de Pico, Software Educativo para Crianças con Paralisia Cerebral&lt;/SPAN&gt;
 &lt;br&gt;Autores = Elisabete Cunha, Mario Beron, Pedro Rangel Henriques, Sandra Cristina Lopes&lt;/P&gt;
 &lt;P&gt;Key = BHVU06a
 &lt;br&gt;Title = &lt;SPAN&gt;Herramientas para la compresión de programas&lt;/SPAN&gt;
-&lt;br&gt;Autores = Maria Joao Varanda, Mario Beron, Pedro Rangel Henriques, Roberto Uzal&lt;/P&gt;
+&lt;br&gt;Autores = Maria Joao Varanda Pereira, Mario Beron, Pedro Rangel Henriques, Roberto Uzal&lt;/P&gt;
 &lt;P&gt;Key = BHVU06b
 &lt;br&gt;Title = &lt;SPAN&gt;Comprensión de Algoritmos de Ruteo&lt;/SPAN&gt;
-&lt;br&gt;Autores = Maria Joao Varanda, Mario Beron, Pedro Rangel Henriques, Roberto Uzal&lt;/P&gt;
+&lt;br&gt;Autores = Maria Joao Varanda Pereira, Mario Beron, Pedro Rangel Henriques, Roberto Uzal&lt;/P&gt;
 &lt;P&gt;Key = BHVUM06
 &lt;br&gt;Title = &lt;SPAN&gt;A Language Processing Tool for Program Comprehension&lt;/SPAN&gt;
-&lt;br&gt;Autores = G. Montejano, Maria Joao Varanda, Mario Beron, Pedro Rangel Henriques, Roberto Uzal&lt;/P&gt;
+&lt;br&gt;Autores = G. Montejano, Maria Joao Varanda Pereira, Mario Beron, Pedro Rangel Henriques, Roberto Uzal&lt;/P&gt;
 &lt;P&gt;Key = BHVU08
 &lt;br&gt;Title = &lt;SPAN&gt;Simplificando la Comprensión de Programas a través de la Interconnexión de Dominios&lt;/SPAN&gt;
-&lt;br&gt;Autores = Maria Joao Varanda, Mario Beron, Pedro Rangel Henriques, Roberto Uzal&lt;/P&gt;
+&lt;br&gt;Autores = Maria Joao Varanda Pereira, Mario Beron, Pedro Rangel Henriques, Roberto Uzal&lt;/P&gt;
 &lt;P&gt;Key = BHV06
 &lt;br&gt;Title = &lt;SPAN&gt;A System for Evaluate and Understand Routing Algorithms&lt;/SPAN&gt;
-&lt;br&gt;Autores = Maria Joao Varanda, Mario Beron, Pedro Rangel Henriques&lt;/P&gt;
+&lt;br&gt;Autores = Maria Joao Varanda Pereira, Mario Beron, Pedro Rangel Henriques&lt;/P&gt;
 &lt;P&gt;Key = BCVHU08
 &lt;br&gt;Title = &lt;SPAN&gt;Evaluation Criteria of Software Visualization Systems used for Program Comprehension&lt;/SPAN&gt;
-&lt;br&gt;Autores = Daniela da Cruz, Maria Joao Varanda, Mario Beron, Pedro Rangel Henriques, Roberto Uzal&lt;/P&gt;
+&lt;br&gt;Autores = Daniela da Cruz, Maria Joao Varanda Pereira, Mario Beron, Pedro Rangel Henriques, Roberto Uzal&lt;/P&gt;
 &lt;P&gt;Key = BUHV08
 &lt;br&gt;Title = &lt;SPAN&gt;Inspección de Código para relacionar los Dominios del Problema y Programa para la Comprensión de Programas&lt;/SPAN&gt;
 &lt;br&gt;Autores = Maria Joao Varanda Pereira, Mario Beron, Pedro Rangel Henriques, Roberto Uzal&lt;/P&gt;
 &lt;P&gt;Key = OVH05
 &lt;br&gt;Title = &lt;SPAN&gt;Compreensão de Aplicações Web: O Processo e as Ferramentas&lt;/SPAN&gt;
-&lt;br&gt;Autores = Eva Oliveira, Maria Joao Varanda, Pedro Rangel Henriques&lt;/P&gt;
+&lt;br&gt;Autores = Eva Oliveira, Maria Joao Varanda Pereira, Pedro Rangel Henriques&lt;/P&gt;
 &lt;P&gt;Key = OHV06
 &lt;br&gt;Title = &lt;SPAN&gt;Proposta de um Sistema para Compreensão de Aplicações Web&lt;/SPAN&gt;
-&lt;br&gt;Autores = Eva Oliveira, Maria Joao Varanda, Pedro Rangel Henriques&lt;/P&gt;
+&lt;br&gt;Autores = Eva Oliveira, Maria Joao Varanda Pereira, Pedro Rangel Henriques&lt;/P&gt;
 &lt;P&gt;Key = GH07b
 &lt;br&gt;Title = &lt;SPAN&gt;Analyzing the structure of scientific articles to improve information retrieval&lt;/SPAN&gt;
 &lt;br&gt;Autores = Alda Lopes Gancarski, Pedro Rangel Henriques&lt;/P&gt;
@@ -2561,29 +2585,29 @@ kioclient5 --platform offscreen move $file.pmd trash:/</code></pre>
 &lt;H3&gt;A&lt;/H3&gt;
 &lt;P&gt;Afonso, S., linguateca&lt;/P&gt;
 &lt;P&gt;Aires, R., linguateca&lt;/P&gt;
-&lt;P&gt;Almeida, J. J. D., jj96, Ramalho96, ABNO97a, Almeida94b, Almeida94c, Barbosa95, SGML97, jspell2002, alfarrabio2001, Almeida96a, APL2k2.Parguess, Barbosa95a, avalon:jspell, xata07:xmltmx, tlc89, xata:xmldt, Natura, xata04:mtd, Ulisses96, ABNO97b, xmldt99, Almeida96b, mp2001, xata05:fs, RPA99, sepln2004, elpub2003, tesejj, elpub06-t2o, Ramalho95, BA97a, graminteractivas1990, RSea99, parguess2002, avalon:avalinha, jj95, Gis99, lrec06, AH97, xata05:tdt, MP07, RAH98, xata06:navegante, epia-music-2007, cp3a:terminum2003, Barbosa2000, dag2002, RARH98, freq2002, xata:museudapessoa, ABBN98, elpub2002, sepln06, Reis98, speaker:sepln2001, eamt06, APL2k2.Synthesis, linguateca, Almeida96c, Barbosa95b, museums98, sepln2003, elpub06-blind, Ramalho98, jspell1, RRAH99, Almeida98, estruturasdedados90, jj2001x, xata06:xmlauto, harem:rena, xata04:tx, Almeida95a&lt;/P&gt;
+&lt;P&gt;Almeida, J. J. D., jspell1, xata05:fs, jj96, Barbosa2000, APL2k2.Parguess, epia-music-2007, Almeida96a, elpub2002, elpub06-t2o, RPA99, xata:museudapessoa, Almeida98, jspell2002, Reis98, MP07, lrec06, xata06:xmlauto, eamt06, xata04:tx, xata04:mtd, SGML97, mp2001, cp3a:terminum2003, Barbosa95a, avalon:jspell, graminteractivas1990, xata:xmldt, Ramalho95, estruturasdedados90, xata06:navegante, sepln06, ABNO97b, Ramalho96, Natura, sepln2003, BA97a, xata07:xmltmx, Ulisses96, Almeida95a, ABNO97a, jj95, RRAH99, avalon:avalinha, RAH98, Almeida96b, sepln2004, AH97, linguateca, Almeida94c, speaker:sepln2001, tesejj, harem:rena, RARH98, xmldt99, RSea99, elpub2003, Barbosa95, Barbosa95b, Ramalho98, museums98, dag2002, xata05:tdt, tlc89, parguess2002, elpub06-blind, APL2k2.Synthesis, ABBN98, freq2002, Almeida96c, jj2001x, Gis99, alfarrabio2001, Almeida94b&lt;/P&gt;
 &lt;P&gt;Arnold, G., ALHF02&lt;/P&gt;
 &lt;P&gt;Augustin, I., LGFSSAH08&lt;/P&gt;
-&lt;P&gt;Azevedo, R. P., LPRH07, LARH09, LPRH07-TM&lt;/P&gt;
+&lt;P&gt;Azevedo, R. P., LPRH07, LPRH07-TM, LARH09&lt;/P&gt;
 &lt;H3&gt;B&lt;/H3&gt;
-&lt;P&gt;Barbosa, L. S., ABNO97a, Barbosa95, BA97a, Barbosa95b, ABBN98, Barbosa95a, Barbosa2000, ABNO97b&lt;/P&gt;
+&lt;P&gt;Barbosa, L. S., Barbosa95a, Barbosa95, Barbosa2000, Barbosa95b, ABNO97b, ABBN98, BA97a, ABNO97a&lt;/P&gt;
 &lt;P&gt;Barreiro, A., linguateca&lt;/P&gt;
 &lt;P&gt;Barroca, L., BH98&lt;/P&gt;
-&lt;P&gt;Barros, J. B., Barbosa2000, tlc89, estruturasdedados90, ABBN98, Almeida96b&lt;/P&gt;
-&lt;P&gt;Beron, M., BHVU07d, BHVU07b, BHVU07c, BHVU07a&lt;/P&gt;
-&lt;P&gt;Beron, M., BHVU09, CFPBH07d, BHVUM06, BHVU08, CHLB07a, BCVHU08, BUHV08, BHVU06b, BHVU06a, CBHP09, BHV06&lt;/P&gt;
+&lt;P&gt;Barros, J. B., Barbosa2000, estruturasdedados90, Almeida96b, tlc89, ABBN98&lt;/P&gt;
+&lt;P&gt;Beron, M., BHVU07b, BHVU07c, BHVU07d, BHVU07a&lt;/P&gt;
+&lt;P&gt;Beron, M., CHLB07a, CFPBH07d, BCVHU08, BHVU06b, BHVU08, CBHP09, BHVU09, BHVUM06, BHV06, BUHV08, BHVU06a&lt;/P&gt;
 &lt;P&gt;Bick, E., xata05:fs, linguateca&lt;/P&gt;
 &lt;H3&gt;C&lt;/H3&gt;
 &lt;P&gt;Cabral, L., linguateca&lt;/P&gt;
 &lt;P&gt;Camila, , Camila&lt;/P&gt;
 &lt;P&gt;Cardoso, N., linguateca&lt;/P&gt;
 &lt;P&gt;Carvalho, A., elpub06-blind&lt;/P&gt;
-&lt;P&gt;Castro, J. A., parguess2002, APL2k2.Parguess, cp3a:terminum2003&lt;/P&gt;
+&lt;P&gt;Castro, J. A., cp3a:terminum2003, parguess2002, APL2k2.Parguess&lt;/P&gt;
 &lt;P&gt;Chaves, M., linguateca&lt;/P&gt;
 &lt;P&gt;Costa, L., linguateca&lt;/P&gt;
 &lt;P&gt;Cramer, B., OPHCC09, OPHCC2010&lt;/P&gt;
-&lt;P&gt;Crepinsek, M., oliveira09b, KOMPCCH2010&lt;/P&gt;
-&lt;P&gt;Cruz, D., MKCHCPO09, CFPBH07d, kosar09, KOMPCCH2010, FPCH08jb, CHV08ja, RMHVC06, oliveira09c, PMCH08j, FCHV08, CH2010a, FPCH08d, CBHP09, OPHC09a, FCHGD09b, CPH08c, CHV07, OPHCC09, CH07g, CH07d, OPHCC2010, BCVHU08, RMHCV06, cruz09, PMCH08e, CHP08a, CHP09a, OHCP09, CH07h, FCHGD09a, CPH07f, CHP08b, CH09d, PMCH08f, CLH07c, CHP08i, CH07a, oliveira09b, OPCH09a&lt;/P&gt;
+&lt;P&gt;Crepinsek, M., KOMPCCH2010, oliveira09b&lt;/P&gt;
+&lt;P&gt;Cruz, D., CLH07c, RMHVC06, CHP08b, oliveira09c, CHP08i, CFPBH07d, MKCHCPO09, CBHP09, CPH07f, OPHCC09, RMHCV06, FPCH08d, PMCH08e, PMCH08f, FCHGD09a, OPHCC2010, OHCP09, FPCH08jb, BCVHU08, CHP08a, CH07a, CHP09a, CHV07, kosar09, CH07d, CH07h, cruz09, CH07g, CH2010a, FCHV08, CPH08c, PMCH08j, FCHGD09b, CHV08ja, OPHC09a, KOMPCCH2010, CH09d, OPCH09a, oliveira09b&lt;/P&gt;
 &lt;P&gt;Cunha, E., CHLB07a&lt;/P&gt;
 &lt;H3&gt;D&lt;/H3&gt;
 &lt;P&gt;Defude, B., FCHGD09a, FCHGD09b&lt;/P&gt;
@@ -2592,26 +2616,26 @@ kioclient5 --platform offscreen move $file.pmd trash:/</code></pre>
 &lt;P&gt;Faria, J. L., museums98&lt;/P&gt;
 &lt;P&gt;Fernandes, A. R., elpub06-blind&lt;/P&gt;
 &lt;P&gt;Ferreira, E., FPCH08jb, FPCH08d&lt;/P&gt;
-&lt;P&gt;Ferreira, F. X., FGH08, FCHGD09a, FH08, GFH08, FCHGD09b&lt;/P&gt;
+&lt;P&gt;Ferreira, F. X., GFH08, FGH08, FH08, FCHGD09b, FCHGD09a&lt;/P&gt;
 &lt;P&gt;Fonseca, J., ALHF02&lt;/P&gt;
-&lt;P&gt;Fonseca, R., FCHV08, MP07, CFPBH07d&lt;/P&gt;
+&lt;P&gt;Fonseca, R., MP07, CFPBH07d, FCHV08&lt;/P&gt;
 &lt;P&gt;Frankenberg-Garcia, A. F., linguateca&lt;/P&gt;
 &lt;P&gt;Freitas, L. O., LGFSSAH08&lt;/P&gt;
 &lt;H3&gt;G&lt;/H3&gt;
-&lt;P&gt;Gancarski, A. L., FGH08, FCHGD09a, GDH06, GFH08, GH07a, GH07b, FCHGD09b&lt;/P&gt;
-&lt;P&gt;Gassen, J. B., LGFSSAH08, LRHGT08&lt;/P&gt;
+&lt;P&gt;Gancarski, A. L., GFH08, FGH08, FCHGD09b, GH07b, FCHGD09a, GH07a, GDH06&lt;/P&gt;
+&lt;P&gt;Gassen, J. B., LRHGT08, LGFSSAH08&lt;/P&gt;
 &lt;P&gt;Gray, J., HVMLGW05&lt;/P&gt;
-&lt;P&gt;Guinovart, X. G., xata04:mtd, sepln2004&lt;/P&gt;
+&lt;P&gt;Guinovart, X. G., sepln2004, xata04:mtd&lt;/P&gt;
 &lt;H3&gt;H&lt;/H3&gt;
-&lt;P&gt;Henriques, M. R., Gis99, RSea99, museums98&lt;/P&gt;
-&lt;P&gt;Henriques, P. R., MKCHCPO09, SGML97, alfarrabio2001, VH03, BHVU07b, BH98, mp2001, LARH09, Ramalho95, CH2010a, GH07a, ORH06, CH07d, dag2002, RARH98, OVH05, PMCH08e, ALHF02, BHVU07c, RRAH99, BHVU06b, OPHCC09, GRH05a, LPH09a, GRH06, KOMPCCH2010, JGRH04, HKMVZ03, VH01, PMCH08j, LPRH07, LRHGT08, FCHV08, GDH06, Gis99, FCHGD09b, CPH08c, KMHVZ04, MSH05, GFH08, BCVHU08, CHP08a, GH07b, CHP09a, LGFSSAH08, OHCP09, CH07h, CPH07f, RH02, CHLB07a, RH98a, CHP08i, RMHV06, VH02, kosar09, BHVU06a, CHV08ja, oliveira09c, BHVUM06, FH08, RSea99, JGRH03, OHV06, FPCH08d, OPHC09a, AH97, BHVU07d, FCHGD09a, CH09d, PMCH08f, CLH07c, ORH09a, oliveira09b, RRH02, OPCH09a, FGH08, Ramalho96, CFPBH07d, FPCH08jb, RMHVC06, BHVU09, HVMLGW05, graminteractivas1990, BHVU08, CBHP09, RAH98, CHV07, CH07g, LMMVRH08, OPHCC2010, GRH04, RMHCV06, cruz09, BHVU07a, LPRH07-TM, museums98, CHP08b, Ramalho98, BUHV08, CH07a, BHV06&lt;/P&gt;
+&lt;P&gt;Henriques, M. R., Gis99, museums98, RSea99&lt;/P&gt;
+&lt;P&gt;Henriques, P. R., BHVU07a, BHVU07b, oliveira09c, ORH09a, GDH06, Ramalho95, FH08, CBHP09, KMHVZ04, RMHCV06, OVH05, OPHCC2010, OHCP09, CHLB07a, RMHV06, FPCH08jb, CHP08a, JGRH04, CH07d, CH07g, RARH98, GH07a, CH2010a, RSea99, CPH08c, dag2002, FGH08, LPRH07-TM, KOMPCCH2010, OHV06, oliveira09b, BH98, GH07b, RRH02, FPCH08d, PMCH08f, RRAH99, GRH05a, GRH06, AH97, CHV07, BHVU09, BHV06, cruz09, CH07h, Ramalho98, PMCH08j, FCHGD09b, BHVU08, LARH09, RH02, GRH04, VH03, Gis99, CH09d, OPCH09a, LRHGT08, VH01, graminteractivas1990, CFPBH07d, MKCHCPO09, Ramalho96, BHVUM06, CPH07f, OPHCC09, FCHGD09a, RAH98, kosar09, BHVU06a, FCHV08, LPH09a, museums98, BHVU06b, CHV08ja, alfarrabio2001, GFH08, RH98a, CLH07c, LGFSSAH08, RMHVC06, CHP08b, mp2001, SGML97, CHP08i, ORH06, HVMLGW05, LMMVRH08, BHVU07d, BUHV08, PMCH08e, JGRH03, VH02, BCVHU08, LPRH07, CH07a, CHP09a, BHVU07c, HKMVZ03, MSH05, ALHF02, OPHC09a&lt;/P&gt;
 &lt;H3&gt;J&lt;/H3&gt;
-&lt;P&gt;Jacinto, M., JGRH03, JGRH04&lt;/P&gt;
+&lt;P&gt;Jacinto, M., JGRH04, JGRH03&lt;/P&gt;
 &lt;H3&gt;K&lt;/H3&gt;
-&lt;P&gt;Kosar, T., KMHVZ04, MKCHCPO09, kosar09, KOMPCCH2010, HKMVZ03, oliveira09b&lt;/P&gt;
+&lt;P&gt;Kosar, T., MKCHCPO09, KMHVZ04, kosar09, HKMVZ03, KOMPCCH2010, oliveira09b&lt;/P&gt;
 &lt;H3&gt;L&lt;/H3&gt;
 &lt;P&gt;Lenic, M., VH02, HVMLGW05&lt;/P&gt;
-&lt;P&gt;Librelotto, G. R., GRH05a, ALHF02, LPRH07, LGFSSAH08, LRHGT08, LARH09, LPRH07-TM, LPH09a, GRH06, LMMVRH08, GRH04, JGRH03, JGRH04&lt;/P&gt;
+&lt;P&gt;Librelotto, G. R., JGRH03, GRH05a, LPH09a, GRH06, LPRH07, LRHGT08, LGFSSAH08, ALHF02, JGRH04, LMMVRH08, LPRH07-TM, GRH04, LARH09&lt;/P&gt;
 &lt;P&gt;Lopes, S. C., CHLB07a, CLH07c&lt;/P&gt;
 &lt;P&gt;Lourenco, A., epia-music-2007&lt;/P&gt;
 &lt;H3&gt;M&lt;/H3&gt;
@@ -2621,7 +2645,7 @@ kioclient5 --platform offscreen move $file.pmd trash:/</code></pre>
 &lt;P&gt;Martins, F. M., graminteractivas1990&lt;/P&gt;
 &lt;P&gt;Martins, M., LMMVRH08&lt;/P&gt;
 &lt;P&gt;Mendes, G., MSH05&lt;/P&gt;
-&lt;P&gt;Mernik, M., KMHVZ04, MKCHCPO09, HVMLGW05, oliveira09b, kosar09, RMHVC06, KOMPCCH2010, PMCH08f, HKMVZ03, RMHCV06, PMCH08e, RMHV06, VH02, PMCH08j&lt;/P&gt;
+&lt;P&gt;Mernik, M., RMHV06, HVMLGW05, VH02, PMCH08j, PMCH08f, MKCHCPO09, KMHVZ04, RMHVC06, HKMVZ03, RMHCV06, PMCH08e, kosar09, KOMPCCH2010, oliveira09b&lt;/P&gt;
 &lt;P&gt;Montejano, G., BHVUM06&lt;/P&gt;
 &lt;P&gt;Moreira, S., mp2001&lt;/P&gt;
 &lt;P&gt;Mota, C., linguateca&lt;/P&gt;
@@ -2632,26 +2656,26 @@ kioclient5 --platform offscreen move $file.pmd trash:/</code></pre>
 &lt;P&gt;Oliveira, D., linguateca&lt;/P&gt;
 &lt;P&gt;Oliveira, E., OVH05, OHV06&lt;/P&gt;
 &lt;P&gt;Oliveira, J. N., ABNO97b, ABNO97a&lt;/P&gt;
-&lt;P&gt;Oliveira, N., OHCP09, MKCHCPO09, kosar09, KOMPCCH2010, OPCH09a, OPHCC2010, cruz09, OPHC09a, OPHCC09, oliveira09b, oliveira09c&lt;/P&gt;
+&lt;P&gt;Oliveira, N., MKCHCPO09, oliveira09c, OPHCC09, OHCP09, kosar09, cruz09, OPHC09a, KOMPCCH2010, OPHCC2010, OPCH09a, oliveira09b&lt;/P&gt;
 &lt;P&gt;Oliveira, P., ORH06&lt;/P&gt;
 &lt;P&gt;Oliveria, P. J., ORH09a&lt;/P&gt;
 &lt;H3&gt;P&lt;/H3&gt;
 &lt;P&gt;Paulo, R., FPCH08jb, FPCH08d&lt;/P&gt;
 &lt;P&gt;Pedroso, T., RPA99&lt;/P&gt;
-&lt;P&gt;Pereira, M. J. V., MKCHCPO09, CFPBH07d, kosar09, KOMPCCH2010, RMHVC06, oliveira09c, PMCH08j, BHVU09, FCHV08, CBHP09, OPHC09a, OPHCC2010, PMCH08e, CHP08a, OHCP09, CPH07f, CHP08b, BUHV08, PMCH08f, CHP08i, OPHCC09, oliveira09b, OPCH09a&lt;/P&gt;
+&lt;P&gt;Pereira, M. J. V., BHVU07a, RMHVC06, BHVU07b, CHP08b, VH01, oliveira09c, CHP08i, HVMLGW05, CFPBH07d, MKCHCPO09, CBHP09, KMHVZ04, CPH07f, BHVUM06, OPHCC09, RMHCV06, BHVU07d, BUHV08, PMCH08e, PMCH08f, OVH05, OPHCC2010, OHCP09, RMHV06, VH02, BCVHU08, CHP08a, CHV07, BHVU07c, BHV06, BHVU09, HKMVZ03, kosar09, BHVU06a, FCHV08, PMCH08j, BHVU06b, BHVU08, VH03, CHV08ja, OPHC09a, KOMPCCH2010, OHV06, OPCH09a, oliveira09b&lt;/P&gt;
 &lt;P&gt;Pereira, R. T., LPH09a&lt;/P&gt;
 &lt;P&gt;Pinto, A., linguateca&lt;/P&gt;
 &lt;P&gt;Pinto, J. S., CPH08c, CHP09a&lt;/P&gt;
-&lt;P&gt;Pinto, U., Ulisses96, Almeida94c, jspell1&lt;/P&gt;
+&lt;P&gt;Pinto, U., jspell1, Almeida94c, Ulisses96&lt;/P&gt;
 &lt;H3&gt;R&lt;/H3&gt;
-&lt;P&gt;Ramalho, J. C., GRH05a, Ramalho96, SGML97, GRH06, JGRH04, xmldt99, LPRH07, LRHGT08, LARH09, Ramalho95, JGRH03, RAH98, LMMVRH08, GRH04, RARH98, Almeida96c, LPRH07-TM, museums98, Ramalho98, RRAH99, RH02, RH98a&lt;/P&gt;
+&lt;P&gt;Ramalho, J. C., RH98a, LRHGT08, SGML97, Ramalho95, LMMVRH08, Ramalho96, RRAH99, JGRH03, GRH05a, RAH98, GRH06, LPRH07, JGRH04, RARH98, xmldt99, Ramalho98, museums98, LARH09, RH02, GRH04, Almeida96c, LPRH07-TM&lt;/P&gt;
 &lt;P&gt;Ramos, C., RRH02&lt;/P&gt;
 &lt;P&gt;Ranchhod, E., linguateca&lt;/P&gt;
-&lt;P&gt;Rebernak, D., RMHV06, RMHVC06, RMHCV06&lt;/P&gt;
+&lt;P&gt;Rebernak, D., RMHCV06, RMHV06, RMHVC06&lt;/P&gt;
 &lt;P&gt;Reis, R., Reis98&lt;/P&gt;
-&lt;P&gt;Rocha, J. G., RPA99, SGML97, museums98, alfarrabio2001, RRAH99, RSea99, RARH98, Gis99, mp2001&lt;/P&gt;
-&lt;P&gt;Rocha, P. A., freq2002, linguateca&lt;/P&gt;
-&lt;P&gt;Rodrigues, F., ORH06, RRH02&lt;/P&gt;
+&lt;P&gt;Rocha, J. G., RSea99, mp2001, museums98, RPA99, Gis99, RARH98, alfarrabio2001, RRAH99, SGML97&lt;/P&gt;
+&lt;P&gt;Rocha, P. A., linguateca, freq2002&lt;/P&gt;
+&lt;P&gt;Rodrigues, F., RRH02, ORH06&lt;/P&gt;
 &lt;P&gt;Rodrigues, M. F., ORH09a&lt;/P&gt;
 &lt;H3&gt;S&lt;/H3&gt;
 &lt;P&gt;Santos, D., linguateca&lt;/P&gt;
@@ -2662,19 +2686,18 @@ kioclient5 --platform offscreen move $file.pmd trash:/</code></pre>
 &lt;P&gt;Silva, P., cp3a:terminum2003&lt;/P&gt;
 &lt;P&gt;Silva, R., linguateca&lt;/P&gt;
 &lt;P&gt;Silveira, M. C., LGFSSAH08&lt;/P&gt;
-&lt;P&gt;Simoes, A. M. B., jspell2002, alfarrabio2001, APL2k2.Parguess, xata07:xmltmx, avalon:jspell, xata:xmldt, xata04:mtd, xata05:fs, mp2001, sepln2004, elpub2003, elpub06-t2o, cp3a:natools2003, parguess2002, avalon:avalinha, lrec06, xata05:tdt, MP07, xata06:navegante, epia-music-2007, cp3a:terminum2003, dag2002, freq2002, xata:museudapessoa, elpub2002, eamt06, sepln06, speaker:sepln2001, teseambs, APL2k2.Synthesis, linguateca, sepln2003, elpub06-blind, xata06:xmlauto, xmldt2, xata04:tx&lt;/P&gt;
+&lt;P&gt;Simoes, A. M. B., xata05:fs, epia-music-2007, APL2k2.Parguess, elpub2002, xmldt2, xata:museudapessoa, elpub06-t2o, jspell2002, MP07, lrec06, eamt06, xata04:tx, xata04:mtd, cp3a:terminum2003, mp2001, avalon:jspell, xata:xmldt, xata06:navegante, sepln06, sepln2003, xata07:xmltmx, cp3a:natools2003, teseambs, avalon:avalinha, sepln2004, linguateca, speaker:sepln2001, elpub2003, dag2002, xata05:tdt, parguess2002, elpub06-blind, APL2k2.Synthesis, freq2002, alfarrabio2001, xata06:xmlauto&lt;/P&gt;
 &lt;H3&gt;T&lt;/H3&gt;
 &lt;P&gt;Turchetti, R. C., LRHGT08&lt;/P&gt;
 &lt;H3&gt;U&lt;/H3&gt;
-&lt;P&gt;Uzal, R., BHVU09, BHVU07d, BHVU07c, BHVUM06, BHVU07b, BHVU08, BCVHU08, BUHV08, BHVU06a, BHVU06b, BHVU07a&lt;/P&gt;
+&lt;P&gt;Uzal, R., BCVHU08, BHVU06b, BHVU07a, BHVU08, BHVU07b, BHVU07c, BHVUM06, BHVU09, BHVU07d, BUHV08, BHVU06a&lt;/P&gt;
 &lt;H3&gt;V&lt;/H3&gt;
-&lt;P&gt;Varanda, M. J., VH03, BHVU07b, VH01, HKMVZ03, BHVU06a, VH02, CHV08ja, HVMLGW05, BHVUM06, BHVU08, OHV06, KMHVZ04, CHV07, BHVU07d, BCVHU08, RMHCV06, BHVU07a, OVH05, BHVU07c, BHVU06b, RMHV06, BHV06&lt;/P&gt;
 &lt;P&gt;Vilela, R., xata05:fs, linguateca&lt;/P&gt;
 &lt;P&gt;Vizzotto, J., LMMVRH08&lt;/P&gt;
 &lt;H3&gt;W&lt;/H3&gt;
 &lt;P&gt;Wu, H., HVMLGW05&lt;/P&gt;
 &lt;H3&gt;Z&lt;/H3&gt;
-&lt;P&gt;Zumer, V., KMHVZ04, HKMVZ03&lt;/P&gt;&lt;/BODY&gt;
+&lt;P&gt;Zumer, V., HKMVZ03, KMHVZ04&lt;/P&gt;&lt;/BODY&gt;
 &lt;/HTML&gt;</code></pre>
 
     <HR/>
