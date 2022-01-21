@@ -72,4 +72,4 @@ sed -i 's/"Raleway", "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-s
 
 # clean directory
 mv $file.html $original.html
-trash $file.pmd
+kioclient5 --platform offscreen move $file.pmd trash:/
