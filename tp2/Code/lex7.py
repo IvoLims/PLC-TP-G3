@@ -1,11 +1,15 @@
 import ply.lex as lex
 import sys
 
-tokens = ["REAL", "INT", "ID", "STR" ,"LP", "RP"]
+tokens = ["REAL", "INT", "ID", "STR" ,"LP", "RP",'comment']
 
 # declaração das Palavras-Reservadas e dos Simbolos de Classe (variáveis)
 t_LP  = r"\("
 t_RP  = r"\)"
+
+def t_comment_tag(t):
+    r'⟨[^⟩]⟩'
+    return t
 
 def t_REAL(t):
     r"[+-]?[0-9]*\.[0-9]+"
