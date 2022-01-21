@@ -1,0 +1,2713 @@
+
+<!DOCTYPE html>
+<HTML>
+<HEAD>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.3.1/styles/default.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.3.1/highlight.min.js"></script>
+<!-- and it's easy to individually load additional languages -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.3.1/languages/python.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+    extensions: ["tex2jax.js"],
+    jax: ["input/LaTeX", "output/HTML-CSS"],
+    "HTML-CSS": { availableFonts: ["TeX"] }
+    });
+</script>
+
+<script type="text/javascript"
+    src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+<style>
+@font-face{
+  font-family: 'JetBrainsMono';
+  src: url('https://cdn.jsdelivr.net/gh/JetBrains/JetBrainsMono/web/woff2/JetBrainsMono-Regular.woff2') format('woff2'),
+    url('https://cdn.jsdelivr.net/gh/JetBrains/JetBrainsMono/web/woff/JetBrainsMono-Regular.woff') format('woff'),
+    url('https://cdn.jsdelivr.net/gh/JetBrains/JetBrainsMono/ttf/JetBrainsMono-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+    font-family: "sf";
+    src: url("/home/useralef/.fonts/s/SF_Pro.ttf");
+}
+
+@page {
+  height:fit-content;
+  width: fit-content;
+  margin: 0;
+}
+@media print {
+  html, body {
+    width: 210mm;
+    height: 297mm;
+  }
+}
+
+@font-face {
+  font-family: 'Raleway';
+  font-style: normal;
+  font-weight: 300;
+  src: local('Raleway Light'), local('Raleway-Light'), url(http://fonts.gstatic.com/s/raleway/v9/-_Ctzj9b56b8RgXW8FArifk_vArhqVIZ0nv9q090hN8.woff2) format('woff2');
+}
+@font-face {
+  font-family: 'Raleway';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Raleway'), url(http://fonts.gstatic.com/s/raleway/v9/0dTEPzkLWceF7z0koJaX1A.woff2) format('woff2');
+}
+@font-face {
+  font-family: 'Raleway';
+  font-style: normal;
+  font-weight: 600;
+  src: local('Raleway SemiBold'), local('Raleway-SemiBold'), url(http://fonts.gstatic.com/s/raleway/v9/xkvoNo9fC8O2RDydKj12b_k_vArhqVIZ0nv9q090hN8.woff2) format('woff2');
+}
+html {
+  font-family: sans-serif; /* 1 */
+  -ms-text-size-adjust: 100%; /* 2 */
+  -webkit-text-size-adjust: 100%; /* 2 */
+}
+body {
+  margin: 0;
+}
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+main,
+menu,
+nav,
+section,
+summary {
+  display: block;
+}
+audio,
+canvas,
+progress,
+video {
+  display: inline-block; /* 1 */
+  vertical-align: baseline; /* 2 */
+}
+audio:not([controls]) {
+  display: none;
+  height: 0;
+}
+[hidden],
+template {
+  display: none;
+}
+a:active,
+a:hover {
+  outline: 0;
+}
+abbr[title] {
+  border-bottom: 1px dotted;
+}
+b,
+strong {
+  font-weight: bold;
+}
+dfn {
+  font-style: italic;
+}
+h1 {
+  font-size: 2em;
+  margin: 0.67em 0;
+}
+mark {
+  background: #ff0;
+  color: #000;
+}
+small {
+  font-size: 80%;
+}
+sub,
+sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+sup {
+  top: -0.5em;
+}
+sub {
+  bottom: -0.25em;
+}
+img {
+  border: 0;
+}
+svg:not(:root) {
+  overflow: hidden;
+}
+figure {
+  margin: 1em 40px;
+}
+hr {
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
+  height: 0;
+}
+pre {
+  overflow: auto;
+}
+code,
+kbd,
+pre,
+samp {
+  font-family: monospace, monospace;
+  font-size: 1em;
+}
+button,
+input,
+optgroup,
+select,
+textarea {
+  color: inherit; /* 1 */
+  font: inherit; /* 2 */
+  margin: 0; /* 3 */
+}
+button {
+  overflow: visible;
+}
+button,
+select {
+  text-transform: none;
+}
+button,
+html input[type="button"], /* 1 */
+input[type="reset"],
+input[type="submit"] {
+  -webkit-appearance: button; /* 2 */
+  cursor: pointer; /* 3 */
+}
+button[disabled],
+html input[disabled] {
+  cursor: default;
+}
+button::-moz-focus-inner,
+input::-moz-focus-inner {
+  border: 0;
+  padding: 0;
+}
+input {
+  line-height: normal;
+}
+input[type="checkbox"],
+input[type="radio"] {
+  box-sizing: border-box; /* 1 */
+  padding: 0; /* 2 */
+}
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  height: auto;
+}
+input[type="search"] {
+  -webkit-appearance: textfield; /* 1 */
+  -moz-box-sizing: content-box;
+  -webkit-box-sizing: content-box; /* 2 */
+  box-sizing: content-box;
+}
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-decoration {
+  -webkit-appearance: none;
+}
+fieldset {
+  border: 1px solid #c0c0c0;
+  margin: 0 2px;
+  padding: 0.35em 0.625em 0.75em;
+}
+legend {
+  border: 0; /* 1 */
+  padding: 0; /* 2 */
+}
+textarea {
+  overflow: auto;
+}
+optgroup {
+  font-weight: bold;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+td,
+th {
+  padding: 0;
+}
+
+
+/*
+* Skeleton V2.0.4
+* Copyright 2014, Dave Gamache
+* www.getskeleton.com
+* Free to use under the MIT license.
+* http://www.opensource.org/licenses/mit-license.php
+* 12/29/2014
+*/
+.container {
+  position: relative;
+  width: 100%;
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0 20px;
+  box-sizing: border-box; }
+.column,
+.columns {
+  width: 100%;
+  float: left;
+  box-sizing: border-box; }
+@media (min-width: 400px) {
+  .container {
+    width: 85%;
+    padding: 0; }
+}
+@media (min-width: 550px) {
+  .container {
+    width: 80%; }
+  .column,
+  .columns {
+    margin-left: 4%; }
+  .column:first-child,
+  .columns:first-child {
+    margin-left: 0; }
+
+  .one.column,
+  .one.columns                    { width: 4.66666666667%; }
+  .two.columns                    { width: 13.3333333333%; }
+  .three.columns                  { width: 22%;            }
+  .four.columns                   { width: 30.6666666667%; }
+  .five.columns                   { width: 39.3333333333%; }
+  .six.columns                    { width: 48%;            }
+  .seven.columns                  { width: 56.6666666667%; }
+  .eight.columns                  { width: 65.3333333333%; }
+  .nine.columns                   { width: 74.0%;          }
+  .ten.columns                    { width: 82.6666666667%; }
+  .eleven.columns                 { width: 91.3333333333%; }
+  .twelve.columns                 { width: 100%; margin-left: 0; }
+
+  .one-third.column               { width: 30.6666666667%; }
+  .two-thirds.column              { width: 65.3333333333%; }
+
+  .one-half.column                { width: 48%; }
+
+  /* Offsets */
+  .offset-by-one.column,
+  .offset-by-one.columns          { margin-left: 8.66666666667%; }
+  .offset-by-two.column,
+  .offset-by-two.columns          { margin-left: 17.3333333333%; }
+  .offset-by-three.column,
+  .offset-by-three.columns        { margin-left: 26%;            }
+  .offset-by-four.column,
+  .offset-by-four.columns         { margin-left: 34.6666666667%; }
+  .offset-by-five.column,
+  .offset-by-five.columns         { margin-left: 43.3333333333%; }
+  .offset-by-six.column,
+  .offset-by-six.columns          { margin-left: 52%;            }
+  .offset-by-seven.column,
+  .offset-by-seven.columns        { margin-left: 60.6666666667%; }
+  .offset-by-eight.column,
+  .offset-by-eight.columns        { margin-left: 69.3333333333%; }
+  .offset-by-nine.column,
+  .offset-by-nine.columns         { margin-left: 78.0%;          }
+  .offset-by-ten.column,
+  .offset-by-ten.columns          { margin-left: 86.6666666667%; }
+  .offset-by-eleven.column,
+  .offset-by-eleven.columns       { margin-left: 95.3333333333%; }
+
+  .offset-by-one-third.column,
+  .offset-by-one-third.columns    { margin-left: 34.6666666667%; }
+  .offset-by-two-thirds.column,
+  .offset-by-two-thirds.columns   { margin-left: 69.3333333333%; }
+
+  .offset-by-one-half.column,
+  .offset-by-one-half.columns     { margin-left: 52%; }
+
+}
+html {
+  font-size: 62.5%; }
+body {
+  font-size: 1.5em; /* currently ems cause chrome bug misinterpreting rems on body element */
+  line-height: 1.6;
+  font-weight: 400;
+  font-family: news-gothic-std, sans-serif;
+  color: #222; }
+h1, h2, h3, h4, h5, h6 {
+  margin-top: 0;
+  margin-bottom: 2rem;
+  font-weight: 300; }
+h1 { font-size: 3.6rem; line-height: 1.2;  letter-spacing: -.1rem;}
+h2 { font-size: 3.4rem; line-height: 1.25; letter-spacing: -.1rem; }
+h3 { font-size: 3.2rem; line-height: 1.3;  letter-spacing: -.1rem; }
+h4 { font-size: 2.8rem; line-height: 1.35; letter-spacing: -.08rem; }
+h5 { font-size: 2.4rem; line-height: 1.5;  letter-spacing: -.05rem; }
+h6 { font-size: 1.5rem; line-height: 1.6;  letter-spacing: 0; }
+
+p {
+  margin-top: 0; }
+a {
+  color: #1EAEDB; }
+a:hover {
+  color: #0FA0CE; }
+.button,
+button,
+input[type="submit"],
+input[type="reset"],
+input[type="button"] {
+  display: inline-block;
+  height: 38px;
+  padding: 0 30px;
+  color: #555;
+  text-align: center;
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 38px;
+  letter-spacing: .1rem;
+  text-transform: uppercase;
+  text-decoration: none;
+  white-space: nowrap;
+  background-color: transparent;
+  border-radius: 4px;
+  border: 1px solid #bbb;
+  cursor: pointer;
+  box-sizing: border-box; }
+.button:hover,
+button:hover,
+input[type="submit"]:hover,
+input[type="reset"]:hover,
+input[type="button"]:hover,
+.button:focus,
+button:focus,
+input[type="submit"]:focus,
+input[type="reset"]:focus,
+input[type="button"]:focus {
+  color: #333;
+  border-color: #888;
+  outline: 0; }
+.button.button-primary,
+button.button-primary,
+input[type="submit"].button-primary,
+input[type="reset"].button-primary,
+input[type="button"].button-primary {
+  color: #FFF;
+  background-color: #33C3F0;
+  border-color: #33C3F0; }
+.button.button-primary:hover,
+button.button-primary:hover,
+input[type="submit"].button-primary:hover,
+input[type="reset"].button-primary:hover,
+input[type="button"].button-primary:hover,
+.button.button-primary:focus,
+button.button-primary:focus,
+input[type="submit"].button-primary:focus,
+input[type="reset"].button-primary:focus,
+input[type="button"].button-primary:focus {
+  color: #FFF;
+  background-color: #1EAEDB;
+  border-color: #1EAEDB; }
+input[type="email"],
+input[type="number"],
+input[type="search"],
+input[type="text"],
+input[type="tel"],
+input[type="url"],
+input[type="password"],
+textarea,
+select {
+  height: 38px;
+  padding: 6px 10px; /* The 6px vertically centers text on FF, ignored by Webkit */
+  background-color: #fff;
+  border: 1px solid #D1D1D1;
+  border-radius: 4px;
+  box-shadow: none;
+  box-sizing: border-box; }
+/* Removes awkward default styles on some inputs for iOS */
+input[type="email"],
+input[type="number"],
+input[type="search"],
+input[type="text"],
+input[type="tel"],
+input[type="url"],
+input[type="password"],
+textarea {
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none; }
+textarea {
+  min-height: 65px;
+  padding-top: 6px;
+  padding-bottom: 6px; }
+input[type="email"]:focus,
+input[type="number"]:focus,
+input[type="search"]:focus,
+input[type="text"]:focus,
+input[type="tel"]:focus,
+input[type="url"]:focus,
+input[type="password"]:focus,
+textarea:focus,
+select:focus {
+  border: 1px solid #33C3F0;
+  outline: 0; }
+label,
+legend {
+  display: block;
+  margin-bottom: .5rem;
+  font-weight: 600; }
+fieldset {
+  padding: 0;
+  border-width: 0; }
+input[type="checkbox"],
+input[type="radio"] {
+  display: inline; }
+label > .label-body {
+  display: inline-block;
+  margin-left: .5rem;
+  font-weight: normal; }
+ul {
+  list-style: circle inside; }
+ol {
+  list-style: decimal inside; }
+ol, ul {
+  padding-left: 0;
+  margin-top: 0; }
+ul ul,
+ul ol,
+ol ol,
+ol ul {
+  margin: 1.5rem 0 1.5rem 3rem;
+  font-size: 90%; }
+li {
+  margin-bottom: 1rem; }
+th,
+td {
+  padding: 12px 15px;
+  text-align: left;
+  border-bottom: 1px solid #E1E1E1; }
+th:first-child,
+td:first-child {
+  padding-left: 0; }
+th:last-child,
+td:last-child {
+  padding-right: 0; }
+button,
+.button {
+  margin-bottom: 1rem; }
+input,
+textarea,
+select,
+fieldset {
+  margin-bottom: 1.5rem; }
+pre,
+blockquote,
+dl,
+figure,
+table,
+p,
+ul,
+ol,
+form {
+  margin-bottom: 2.5rem; }
+.u-full-width {
+  width: 100%;
+  box-sizing: border-box; }
+.u-max-full-width {
+  max-width: 100%;
+  box-sizing: border-box; }
+.u-pull-right {
+  float: right; }
+.u-pull-left {
+  float: left; }
+hr {
+  margin-top: 3rem;
+  margin-bottom: 3.5rem;
+  border-width: 0;
+  border-top: 1px solid #E1E1E1; }
+.container:after,
+.row:after,
+.u-cf {
+  content: "";
+  display: table;
+  clear: both; }
+
+pre {
+  display: block;
+  padding: 9.5px;
+  margin: 0 0 10px;
+  font-size: 9.5px;
+  line-height: 1.42857143;
+  color: #333;
+  word-break: break-all;
+  word-wrap: break-word;
+  background-color: #f5f5f5;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+code,
+kbd,
+pre,
+samp {
+  font-family: "jetbrains mono";
+}
+code {
+  padding: 2px 4px;
+  font-size: 90%;
+  color: #c7254e;
+  background-color: #f9f2f4;
+  border-radius: 4px;
+}
+
+@media (min-width: 400px) {}
+@media (min-width: 550px) {}
+@media (min-width: 750px) {}
+@media (min-width: 1000px) {}
+@media (min-width: 1200px) {}
+
+</style>
+
+<style>
+pre { line-height: 125%; }
+td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+span.linenos { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+td.linenos .special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+.hll { background-color: #ffffcc }
+.c { color: #408080; font-style: italic } /* Comment */
+.err { border: 1px solid #FF0000 } /* Error */
+.k { color: #008000; font-weight: bold } /* Keyword */
+.o { color: #666666 } /* Operator */
+.ch { color: #408080; font-style: italic } /* Comment.Hashbang */
+.cm { color: #408080; font-style: italic } /* Comment.Multiline */
+.cp { color: #BC7A00 } /* Comment.Preproc */
+.cpf { color: #408080; font-style: italic } /* Comment.PreprocFile */
+.c1 { color: #408080; font-style: italic } /* Comment.Single */
+.cs { color: #408080; font-style: italic } /* Comment.Special */
+.gd { color: #A00000 } /* Generic.Deleted */
+.ge { font-style: italic } /* Generic.Emph */
+.gr { color: #FF0000 } /* Generic.Error */
+.gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.gi { color: #00A000 } /* Generic.Inserted */
+.go { color: #888888 } /* Generic.Output */
+.gp { color: #000080; font-weight: bold } /* Generic.Prompt */
+.gs { font-weight: bold } /* Generic.Strong */
+.gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.gt { color: #0044DD } /* Generic.Traceback */
+.kc { color: #008000; font-weight: bold } /* Keyword.Constant */
+.kd { color: #008000; font-weight: bold } /* Keyword.Declaration */
+.kn { color: #008000; font-weight: bold } /* Keyword.Namespace */
+.kp { color: #008000 } /* Keyword.Pseudo */
+.kr { color: #008000; font-weight: bold } /* Keyword.Reserved */
+.kt { color: #B00040 } /* Keyword.Type */
+.m { color: #666666 } /* Literal.Number */
+.s { color: #BA2121 } /* Literal.String */
+.na { color: #7D9029 } /* Name.Attribute */
+.nb { color: #008000 } /* Name.Builtin */
+.nc { color: #0000FF; font-weight: bold } /* Name.Class */
+.no { color: #880000 } /* Name.Constant */
+.nd { color: #AA22FF } /* Name.Decorator */
+.ni { color: #999999; font-weight: bold } /* Name.Entity */
+.ne { color: #D2413A; font-weight: bold } /* Name.Exception */
+.nf { color: #0000FF } /* Name.Function */
+.nl { color: #A0A000 } /* Name.Label */
+.nn { color: #0000FF; font-weight: bold } /* Name.Namespace */
+.nt { color: #008000; font-weight: bold } /* Name.Tag */
+.nv { color: #19177C } /* Name.Variable */
+.ow { color: #AA22FF; font-weight: bold } /* Operator.Word */
+.w { color: #bbbbbb } /* Text.Whitespace */
+.mb { color: #666666 } /* Literal.Number.Bin */
+.mf { color: #666666 } /* Literal.Number.Float */
+.mh { color: #666666 } /* Literal.Number.Hex */
+.mi { color: #666666 } /* Literal.Number.Integer */
+.mo { color: #666666 } /* Literal.Number.Oct */
+.sa { color: #BA2121 } /* Literal.String.Affix */
+.sb { color: #BA2121 } /* Literal.String.Backtick */
+.sc { color: #BA2121 } /* Literal.String.Char */
+.dl { color: #BA2121 } /* Literal.String.Delimiter */
+.sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
+.s2 { color: #BA2121 } /* Literal.String.Double */
+.se { color: #BB6622; font-weight: bold } /* Literal.String.Escape */
+.sh { color: #BA2121 } /* Literal.String.Heredoc */
+.si { color: #BB6688; font-weight: bold } /* Literal.String.Interpol */
+.sx { color: #008000 } /* Literal.String.Other */
+.sr { color: #BB6688 } /* Literal.String.Regex */
+.s1 { color: #BA2121 } /* Literal.String.Single */
+.ss { color: #19177C } /* Literal.String.Symbol */
+.bp { color: #008000 } /* Name.Builtin.Pseudo */
+.fm { color: #0000FF } /* Name.Function.Magic */
+.vc { color: #19177C } /* Name.Variable.Class */
+.vg { color: #19177C } /* Name.Variable.Global */
+.vi { color: #19177C } /* Name.Variable.Instance */
+.vm { color: #19177C } /* Name.Variable.Magic */
+.il { color: #666666 } /* Literal.Number.Integer.Long */
+</style>
+
+
+
+
+
+<style>
+h1.title {margin-top : 20px}
+img {max-width : 100%}
+
+#From nbconvert
+.ansi-black-fg { color: #3E424D; }
+.ansi-black-bg { background-color: #3E424D; }
+.ansi-black-intense-fg { color: #282C36; }
+.ansi-black-intense-bg { background-color: #282C36; }
+.ansi-red-fg { color: #E75C58; }
+.ansi-red-bg { background-color: #E75C58; }
+.ansi-red-intense-fg { color: #B22B31; }
+.ansi-red-intense-bg { background-color: #B22B31; }
+.ansi-green-fg { color: #00A250; }
+.ansi-green-bg { background-color: #00A250; }
+.ansi-green-intense-fg { color: #007427; }
+.ansi-green-intense-bg { background-color: #007427; }
+.ansi-yellow-fg { color: #DDB62B; }
+.ansi-yellow-bg { background-color: #DDB62B; }
+.ansi-yellow-intense-fg { color: #B27D12; }
+.ansi-yellow-intense-bg { background-color: #B27D12; }
+.ansi-blue-fg { color: #208FFB; }
+.ansi-blue-bg { background-color: #208FFB; }
+.ansi-blue-intense-fg { color: #0065CA; }
+.ansi-blue-intense-bg { background-color: #0065CA; }
+.ansi-magenta-fg { color: #D160C4; }
+.ansi-magenta-bg { background-color: #D160C4; }
+.ansi-magenta-intense-fg { color: #A03196; }
+.ansi-magenta-intense-bg { background-color: #A03196; }
+.ansi-cyan-fg { color: #60C6C8; }
+.ansi-cyan-bg { background-color: #60C6C8; }
+.ansi-cyan-intense-fg { color: #258F8F; }
+.ansi-cyan-intense-bg { background-color: #258F8F; }
+.ansi-white-fg { color: #C5C1B4; }
+.ansi-white-bg { background-color: #C5C1B4; }
+.ansi-white-intense-fg { color: #A1A6B2; }
+.ansi-white-intense-bg { background-color: #A1A6B2; }
+
+.ansi-bold { font-weight: bold; }
+</style>
+
+</HEAD>
+<BODY>
+    <div class ="container">
+        <div class = "row">
+            <div class = "col-md-12 twelve columns">
+<header class="banner">
+<svg xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" version="1.1" id="svg2" xml:space="preserve" sodipodi:docname="EC-C.eps" viewBox="0 0 529.13 264.57">
+<metadata id="metadata8"><rdf:RDF><cc:Work rdf:about=""><dc:format>image/svg+xml</dc:format><dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/></cc:Work></rdf:RDF></metadata><defs id="defs6"/><sodipodi:namedview pagecolor="#ffffff" bordercolor="#666666" borderopacity="1" objecttolerance="10" gridtolerance="10" guidetolerance="10" inkscape:pageopacity="0" inkscape:pageshadow="2" inkscape:window-width="640" inkscape:window-height="480" id="namedview4"/><g id="g10" inkscape:groupmode="layer" inkscape:label="ink_ext_XXXXXX" transform="matrix(1.3333333,0,0,-1.3333333,0,468.32)"><g id="g12" transform="scale(0.1)"> <!-- uminho symbol + red background --> <path d="M 0,1528.15 H 1984.25 V 3512.4 H 0 V 1528.15" style="fill:#a42a3c;fill-opacity:1;fill-rule:nonzero;stroke:none" id="path14"/> <!-- uminho symbol --> <path d="m 1502.43,2751.68 -378.95,-220.62 c -68.8,-39.71 -129.285,64.76 -60.48,104.49 l 379,220.52 c 68.88,39.76 129.16,-64.71 60.43,-104.39 m -1039.617,-1.46 383.14,-217.25 c 68.711,-39.66 129.059,64.89 60.172,104.67 L 522.922,2854.8 c -68.77,39.7 -128.938,-64.84 -60.109,-104.58 m 459.449,-797.92 -0.047,440.75 c 0,33.37 27.109,60.33 60.379,60.33 33.336,0 60.336,-27.01 60.336,-60.34 l -0.05,-440.74 c 0,-33.28 -26.92,-60.34 -60.286,-60.33 -33.321,0 -60.332,27.01 -60.332,60.33 m -379.258,235.44 184.039,104.36 c 68.863,39.77 8.461,144.3 -60.289,104.6 L 482.758,2292.24 c -68.774,-39.72 -8.574,-144.24 60.246,-104.5 m 918.046,-3.45 -179.19,108.08 c -68.78,39.7 -8.28,144.18 60.55,104.43 l 179.14,-108.16 c 68.72,-39.67 8.4,-144.12 -60.5,-104.35 m -478.495,964.28 c -33.371,0 -60.293,-27.05 -60.293,-60.33 l -0.047,-211.59 c 0,-33.32 27.012,-60.34 60.34,-60.34 33.265,0 60.375,26.98 60.375,60.34 l -0.05,211.59 c 0,33.32 -27,60.33 -60.325,60.33" style="fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none" id="path16"/> <!-- ec symbol + blue background --> <path d="M 1984.25,1528.15 H 3968.51 V 3512.4 H 1984.25 V 1528.15" style="fill:#8cbce8;fill-opacity:1;fill-rule:nonzero;stroke:none" id="path22"/> <!-- ec symbol --> <path d="m 3540.85,2274.8 -100.97,183.1 c -39.72,68.79 -144.26,8.6 -104.58,-60.12 l 101.07,-183.06 c 39.74,-68.84 144.12,-8.57 104.48,60.08 m -17.75,558.93 c 0,33.34 -27.02,60.24 -60.29,60.24 l -211.41,0.05 c -33.3,0 -60.28,-27 -60.28,-60.29 0,-33.25 26.94,-60.34 60.28,-60.34 l 211.41,0.05 c 33.31,0 60.29,26.99 60.29,60.29 m -362.52,-738.96 c 16.65,28.85 6.78,65.71 -22.07,82.36 -28.87,16.67 -65.68,6.72 -82.31,-22.09 l -105.75,-183.06 c -16.65,-28.84 -6.77,-65.71 22.07,-82.36 28.79,-16.62 65.73,-6.83 82.4,22.04 z m -150.24,974.55 c 16.66,28.85 6.77,65.71 -22.06,82.36 -28.88,16.67 -65.69,6.72 -82.32,-22.09 l -105.75,-183.06 c -16.65,-28.84 -6.76,-65.71 22.07,-82.36 28.8,-16.62 65.73,-6.83 82.4,22.05 z m -241.49,-862.5 c 0,33.25 -26.96,60.34 -60.29,60.34 l -211.42,-0.05 c -33.29,0 -60.29,-27 -60.29,-60.29 -0.01,-33.35 27.04,-60.24 60.29,-60.24 l 211.4,-0.05 c 33.31,0 60.31,26.99 60.31,60.29 M 2622,2635.57 2516.25,2818.63 c -16.63,28.81 -53.44,38.76 -82.31,22.09 -28.84,-16.65 -38.72,-53.51 -22.07,-82.36 l 105.66,-183.1 c 16.67,-28.88 53.61,-38.67 82.4,-22.05 28.83,16.65 38.72,53.52 22.07,82.36" style="fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none" id="path24"/> </g> </g>
+</svg>
+</header>
+<h1 id="bibtexpro-um-processador-de-bibtex">BibTeXPro, Um processador de BibTeX</h1>
+<p><strong>Instituição:</strong> Universidade do Minho</p>
+<p><strong>Cadeira:</strong> Processamento de Linguagens e Compiladores (2021/2022)</p>
+<p><strong>Identificação:</strong> plc21TP1gr03</p>
+<dl>
+<dt><strong>Equipa</strong></dt>
+<dd><a href="https://github.com/Alef-Keuffer/">Alef Keuffer</a> (A91383)
+</dd>
+<dd><a href="https://github.com/IvoLims">Ivo Lima</a> (A90214)
+</dd>
+<dd><a href="https://github.com/CatarinaQuintas">Catarina Quintas</a> (A91650)
+</dd>
+</dl>
+<h2 id="o-formato-bibtex">O formato <span class="math inline">\(Bib\TeX\)</span></h2>
+<p><span class="math inline">\(Bib\TeX\)</span> é a ferramenta e formato de ficheiro usado para descrever e processar listas de referências, principalmente em conjunção com <span class="math inline">\(La\TeX\)</span>.</p>
+<h3 id="entrada-bibtex">Entrada <span class="math inline">\(Bib\TeX\)</span></h3>
+<p>Uma entrada <span class="math inline">\(Bib\TeX\)</span> consiste em um <strong>tipo de entrada</strong>, uma <strong>chave de citação</strong> e um número de <strong>campos</strong> que definem várias caraterísticas de uma entrada específica.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>.</p>
+<p>Existem 17 tipos de entrada, sendo 14 categorias de referência e 3 de uso específico em <span class="math inline">\(Bib\TeX\)</span>.</p>
+<p>As entradas não são <em>case sensitive</em><a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>.</p>
+<p>A documentação diz que ficheiros <span class="math inline">\(Bib\TeX\)</span> podem conter 4 tipos de entrada: <code>@string</code>, <code>@preamble</code>, <code>@comment</code> e 14 categorias (e.g. <code>@article</code>, <code>@book</code>, etc)<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>.</p>
+<p>Note que:</p>
+<dl>
+<dt><code>@string</code></dt>
+<dd>define abreviações que podem se usadas depois em um campo.
+</dd>
+<dt><code>@preamble</code></dt>
+<dd>define como um texto especial deve ser formatado.
+</dd>
+<dt><code>@comment</code></dt>
+<dd>para comentários que não devem ser levados em conta pelo <span class="math inline">\(Bib\TeX\)</span>.
+</dd>
+</dl>
+<p>Estas três não seram processadas pelo nosso programa.</p>
+<h2 id="especificação-da-solução">Especificação da Solução</h2>
+<p>A nossa solução deve satisfazer os seguintes requisitos<a name="req"></a>:</p>
+<dl>
+<dt>(R1)<a name="R1"></a></dt>
+<dd>Fazer a contagem das categorias presentes no documento, tais como: <em>phDThesis</em>, <em>Misc</em>, <em>InProceeding</em>, etc.
+</dd>
+<dt>(R2)<a name="R2"></a></dt>
+<dd>Produzir um documento em formato <em>HTML</em> com <a name="R21"></a>(R2.1) o nome das categorias encontradas e <a name="R22"></a>(R2.2) respectivas contagens.
+</dd>
+<dt>(R3)<a name="R3"></a></dt>
+<dd>Filtrar, para cada entrada de cada categoria, a respetiva <a name="R31"></a>(R3.1) chave, <a name="R32"></a>(R3.2) autores e <a name="R33"></a>(R3.3) título. <a name="R34"></a>(R3.4) O resultado final deverá ser incluído no documento <em>HTML</em> gerado em <a href="#R2">(R2)</a>.
+</dd>
+<dt>(R4)<a name="R4"></a></dt>
+<dd>Criar um índice de autores, que mapeie cada autor nos respectivos registos, de modo a que posteriormente uma ferramenta de procura do Linux possa fazer a pesquisa.
+</dd>
+<dt>(R5)<a name="R5"></a></dt>
+<dd>Construir um Grafo que mostre, para um dado autor (definido à partida) todos os autores que publicam normalmente com o autor em causa.
+</dd>
+<dt>(R6)<a name="R6"></a></dt>
+<dd>Recorrendo à linguagem <em>Dot</em> do <em>GraphViz</em>, gerar um ficheiro com o grafo de <a href="#R5">(R5)</a> de modo a que possa, posteriormente, usar uma das ferramentas que processam <em>Dot</em> para desenhar o dito grafo de associações de autores.
+</dd>
+</dl>
+<h2 id="execução-do-programa">Execução do programa</h2>
+<p>Para realizar as modificações no ficheiro usamos <code>solve(author_name,INPUT_FILENAME=BIB_EXAMPLE_FILENAME)</code>, passando como argumento o nome do autor que queremos conforme <a href="#R5">(R5)</a>.</p>
+<section class="footnotes" role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1" role="doc-endnote"><p>http://www.bibtex.org/Format/<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2" role="doc-endnote"><p>https://tex.stackexchange.com/questions/163687/is-there-a-preferred-capitalization-style-for-reference-types-in-bibtex-biblatex<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3" role="doc-endnote"><p>http://www.bibtex.org/Format/<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+
+
+<h2 id="módulo-não-é-re">Módulo não é <code>re</code></h2>
+<p>Usamos o módulo <code>regex</code> que é um <em>superset</em> de <code>re</code> mais poderoso. Seu uso será justificado.</p>
+
+
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">regex</span> <span class="k">as</span> <span class="nn">re</span>
+</pre></div>
+
+<h2 id="algumas-constantes">Algumas constantes</h2>
+<p>Aqui incluimos <em>MathJax</em>, uma biblioteca em <em>javascript</em>, para renderizar fórmulas matemáticas nos navegadores.</p>
+
+
+<div class="highlight"><pre><span></span><span class="n">MATHJAX</span> <span class="o">=</span> <span class="s1">&#39;&#39;&#39;</span>
+<span class="s1">            &lt;script type=&quot;text/x-mathjax-config&quot;&gt;</span>
+<span class="s1">                MathJax.Hub.Config({</span>
+<span class="s1">                    &quot;extensions&quot;:[&quot;tex2jax.js&quot;],</span>
+<span class="s1">                    &quot;jax&quot;:[&quot;input/TeX&quot;,</span>
+<span class="s1">                           &quot;output/HTML-CSS&quot;],</span>
+<span class="s1">                    &quot;messageStyle&quot;:&quot;none&quot;,</span>
+<span class="s1">                    &quot;tex2jax&quot;:{</span>
+<span class="s1">                        &quot;processEnvironments&quot;:false,</span>
+<span class="s1">                        &quot;processEscapes&quot;:true,</span>
+<span class="s1">                        &quot;inlineMath&quot;:[[&quot;$&quot;,&quot;$&quot;]],</span>
+<span class="s1">                        &quot;displayMath&quot;:[]</span>
+<span class="s1">                    },</span>
+<span class="s1">                    &quot;TeX&quot;:{</span>
+<span class="s1">                        &quot;extensions&quot;:[&quot;AMSmath.js&quot;,</span>
+<span class="s1">                                      &quot;AMSsymbols.js&quot;,</span>
+<span class="s1">                                      &quot;noErrors.js&quot;,</span>
+<span class="s1">                                      &quot;noUndefined.js&quot;]</span>
+<span class="s1">                    },</span>
+<span class="s1">                    &quot;HTML-CSS&quot;:{</span>
+<span class="s1">                        &quot;availableFonts&quot;:[&quot;TeX&quot;]</span>
+<span class="s1">                    }</span>
+<span class="s1">                });</span>
+<span class="s1">            &lt;/script&gt;</span>
+
+<span class="s1">            &lt;script type=&quot;text/javascript&quot; async</span>
+<span class="s1">                src=&quot;https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js&quot;&gt;</span>
+<span class="s1">            &lt;/script&gt;</span>
+<span class="s1">&#39;&#39;&#39;</span>
+</pre></div>
+
+<p>O início do nosso <em>HTML</em> é</p>
+
+
+<div class="highlight"><pre><span></span><span class="n">HTML_PROLOGUE</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;&#39;&#39;&lt;!DOCTYPE  html&gt;</span>
+<span class="s1">    &lt;HTML lang=&quot;en&quot;&gt;</span>
+<span class="s1">        &lt;HEAD&gt;</span>
+<span class="s1">            &lt;meta charset=&quot;utf-8&quot;&gt;</span>
+<span class="s1">            &lt;TITLE&gt;Categories in BibTeX&lt;/TITLE&gt;</span>
+<span class="s1">            </span><span class="si">{</span><span class="n">MATHJAX</span><span class="si">}</span><span class="s1"></span>
+<span class="s1">        &lt;/HEAD&gt;&#39;&#39;&#39;</span>
+</pre></div>
+
+<p>Vamos ter que fechar a tag <em>HTML</em> que começamos em <code>HTML_PROLOGUE</code>:</p>
+
+
+<div class="highlight"><pre><span></span><span class="n">HTML_EPILOGUE</span> <span class="o">=</span> <span class="s1">&#39;&lt;/HTML&gt;&#39;</span>
+</pre></div>
+
+<p>O ficheiro dado como argumento de entrada é o ficheiro <code>exemplo-utf8.bib</code>.</p>
+
+
+<div class="highlight"><pre><span></span><span class="n">BIB_EXAMPLE_FILENAME</span> <span class="o">=</span> <span class="s2">&quot;exemplo-utf8.bib&quot;</span>
+</pre></div>
+
+<p>Decidimos nomear o output <code>output.html</code>.</p>
+
+
+<div class="highlight"><pre><span></span><span class="n">OUTPUT_FILENAME</span> <span class="o">=</span> <span class="s1">&#39;output.html&#39;</span>
+</pre></div>
+
+<h2 id="função-principal">Função principal</h2>
+<p>Em <code>solve()</code> temos a váriavel <code>html_str_ls</code> que consiste numa lista de <em>strings</em> que serão concatenadas. A título de optimização da imutabilidade de <em>strings</em> (concatenação de <em>strings</em> em <em>python</em> cria uma cópia de cada), optamos por fazer sucessivos <em>appends</em> de custo <span class="math inline">\(\cal{O}(1)\)</span> e por fim, concatena-las para formar o código <em>HTML</em>.</p>
+<p>Em <code>bib_str</code> guardamos todo o texto contido em <code>INPUT_FILENAME</code>.</p>
+
+
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">solve</span><span class="p">(</span><span class="n">author_name</span><span class="p">,</span><span class="n">INPUT_FILENAME</span><span class="o">=</span><span class="n">BIB_EXAMPLE_FILENAME</span><span class="p">):</span>
+    <span class="n">html_str_ls</span> <span class="o">=</span> <span class="p">[</span><span class="n">HTML_PROLOGUE</span><span class="p">]</span>
+    <span class="n">bib_str</span> <span class="o">=</span> <span class="n">get_bib_str</span><span class="p">(</span><span class="n">INPUT_FILENAME</span><span class="p">)</span>
+
+    <span class="n">entries</span> <span class="o">=</span> <span class="n">get_entries</span><span class="p">(</span><span class="n">bib_str</span><span class="p">)</span>
+    <span class="n">format_authors</span><span class="p">(</span><span class="n">entries</span><span class="p">)</span>
+    <span class="n">fix_repeated_authors</span><span class="p">(</span><span class="n">entries</span><span class="p">)</span>
+
+    <span class="n">html_str_ls</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+        <span class="n">html_enclose</span><span class="p">(</span><span class="s1">&#39;body&#39;</span><span class="p">,</span>
+            <span class="n">get_html_pub_type_counts</span><span class="p">(</span><span class="n">entries</span><span class="p">)</span>
+            <span class="o">+</span> <span class="n">get_html_common_pub_author</span><span class="p">(</span><span class="n">author_name</span><span class="p">,</span><span class="n">entries</span><span class="p">)</span>
+            <span class="o">+</span> <span class="n">get_html_pub_type_index</span><span class="p">(</span><span class="n">entries</span><span class="p">)</span>
+            <span class="o">+</span> <span class="n">get_html_author_index</span><span class="p">(</span><span class="n">entries</span><span class="p">)))</span>
+
+    <span class="n">html_str_ls</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">HTML_EPILOGUE</span><span class="p">)</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">OUTPUT_FILENAME</span><span class="p">,</span><span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+        <span class="n">file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">html_str_ls</span><span class="p">))</span>
+</pre></div>
+
+<p><code>get_bib_str()</code> é utilizada para abrir e extrair o conteúdo do ficheiro.</p>
+
+
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_bib_str</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span><span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">file</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+</pre></div>
+
+<h2 id="recolhendo-as-entradas">Recolhendo as entradas</h2>
+<p>Neste procedimento, criamos um dicionário onde cada chave é um par (categoria de publicação, nome do autor) e o valor é um dicionário em que cada chave é um campo da entrada <span class="math inline">\(Bib\TeX\)</span> e o valor é o valor do campo.</p>
+
+
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_entries</span><span class="p">(</span><span class="n">string</span><span class="p">):</span>
+    <span class="n">d</span> <span class="o">=</span> <span class="p">{}</span>
+</pre></div>
+
+<p>Poderíamos coletar todos os campos de todas as entradas, mas neste trabalho só são relevantes alguns campos. Então, para economizar espaço no dicionário, definimos:</p>
+
+
+<div class="highlight"><pre><span></span>    <span class="n">RELEVANT_FIELDS</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;author&#39;</span><span class="p">,</span><span class="s1">&#39;title&#39;</span><span class="p">}</span>
+</pre></div>
+
+<p>Como foi dito anteriormente, alguns tipos de entrada não são categorias de referência, assim iremos ignorá-los.</p>
+
+
+<div class="highlight"><pre><span></span>    <span class="n">SPECIAL_TYPES</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;comment&#39;</span><span class="p">,</span><span class="s1">&#39;string&#39;</span><span class="p">,</span><span class="s1">&#39;preamble&#39;</span><span class="p">}</span>
+</pre></div>
+
+<p>É aqui que se justifica o uso do módulo <code>regex</code>. Note a expressão regular:</p>
+
+
+<div class="highlight"><pre><span></span>    <span class="n">between_cbrace_ex</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;(?:(?&lt;rec&gt;{(?:[^</span><span class="si">{}</span><span class="s1">]+|(?P&gt;rec))*+}))&#39;</span>
+</pre></div>
+
+<p>Nela usamos um padrão recursivo não suportado pelo módulo <code>re</code>. O padrão é usado para capturar o que está entre chavetas, que podem estar aninhadas arbitrariamente.</p>
+
+
+<div class="highlight"><pre><span></span>    <span class="n">field_match</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span>
+        <span class="sa">rf</span><span class="s2">&quot;(?&lt;name&gt;\w+)\s*=\s*(&quot;</span>
+        <span class="sa">rf</span><span class="s2">&quot;(?&lt;value&gt;</span><span class="si">{</span><span class="n">between_cbrace_ex</span><span class="si">}</span><span class="s2">)&quot;</span>
+        <span class="sa">rf</span><span class="s1">&#39;|&quot;(?&lt;value&gt;[^&quot;]+)&quot;&#39;</span>
+        <span class="sa">rf</span><span class="s2">&quot;|(?&lt;value&gt;\d+))&quot;</span>
+    <span class="p">)</span>
+    <span class="n">entry_match</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">rf</span><span class="s1">&#39;@(?&lt;type&gt;\w+)(?&lt;value&gt;</span><span class="si">{</span><span class="n">between_cbrace_ex</span><span class="si">}</span><span class="s1">)&#39;</span><span class="p">)</span>
+    <span class="n">key_match</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;([^</span><span class="si">{}</span><span class="s1">,~#%</span><span class="se">\\</span><span class="s1">]+),&#39;</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">entry</span> <span class="ow">in</span> <span class="n">entry_match</span><span class="o">.</span><span class="n">finditer</span><span class="p">(</span><span class="n">string</span><span class="p">):</span>
+        <span class="n">entry_type</span> <span class="o">=</span> <span class="n">entry</span><span class="p">[</span><span class="s1">&#39;type&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">entry_type</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">SPECIAL_TYPES</span><span class="p">:</span>
+            <span class="n">key</span> <span class="o">=</span> <span class="n">key_match</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">entry</span><span class="p">[</span><span class="s1">&#39;value&#39;</span><span class="p">])[</span><span class="mi">1</span><span class="p">]</span>
+            <span class="n">d</span><span class="p">[</span><span class="n">entry_type</span><span class="p">,</span> <span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="n">field</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">():</span> <span class="n">field</span><span class="p">[</span><span class="s1">&#39;value&#39;</span><span class="p">]</span>
+                <span class="k">for</span> <span class="n">field</span> <span class="ow">in</span> <span class="n">field_match</span><span class="o">.</span><span class="n">finditer</span><span class="p">(</span><span class="n">entry</span><span class="p">[</span><span class="s1">&#39;value&#39;</span><span class="p">])</span>
+                <span class="k">if</span> <span class="n">field</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="n">RELEVANT_FIELDS</span>
+            <span class="p">}</span>
+
+    <span class="k">return</span> <span class="n">d</span>
+</pre></div>
+
+<h2 id="procedimentos-usados-ao-longo-do-programa">Procedimentos usados ao longo do programa</h2>
+<h3 id="relacionados-a-expressões-latex">Relacionados a expressões <span class="math inline">\(La\TeX\)</span></h3>
+<h4 id="chavetas">Chavetas</h4>
+<p>Assumimos que as chavetas estão balanceadas.</p>
+<p>Chavetas dentro de títulos são usadas para prevenir que palavras sejam convertidas em letras minúsculas (se “sentence style” é usado ao invés de “title style”)<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>.</p>
+<p>Por exemplo, devemos usar chavetas para escrever</p>
+<p><code>title = "The Life of {Albert} {Einstein}"</code></p>
+<p>ou, de forma equivalente,</p>
+<p><code>title = {The life of {Albert} {Einstein}}</code></p>
+<p>se quisermos garantir que as letras ‘A’ e ‘E’ sejam sempre formatadas em letras maiúsculas mesmo que “sentence style” esteja sendo usado.</p>
+<p>Suspeitamos que talvez pudessemos usar:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">r&#39;[^</span><span class="ch">\\</span><span class="co">]\$.*[^</span><span class="ch">\\</span><span class="co">]\$&#39;</span></span></code></pre></div>
+<p>para identificar que não estamos dando <em>escape</em> no <em>dollar sign</em>. Mas já tinhamos esse procedimento feito e decidimos por não alterá-lo.</p>
+<p><a name="unbrace"></a></p>
+<section class="footnotes" role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1" role="doc-endnote"><p>https://tex.stackexchange.com/questions/109064/is-there-a-difference-between-and-in-bibtex:<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+
+
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">unbrace</span><span class="p">(</span><span class="n">expression</span><span class="p">):</span>
+    <span class="n">string_ls</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">is_between_dollar_sign</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="n">is_previous_backslash</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">expression</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">c</span> <span class="o">==</span> <span class="s1">&#39;$&#39;</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">is_previous_backslash</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">is_between_dollar_sign</span><span class="p">:</span>
+                <span class="n">is_between_dollar_sign</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">is_between_dollar_sign</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">if</span> <span class="n">c</span> <span class="o">==</span> <span class="s1">&#39;</span><span class="se">\\</span><span class="s1">&#39;</span><span class="p">:</span>
+            <span class="n">is_previous_backslash</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">is_previous_backslash</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="k">if</span> <span class="n">c</span> <span class="ow">in</span> <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">&#39;</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">is_between_dollar_sign</span><span class="p">:</span>
+            <span class="k">continue</span>
+        <span class="n">string_ls</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
+    <span class="k">return</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">string_ls</span><span class="p">)</span>
+</pre></div>
+
+<h3 id="relacionados-a-html">Relacionados a <em>HTML</em></h3>
+<p>É muito comum em <em>HTML</em> o uso de <em>tags</em> para marcar uma expressão. Então, criamos um procedimento que facilita cercar uma expressão pela <em>tag</em> desejada.</p>
+
+
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">html_enclose</span><span class="p">(</span><span class="n">tag</span><span class="p">,</span><span class="n">string</span><span class="p">):</span>
+    <span class="k">return</span> <span class="sa">rf</span><span class="s1">&#39;&lt;</span><span class="si">{</span><span class="n">tag</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span><span class="si">}</span><span class="s1">&gt;</span><span class="si">{</span><span class="n">string</span><span class="si">}</span><span class="s1">&lt;/</span><span class="si">{</span><span class="n">tag</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span><span class="si">}</span><span class="s1">&gt;&#39;</span>
+</pre></div>
+
+<p>Nesse sentido, <em>spans</em> são muito úteis em <em>HTML</em>, logo criamos:</p>
+
+
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">html_create_span</span><span class="p">(</span><span class="n">expression</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">html_enclose</span><span class="p">(</span><span class="s1">&#39;span&#39;</span><span class="p">,</span><span class="n">expression</span><span class="p">)</span>
+</pre></div>
+
+<p>Às vezes queremos adicionar um atributo numa <em>tag</em>, nesse caso podemos usar (há um pequeno problema com esse procedimento, mas para nosso uso não foi relevante):</p>
+
+
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">html_add_attr</span><span class="p">(</span><span class="n">attr</span><span class="p">,</span> <span class="n">val</span><span class="p">,</span> <span class="n">html_expression</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span>
+        <span class="sa">r</span><span class="s2">&quot;&lt;(\w+)([^&gt;]*)\s*&gt;(.*)&lt;/\1&gt;&quot;</span><span class="p">,</span>
+        <span class="sa">rf</span><span class="s1">&#39;&lt;\1\2 </span><span class="si">{</span><span class="n">attr</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span><span class="si">}</span><span class="s1">=&quot;</span><span class="si">{</span><span class="n">val</span><span class="si">}</span><span class="s1">&quot;&gt;\3&lt;/\1&gt;&#39;</span><span class="p">,</span>
+        <span class="n">html_expression</span><span class="p">,</span>
+    <span class="p">)</span>
+</pre></div>
+
+<h3 id="relacionados-a-regex">Relacionados a <em>Regex</em></h3>
+<p>Em certas ocasiões, desejamos fazer várias substituições seguidas numa <em>string</em>, logo criamos:</p>
+
+
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">mult_replace</span><span class="p">(</span><span class="n">string</span><span class="p">,</span> <span class="n">replacement_list</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">old</span><span class="p">,</span> <span class="n">new</span> <span class="ow">in</span> <span class="n">replacement_list</span><span class="p">:</span>
+        <span class="n">string</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="n">old</span><span class="p">,</span> <span class="n">new</span><span class="p">,</span> <span class="n">string</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">string</span>
+</pre></div>
+
+<h2 id="tratamento-do-nome-dos-autores">Tratamento do nome dos autores</h2>
+<p>Escolhemos remover acentuações e caráteres especiais que as representam em <span class="math inline">\(La\TeX\)</span> (e.g. <code>\~</code>) do nome dos autores.</p>
+<p>É importante notar que ainda ocorrem alguns problemas de acentuações uma vez que não removemos acentuações do tipo <code>\~{}</code>.</p>
+
+
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">format_authors</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+        <span class="k">if</span> <span class="s2">&quot;author&quot;</span> <span class="ow">in</span> <span class="n">d</span><span class="p">:</span>
+            <span class="n">author_lst</span> <span class="o">=</span> <span class="p">[</span> <span class="n">remove_consecutive_spaces</span><span class="p">(</span>
+                           <span class="nb">str</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span>
+                           <span class="n">invert_name</span><span class="p">(</span>
+                           <span class="n">unbrace</span><span class="p">(</span>
+                           <span class="n">remove_accents</span><span class="p">(</span><span class="n">name</span><span class="p">)))))</span>
+
+                           <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">re</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;\band\b&quot;</span><span class="p">,</span>
+                                                <span class="n">d</span><span class="p">[</span><span class="s2">&quot;author&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot; &quot;</span><span class="p">))]</span>
+            <span class="n">d</span><span class="p">[</span><span class="s1">&#39;author&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">author</span> <span class="k">for</span> <span class="n">author</span> <span class="ow">in</span> <span class="n">author_lst</span> <span class="k">if</span> <span class="n">author</span><span class="p">]</span>
+</pre></div>
+
+<h3 id="procedimentos-auxiliares">Procedimentos auxiliares</h3>
+
+
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">remove_consecutive_spaces</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;\s+&#39;</span><span class="p">,</span><span class="s1">&#39; &#39;</span><span class="p">,</span><span class="n">name</span><span class="p">)</span>
+</pre></div>
+
+<h4 id="inversão-das-componentes-do-nome">Inversão das componentes do nome</h4>
+<p>Para inverter nomes do tipo: last_name, first_name. Por exemplo: “da Cruz, Daniela” → “Daniela da Cruz”</p>
+
+
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">invert_name</span><span class="p">(</span><span class="n">author_name</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;([^,]+),\s*([^,]+)&quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;\2 \1&quot;</span><span class="p">,</span> <span class="n">author_name</span><span class="p">)</span>
+</pre></div>
+
+<h4 id="remoção-de-acentuações">Remoção de acentuações</h4>
+<p>Relevante nesse sentido é o <em>script</em> achado em <a href="https://github.com/hayk314/LaTex-handler">LaTex-handler</a> ou tabelas encontradas <a href="#https://stackoverflow.com/questions/4578912/replace-all-accented-characters-by-their-latex-equivalent">aqui</a>.</p>
+
+
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">remove_accents</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">remove_latex_accent</span><span class="p">(</span><span class="n">remove_normal_accent</span><span class="p">(</span><span class="n">name</span><span class="p">))</span>
+</pre></div>
+
+<p>Para remoção de acentos <span class="math inline">\(La\TeX\)</span> consultamos a <a href="https://en.wikibooks.org/wiki/LaTeX/Special_Characters">wiki</a>.</p>
+<p>Pensamos em possivelmente usar algo como (1 a 2 pelo caso <code>\t{oo}</code>, <code>SYMBOL</code> é um caráter relevante):</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>re.sub(<span class="vs">r&#39;(?(?={)(SYMBOL){(\w{1,2})}|(\w))&#39;</span>,</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>       <span class="kw">lambda</span> m: fix_accent(m[<span class="dv">1</span>],m[<span class="dv">2</span>]),</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>       author_name)</span></code></pre></div>
+<p>para manter acentuações, mas devido a restrições de tempo não achamos prudente embarcar nesta ideia.</p>
+
+
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">remove_latex_accent</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;</span><span class="se">\\</span><span class="s1">\W(?:{(.*)})?&#39;</span><span class="p">,</span>
+                  <span class="s1">&#39;</span><span class="se">\1</span><span class="s1">&#39;</span><span class="p">,</span>
+                  <span class="n">name</span><span class="p">)</span>
+</pre></div>
+
+<p>Aqui removemos palavras com acentuações normais, isto é, palavras como “á”, “é”, “í”, etc (não <span class="math inline">\(La\TeX\)</span>).</p>
+
+
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">remove_normal_accent</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
+    <span class="kn">import</span> <span class="nn">unicodedata</span>
+
+    <span class="k">return</span> <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+        <span class="p">(</span>
+            <span class="n">c</span>
+            <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">unicodedata</span><span class="o">.</span><span class="n">normalize</span><span class="p">(</span><span class="s2">&quot;NFD&quot;</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">unicodedata</span><span class="o">.</span><span class="n">category</span><span class="p">(</span><span class="n">c</span><span class="p">)</span> <span class="o">!=</span> <span class="s2">&quot;Mn&quot;</span>
+        <span class="p">)</span>
+    <span class="p">)</span>
+</pre></div>
+
+<p>Também usamos a já referenciada <a href="#unbrace"><code>unbrace()</code></a>.</p>
+<h2 id="tratando-autores-repetidos-na-estrutura">Tratando autores repetidos na estrutura</h2>
+<p>No dicionário, teremos autores repetidos (pois podem estar escritos de formas diferentes, omitindo alguns sobrenomes ou até mesmo primeiros nomes).</p>
+<p>Por exemplo, ‘M. J. Varanda’, ‘M. Joao Varanda’, ‘Maria Joao Varanda’ e ‘Maria Joao V. Pereira’ são diferentes maneiras de se referir a mesma pessoa.</p>
+
+
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">fix_repeated_authors</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+    <span class="n">author_blocks</span> <span class="o">=</span> <span class="n">fix_block_func</span><span class="p">(</span>
+                        <span class="n">block_authors_with_two_common_names_v2</span><span class="p">(</span>
+                            <span class="n">get_author_list</span><span class="p">(</span><span class="n">data</span><span class="p">)))</span>
+
+    <span class="n">author_dict</span> <span class="o">=</span> <span class="p">{</span><span class="n">author_name</span><span class="p">:</span><span class="nb">max</span><span class="p">(</span><span class="n">s</span><span class="p">,</span><span class="n">key</span><span class="o">=</span><span class="nb">len</span><span class="p">)</span>
+                   <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">author_blocks</span>
+                   <span class="k">for</span> <span class="n">author_name</span> <span class="ow">in</span> <span class="n">s</span><span class="p">}</span>
+
+    <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+        <span class="n">d</span><span class="p">[</span><span class="s1">&#39;author&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">author_dict</span><span class="p">[</span><span class="n">author</span><span class="p">]</span>
+                       <span class="k">for</span> <span class="n">author</span> <span class="ow">in</span> <span class="n">d</span><span class="p">[</span><span class="s1">&#39;author&#39;</span><span class="p">]]</span>
+</pre></div>
+
+<p>Para lidar com isso, realizamos três procedimentos:</p>
+<ol type="1">
+<li>Obtemos uma lista dos autores ordenada alfabeticamente.</li>
+<li>Criamos conjuntos onde os seus elementos representam um mesmo autor. Ou seja, se temos três nomes: <span class="math inline">\(A\)</span>, <span class="math inline">\(B\)</span> e <span class="math inline">\(C\)</span> e temos os conjuntos <span class="math inline">\(\{A,B\}\)</span> e <span class="math inline">\(\{B,C\}\)</span>, então os nomes <span class="math inline">\(A,B,C\)</span> referem-se ao mesmo autor.</li>
+<li>Juntamos esses blocos para que cada bloco seja um único autor. Ou seja, determinamos uma “transitividade” nos blocos, usando o exemplo anterior, se temos <span class="math inline">\(\{A,B\}\)</span> e <span class="math inline">\(\{B,C\}\)</span>, devemos obter <span class="math inline">\(\{A,B,C\}\)</span>.</li>
+</ol>
+<h3 id="procedimento-1">Procedimento 1</h3>
+
+
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_author_list</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+    <span class="k">return</span> <span class="nb">sorted</span><span class="p">(</span><span class="nb">set</span><span class="p">([</span><span class="n">a</span>
+                       <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">values</span><span class="p">()</span>
+                       <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">s</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;author&quot;</span><span class="p">,</span> <span class="p">[])]))</span>
+</pre></div>
+
+<h3 id="procedimento-2">Procedimento 2</h3>
+
+
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">block_authors_with_two_common_names_v2</span><span class="p">(</span><span class="n">authors</span><span class="p">):</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">author</span> <span class="ow">in</span> <span class="n">authors</span><span class="p">:</span>
+        <span class="n">fs</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">author2</span> <span class="ow">in</span> <span class="n">authors</span><span class="p">:</span>
+            <span class="n">a1</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;\w\w+&#39;</span><span class="p">,</span><span class="n">author</span><span class="p">))</span>
+            <span class="n">a2</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;\w\w+&#39;</span><span class="p">,</span><span class="n">author2</span><span class="p">))</span>
+</pre></div>
+
+<p>Se os autores tem mais de duas componentes do nome em comum, então podemos considera-los o mesmo autor.</p>
+
+
+<div class="highlight"><pre><span></span>            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">a1</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="n">a2</span><span class="p">))</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="n">fs</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">author2</span><span class="p">)</span>
+</pre></div>
+
+<p>Para lidar com a situação descrita abaixo, assumimos que a primeira componente de um nome nunca será omitida.</p>
+<p>Caso especial: Suponha que existe um autor que só tem uma componente do nome não abreviada (e.g. P. Henriques). Suponha que outro autor (e.g. P.R. Henriques) também só tem uma componente do nome não abreviada e essa componente é igual a do primeiro autor. Então ainda temos que fortalecer a condição para que sejam considerados iguais. Para isso, usamos <a href="#is_a_first_last_match"><code>is_a_first_last_match()</code></a> garantindo que pelo menos a abreviação da primeira componente dos nomes sejam iguais.</p>
+
+
+<div class="highlight"><pre><span></span>            <span class="k">elif</span> <span class="p">(</span>
+                <span class="nb">len</span><span class="p">(</span><span class="n">a1</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span>
+                <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">a1</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="n">a2</span><span class="p">))</span> <span class="o">==</span> <span class="mi">1</span>
+                <span class="ow">and</span> <span class="n">is_a_first_last_match</span><span class="p">(</span><span class="n">author</span><span class="p">,</span> <span class="n">author2</span><span class="p">)</span>
+            <span class="p">):</span>
+                <span class="n">fs</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">author2</span><span class="p">)</span>
+        <span class="n">res</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="nb">frozenset</span><span class="p">(</span><span class="n">fs</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">res</span>
+</pre></div>
+
+<p>Pra implementar <a href="#is_a_first_last_match"><code>is_a_first_last_match()</code></a> usamos <code>get_crude_abbrev()</code> para obter uma string com o primeiro caráter de cada componente do nome de um autor (e.g. “Ricardo Henriques → RH”).</p>
+
+
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_crude_abbrev</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
+    <span class="k">return</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">c</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">name</span> <span class="k">if</span> <span class="n">c</span><span class="o">.</span><span class="n">isupper</span><span class="p">())</span>
+</pre></div>
+
+<p>Aqui iremos verificar se os primeiros caráteres da primeira e última componente do nome de um autor <span class="math inline">\(a_1\)</span> são iguais, respetivamente, aos primeiros e últimos caráteres da primeira e última componente do nome de um autor <span class="math inline">\(a_2\)</span>.</p>
+<p><a name="is_a_first_last_match"></a></p>
+
+
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">is_a_first_last_match</span><span class="p">(</span><span class="n">author1</span><span class="p">,</span><span class="n">author2</span><span class="p">):</span>
+    <span class="n">a1</span> <span class="o">=</span> <span class="n">get_crude_abbrev</span><span class="p">(</span><span class="n">author1</span><span class="p">)</span>
+    <span class="n">a2</span> <span class="o">=</span> <span class="n">get_crude_abbrev</span><span class="p">(</span><span class="n">author2</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">a1</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">a2</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">and</span> <span class="n">a1</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="n">a2</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+</pre></div>
+
+<h3 id="procedimento-3">Procedimento 3</h3>
+<p>Objetivo: Criar a “transitividade” nos blocos dos autores referenciada no ínicio.</p>
+
+
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">fix_block_func</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">q</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">s2</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">q</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="n">s2</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">set</span><span class="p">():</span>
+                <span class="n">q</span> <span class="o">=</span> <span class="n">q</span><span class="o">.</span><span class="n">union</span><span class="p">(</span><span class="n">s2</span><span class="p">)</span>
+        <span class="n">res</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="nb">frozenset</span><span class="p">(</span><span class="n">q</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">res</span>
+</pre></div>
+
+<h2 id="contagem-dos-tipos-de-publicações">Contagem dos tipos de publicações</h2>
+<p>Conforme <a href="#R1">(R1)</a>, devemos contar quantas publicações de cada tipo existem.</p>
+
+
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_pub_type_counts</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+    <span class="n">pub_types_occur</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">keys</span><span class="p">()]</span>
+    <span class="n">pub_types</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">pub_types_occur</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">[(</span><span class="n">pub_type</span><span class="p">,</span> <span class="n">pub_types_occur</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="n">pub_type</span><span class="p">))</span> <span class="k">for</span> <span class="n">pub_type</span> <span class="ow">in</span> <span class="n">pub_types</span><span class="p">]</span>
+</pre></div>
+
+<p>Conforme <a href="#R2">(R2)</a> queremos incorporar a contagem de publicações de cada tipo no documento <em>HTML</em> que iremos produzir.</p>
+
+
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_html_pub_type_counts</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+    <span class="n">string_ls</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="n">html_enclose</span><span class="p">(</span>
+            <span class="s2">&quot;h2&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;Number of Occurrences of Publication Types&quot;</span><span class="p">,</span>
+        <span class="p">)</span>
+    <span class="p">]</span>
+    <span class="n">pub_counts</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span>
+        <span class="n">get_pub_type_counts</span><span class="p">(</span><span class="n">data</span><span class="p">),</span>
+        <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+        <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="n">time</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">v</span><span class="p">:</span> <span class="s2">&quot;s&quot;</span> <span class="k">if</span> <span class="n">v</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span>
+    <span class="k">for</span> <span class="n">pub_type</span><span class="p">,</span> <span class="n">count</span> <span class="ow">in</span> <span class="n">pub_counts</span><span class="p">:</span>
+        <span class="n">string_ls</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+            <span class="n">html_enclose</span><span class="p">(</span>
+                <span class="s2">&quot;p&quot;</span><span class="p">,</span>
+                <span class="sa">f</span><span class="s2">&quot;Type </span><span class="si">{</span><span class="n">pub_type</span><span class="si">}</span><span class="s2"> appears </span><span class="si">{</span><span class="n">count</span><span class="si">}</span><span class="s2"> time</span><span class="si">{</span><span class="n">time</span><span class="p">(</span><span class="n">count</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+
+    <span class="k">return</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">string_ls</span><span class="p">)</span>
+</pre></div>
+
+<h3 id="solução-inicial">Solução inicial</h3>
+<p>A estratégia para satisfazer <a href="#R1">(R1)</a> consistiu em ler o arquivo linha a linha verificando se a categoria encontrada já aparecia no dicionário, se já existir, irá ser incrementado o número de ocorrências, senão será adicionado como primeira ocorrência, para que depois possa ser produzido um ficheiro <em>HTML</em> com todas as categorias e o devido número de ocorrências.</p>
+<p>De seguida apresentamos a Expressão Regular utilizada para filtrar a informação pedida em <a href="#R1">(R1)</a>.</p>
+<p>Uma vez que todas as categorias num <span class="math inline">\(Bib\TeX\)</span> têm como antecedente o caráter <code>@</code> e terminam numa <code>{</code>, tornou-se fácil criar um filtro que guarde toda a informação delimitada entre esses dois parâmetros.</p>
+<p>Através dessa pequena realização chegamos à seguinte expressão: <code>r'^@(.*){'</code></p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> re</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="bu">file</span> <span class="op">=</span> <span class="bu">open</span>(<span class="st">&quot;exemplo-utf8.bib&quot;</span>, <span class="st">&quot;r&quot;</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>read <span class="op">=</span> <span class="va">True</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>dic <span class="op">=</span> {}</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>string_ls <span class="op">=</span> [<span class="st">&#39;&lt;!DOCTYPE  HTML PUBLIC&gt;</span><span class="ch">\n</span><span class="st">&lt;HTML&gt;</span><span class="ch">\n</span><span class="st">   &lt;HEAD&gt;</span><span class="ch">\n</span><span class="st">      &#39;</span>\</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>             <span class="st">&#39;&lt;TITLE&gt;Categories in BibTeX&lt;/TITLE&gt;</span><span class="ch">\n</span><span class="st">   &lt;/HEAD&gt;</span><span class="ch">\n</span><span class="st">   &lt;BODY&gt;&#39;</span>]</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> read:</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    linhaFicheiro <span class="op">=</span> <span class="bu">file</span>.readline()</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    ncat <span class="op">=</span> re.match(<span class="vs">r&#39;^@(.*){&#39;</span>,linhaFicheiro)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> ncat <span class="op">!=</span> <span class="va">None</span>:</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>       cat_title <span class="op">=</span> ncat.group(<span class="dv">1</span>).title()</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>       dic[cat_title] <span class="op">=</span> dic.get(cat_title,<span class="dv">0</span>) <span class="op">+</span> <span class="dv">1</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="kw">not</span> linhaFicheiro:</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>       read <span class="op">=</span> <span class="va">False</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>       <span class="bu">file</span>.close()</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>time <span class="op">=</span> <span class="kw">lambda</span> v: <span class="st">&#39;s&#39;</span> <span class="cf">if</span> v <span class="op">&gt;</span> <span class="dv">1</span> <span class="cf">else</span> <span class="st">&#39;&#39;</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> k, v <span class="kw">in</span> dic.items():</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>    string_ls.append(<span class="ss">f&#39;      &lt;P&gt;The category </span><span class="sc">{</span>k<span class="sc">}</span><span class="ss"> appears </span><span class="sc">{</span>v<span class="sc">}</span><span class="ss"> time</span><span class="sc">{</span>time(v)<span class="sc">}</span><span class="ss">.&lt;/P&gt;&#39;</span>)</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>    string_ls.append(<span class="ss">f&#39;   &lt;/BODY&gt;</span><span class="ch">\n</span><span class="ss">&lt;/HTML&gt;&#39;</span>)</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">&#39;output.html&#39;</span>,<span class="st">&#39;w&#39;</span>) <span class="im">as</span> <span class="bu">file</span>:</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>     <span class="bu">file</span>.write(<span class="st">&#39;</span><span class="ch">\n</span><span class="st">&#39;</span>.join(string_ls))</span></code></pre></div>
+<p>Infelizmente a estratégia adotada na primeira questão de unicamente guardar aquilo que interessava tornou-se impraticável pois não era escalável para a extração e manipulação necessária dos restantes parâmetros pedidos nas outras questões.</p>
+<h2 id="criação-do-grafo">Criação do grafo</h2>
+<p>Conforme <a href="#R5">(R5)</a> queremos construir um grafo que represente a co-autoria entre os autores.</p>
+
+
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_author_pub_graph</span><span class="p">(</span><span class="n">author</span><span class="p">,</span><span class="n">data</span><span class="p">):</span>
+    <span class="n">pub_partners</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">entry</span> <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+        <span class="k">if</span> <span class="s1">&#39;author&#39;</span> <span class="ow">in</span> <span class="n">entry</span> <span class="ow">and</span> <span class="n">author</span> <span class="ow">in</span> <span class="n">entry</span><span class="p">[</span><span class="s1">&#39;author&#39;</span><span class="p">]:</span>
+            <span class="k">for</span> <span class="n">partner</span> <span class="ow">in</span> <span class="n">entry</span><span class="p">[</span><span class="s1">&#39;author&#39;</span><span class="p">]:</span>
+                <span class="k">if</span> <span class="n">partner</span> <span class="o">!=</span> <span class="n">author</span><span class="p">:</span>
+                    <span class="n">pub_partners</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">partner</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">[(</span><span class="n">author_name</span><span class="p">,</span><span class="n">pub_partners</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="n">author_name</span><span class="p">))</span>
+            <span class="k">for</span> <span class="n">author_name</span> <span class="ow">in</span> <span class="nb">set</span><span class="p">(</span><span class="n">pub_partners</span><span class="p">)]</span>
+</pre></div>
+
+<p>Conforme <a href="#R6">(R6)</a> iremos recorrer a linguagem <em>Dot</em> para renderizar o grafo.</p>
+
+
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_dot_graph</span><span class="p">(</span><span class="n">author</span><span class="p">,</span><span class="n">data</span><span class="p">):</span>
+    <span class="kn">import</span> <span class="nn">textwrap</span>
+    <span class="n">g</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">get_author_pub_graph</span><span class="p">(</span><span class="n">author</span><span class="p">,</span><span class="n">data</span><span class="p">),</span><span class="n">key</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">string_ls</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;graph{&#39;</span><span class="p">]</span>
+    <span class="n">string_ls2</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">partner_author</span><span class="p">,</span><span class="n">no_joint_pub</span> <span class="ow">in</span> <span class="n">g</span><span class="p">[</span><span class="o">-</span><span class="mi">3</span><span class="p">:]:</span>
+        <span class="n">string_ls2</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;&quot;</span><span class="si">{</span><span class="n">author</span><span class="si">}</span><span class="s1">&quot; -- &quot;</span><span class="si">{</span><span class="n">partner_author</span><span class="si">}</span><span class="s1">&quot; [label=&quot;</span><span class="si">{</span><span class="n">no_joint_pub</span><span class="si">}</span><span class="s1">&quot;]&#39;</span><span class="p">)</span>
+    <span class="n">string_ls</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">textwrap</span><span class="o">.</span><span class="n">indent</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">string_ls2</span><span class="p">),</span><span class="s1">&#39;  &#39;</span><span class="p">))</span>
+    <span class="n">string_ls</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;}&#39;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">string_ls</span><span class="p">)</span>
+</pre></div>
+
+<p>Como ideia nossa para ir além do que foi pedido, decidimos incorporar o grafo no documento <em>HTML</em> que iremos produzir.</p>
+<p>Utilizamos <code>re.search()</code> porque o arquivo gerado contém um preâmbulo <em>XML</em> como <em>doctype</em>. Só queremos o <em>SVG</em>.</p>
+
+
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_html_dot_svg</span><span class="p">(</span><span class="n">author</span><span class="p">,</span><span class="n">data</span><span class="p">):</span>
+    <span class="kn">import</span> <span class="nn">os</span>
+    <span class="n">DOT_INPUT_FILENAME</span> <span class="o">=</span> <span class="s1">&#39;dot_input&#39;</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">DOT_INPUT_FILENAME</span><span class="p">,</span><span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+        <span class="n">file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">get_dot_graph</span><span class="p">(</span><span class="n">author</span><span class="p">,</span><span class="n">data</span><span class="p">))</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;dot -T svg -O </span><span class="si">{</span><span class="n">DOT_INPUT_FILENAME</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">DOT_INPUT_FILENAME</span> <span class="o">+</span> <span class="s1">&#39;.svg&#39;</span><span class="p">,</span><span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;&lt;svg(?:.|\n)+&lt;/svg&gt;&#39;</span><span class="p">,</span><span class="n">file</span><span class="o">.</span><span class="n">read</span><span class="p">())</span><span class="o">.</span><span class="n">group</span><span class="p">()</span>
+</pre></div>
+
+<p>Finalmente,</p>
+
+
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_html_common_pub_author</span><span class="p">(</span><span class="n">author</span><span class="p">,</span><span class="n">data</span><span class="p">):</span>
+    <span class="n">string_ls</span> <span class="o">=</span> <span class="p">[</span><span class="n">html_enclose</span><span class="p">(</span><span class="s1">&#39;h2&#39;</span><span class="p">,</span><span class="s1">&#39;Author Graph&#39;</span><span class="p">)]</span>
+    <span class="n">string_ls</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">get_html_dot_svg</span><span class="p">(</span><span class="n">author</span><span class="p">,</span><span class="n">data</span><span class="p">))</span>
+    <span class="k">return</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">string_ls</span><span class="p">)</span>
+</pre></div>
+
+<p>que é responsável por gerar:</p>
+<p><img src="auth_graph.png" /></p>
+<p>na página <em>HTML</em>.</p>
+<h2 id="filtrar-chaveautoretítulo">Filtrar (chave,autore,título)</h2>
+<h3 id="títulos">Títulos</h3>
+<p>Pelo <a href="#R33">(R3.3)</a>, devemos incluir títulos. Para isso devemos aplicar um tratamento para uma formatação mais elegante (como manter expressões <span class="math inline">\(La\TeX\)</span>).</p>
+<p>Note que formatamos <em>small caps</em> como pode ser notado em entradas que contém “Camila”. Também formatamos <em>sans serif</em> e algumas expressões matemáticas.</p>
+
+
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">fix_title</span><span class="p">(</span><span class="n">title</span><span class="p">):</span>
+    <span class="n">substitutions</span> <span class="o">=</span> <span class="p">[(</span><span class="sa">r</span><span class="s1">&#39;</span><span class="se">\\</span><span class="s1">textsc{((?:</span><span class="se">\\</span><span class="s1">{|[^{])+)}&#39;</span><span class="p">,</span>
+                      <span class="k">lambda</span> <span class="n">m</span><span class="p">:</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">html_to_small_caps</span><span class="p">(</span><span class="n">html_create_span</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)))</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">),</span>
+                     <span class="p">(</span><span class="sa">r</span><span class="s1">&#39;</span><span class="se">\\</span><span class="s1">textsf{((?:</span><span class="se">\\</span><span class="s1">{|[^{])+)}&#39;</span><span class="p">,</span>
+                      <span class="k">lambda</span> <span class="n">m</span><span class="p">:</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">html_to_sans_serif</span><span class="p">(</span><span class="n">html_create_span</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)))</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">),</span>
+                     <span class="p">(</span><span class="sa">r</span><span class="s1">&#39;(\$(?:.|</span><span class="se">\\</span><span class="s1">\$)+\$)&#39;</span><span class="p">,</span>
+                      <span class="k">lambda</span> <span class="n">m</span><span class="p">:</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">str_to_html_math</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)]</span>
+
+
+    <span class="n">replace</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">mult_replace</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">substitutions</span><span class="p">)</span>
+
+    <span class="k">return</span>   <span class="n">html_create_span</span><span class="p">(</span>
+             <span class="n">single_quote_latex</span><span class="p">(</span>
+             <span class="n">double_quote_latex</span><span class="p">(</span>
+             <span class="n">unbrace</span><span class="p">(</span>
+             <span class="n">replace</span><span class="p">(</span>
+             <span class="n">remove_latex_accent</span><span class="p">(</span>
+             <span class="n">unscape_latex</span><span class="p">(</span>
+             <span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">title</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)))))))))</span>
+</pre></div>
+
+<h4 id="tratamento-de-caráteres-latex">Tratamento de caráteres <span class="math inline">\(La\TeX\)</span></h4>
+<h5 id="aspas">Aspas</h5>
+
+
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">double_quote_latex</span><span class="p">(</span><span class="n">expression</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;``(.*[^</span><span class="se">\\</span><span class="s2">])&#39;&#39;&quot;</span><span class="p">,</span><span class="sa">r</span><span class="s1">&#39;&quot;\1&quot;&#39;</span><span class="p">,</span><span class="n">expression</span><span class="p">)</span>
+</pre></div>
+
+
+
+
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">single_quote_latex</span> <span class="p">(</span><span class="n">expression</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;[^`]`([^`].*[^&#39;])&#39;[^`]&quot;</span><span class="p">,</span><span class="sa">r</span><span class="s2">&quot;&#39;\1&#39;&quot;</span><span class="p">,</span><span class="n">expression</span><span class="p">)</span>
+</pre></div>
+
+<h5 id="escaped-characters"><em>Escaped characters</em></h5>
+<p>Alguns caráteres que pode aparecer em títulos e que temos a capacidade de tratar.</p>
+
+
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">unscape_latex</span><span class="p">(</span><span class="n">latex_expression</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;</span><span class="se">\\</span><span class="s1">([&amp;%$#_</span><span class="si">{}</span><span class="se">\\</span><span class="s1">])&#39;</span><span class="p">,</span><span class="sa">r</span><span class="s1">&#39;\1&#39;</span><span class="p">,</span><span class="n">latex_expression</span><span class="p">)</span>
+</pre></div>
+
+<p>Veja como fica a entrada</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bibtex"><code class="sourceCode bibtex"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="va">@Book</span>{<span class="ot">RH02</span>,</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>     <span class="dt">author</span>=   {José Carlos Ramalho and Pedro Rangel  Henriques},</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>     <span class="dt">title</span> =   {XML <span class="ch">\&amp;</span> XSL: da teoria à prática},</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>     <span class="dt">.</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>     <span class="dt">.</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>     <span class="dt">.</span></span></code></pre></div>
+<p>em <em>HTML</em>:</p>
+<p><img src="latex_and.png" /></p>
+<h3 id="formatações-especiais">Formatações especiais</h3>
+<h4 id="small-caps">Small caps</h4>
+<p>Usado para converter expressoes latex <code>\textsc{expression}</code></p>
+
+
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">html_to_small_caps</span><span class="p">(</span><span class="n">html_expression</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">html_add_attr</span><span class="p">(</span><span class="s1">&#39;style&#39;</span><span class="p">,</span><span class="s1">&#39;font-variant:small-caps&#39;</span><span class="p">,</span><span class="n">html_expression</span><span class="p">)</span>
+</pre></div>
+
+
+
+
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">str_to_html_small_caps</span><span class="p">(</span><span class="n">expression</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">html_to_small_caps</span><span class="p">(</span><span class="n">html_create_span</span><span class="p">(</span><span class="n">expression</span><span class="p">))</span>
+</pre></div>
+
+<p>Veja como fica a entrada</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bibtex"><code class="sourceCode bibtex"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="va">@techreport</span>{<span class="ot">Barbosa95</span>,</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a> <span class="dt">author</span> = &quot;<span class="st">L.S. Barbosa and J.J. Almeida</span>&quot;,</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a> <span class="dt">title</span>  = &quot;<span class="st">System Prototyping in </span><span class="ch">\textsc</span><span class="st">{Camila}</span>&quot;,</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a> <span class="dt">.</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a> <span class="dt">.</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a> <span class="dt">.</span></span></code></pre></div>
+<p>em <em>HTML</em>:</p>
+<p><img src="serif_camila.png" /></p>
+<h4 id="sans-serif">Sans serif</h4>
+
+
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">html_to_sans_serif</span><span class="p">(</span><span class="n">html_expression</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">html_add_attr</span><span class="p">(</span><span class="s1">&#39;style&#39;</span><span class="p">,</span><span class="s1">&#39;font-family:sans-serif&#39;</span><span class="p">,</span><span class="n">html_expression</span><span class="p">)</span>
+</pre></div>
+
+<p>Este caso (<code>\textsf</code>) não ocorre no exemplo mas achamos interessante adiciona-lo.</p>
+<h4 id="matemática">Matemática</h4>
+
+
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">str_to_html_math</span><span class="p">(</span><span class="n">string</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">html_add_attr</span><span class="p">(</span><span class="s1">&#39;class&#39;</span><span class="p">,</span><span class="s1">&#39;math inline&#39;</span><span class="p">,</span><span class="n">html_create_span</span><span class="p">(</span><span class="n">string</span><span class="p">))</span>
+</pre></div>
+
+<p>Observe como fica a entrada</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bibtex"><code class="sourceCode bibtex"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="va">@InProceedings</span>{<span class="ot">lrec06</span>,</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">author</span> =       {José João Almeida and Alberto Simões},</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">title</span> =        {{$T_2O$} --- Recycling Thesauri into a Multilingual Ontology},</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">.</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">.</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">.</span></span></code></pre></div>
+<p>em <em>HTML</em>:</p>
+<p><img src="math_html.png" /></p>
+<h3 id="incorporar-no-documento-html">Incorporar no documento <em>HTML</em></h3>
+<p>Como fica renderizado:</p>
+<p><img src="pub_ind.png" /></p>
+<p>Conforme <a href="#R34">(R3.4)</a>:</p>
+
+
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_html_pub_type_index</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+    <span class="n">string_ls</span> <span class="o">=</span> <span class="p">[</span><span class="n">html_enclose</span><span class="p">(</span><span class="s1">&#39;h2&#39;</span><span class="p">,</span><span class="s1">&#39;Publication Type Index&#39;</span><span class="p">)]</span>
+    <span class="k">for</span> <span class="n">entry_type</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">data</span><span class="p">)):</span>
+        <span class="n">string_ls</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">html_enclose</span><span class="p">(</span><span class="s1">&#39;h3&#39;</span><span class="p">,</span><span class="n">entry_type</span><span class="p">))</span>
+        <span class="k">for</span> <span class="n">citation_key</span> <span class="ow">in</span> <span class="p">[</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">data</span> <span class="k">if</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">==</span><span class="n">entry_type</span><span class="p">]:</span>
+            <span class="n">title</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">entry_type</span><span class="p">,</span><span class="n">citation_key</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;title&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+            <span class="n">authors</span> <span class="o">=</span> <span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">((</span><span class="nb">sorted</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">entry_type</span><span class="p">,</span><span class="n">citation_key</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;author&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">))))</span>
+            <span class="n">string_ls</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                <span class="n">html_enclose</span><span class="p">(</span><span class="s1">&#39;p&#39;</span><span class="p">,</span>
+                             <span class="sa">f</span><span class="s2">&quot;Key = </span><span class="si">{</span><span class="n">citation_key</span><span class="si">}</span><span class="s2">&quot;</span>
+                             <span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&lt;br&gt;Title = </span><span class="si">{</span><span class="n">fix_title</span><span class="p">(</span><span class="n">title</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
+                             <span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&lt;br&gt;Autores = </span><span class="si">{</span><span class="n">authors</span><span class="si">}</span><span class="s2">&quot;</span>
+                <span class="p">)</span>
+            <span class="p">)</span>
+    <span class="k">return</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">string_ls</span><span class="p">)</span>
+</pre></div>
+
+<p>Correspondendo qundo visto em <em>HTML</em>:</p>
+<p><img src="num_occ_pub_type.png" /></p>
+<h2 id="índice-de-autores">Índice de autores</h2>
+<p>Conforme <a href="#R4">(R4)</a> iremos criar um índice de autores.</p>
+<p>Geralmente, nos índices de autores, o apelido aparece primeiro seguido pelas iniciais dos outros nomes. Com esse propósito, criamos o procedimento que recebe um nome normalizado (e.g. Pedro Filipe H. Pereira), retornando-o “invertido” e abreviado (e.g. Pereira, P. F. H.).</p>
+
+
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">last_name_first</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
+    <span class="n">initials</span> <span class="o">=</span>  <span class="s1">&#39;. &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">get_crude_abbrev</span><span class="p">(</span><span class="n">name</span><span class="p">))[:</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span>
+    <span class="n">last_name</span> <span class="o">=</span> <span class="n">name</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">last_name</span><span class="si">}</span><span class="s1">, </span><span class="si">{</span><span class="n">initials</span><span class="si">}</span><span class="s1">&#39;</span>
+</pre></div>
+
+<p>Utilizamos <code>last_name_first()</code> na construção de um dicionário que irá conter como chaves o nome do autor já formatado e como valor todas as chaves de citações de suas publicações.</p>
+
+
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_author_index_dict</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+    <span class="n">index</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="k">if</span> <span class="s1">&#39;author&#39;</span> <span class="ow">in</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">author</span> <span class="ow">in</span> <span class="n">e</span><span class="p">[</span><span class="s1">&#39;author&#39;</span><span class="p">]:</span>
+                <span class="n">author_name</span> <span class="o">=</span> <span class="n">last_name_first</span><span class="p">(</span><span class="n">author</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">author_name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">index</span><span class="p">:</span>
+                    <span class="n">index</span><span class="p">[</span><span class="n">author_name</span><span class="p">]</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+                <span class="n">index</span><span class="p">[</span><span class="n">author_name</span><span class="p">]</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">key</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">index</span>
+</pre></div>
+
+<p>Decidimos incorporar o índice no documento <em>HTML</em> que iremos produzir.</p>
+
+
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_html_author_index</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+    <span class="n">index</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">get_author_index_dict</span><span class="p">(</span><span class="n">data</span><span class="p">)</span><span class="o">.</span><span class="n">items</span><span class="p">())</span>
+    <span class="n">alphabet_order</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">c</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">index</span><span class="p">))</span>
+    <span class="n">string_ls</span> <span class="o">=</span> <span class="p">[</span><span class="n">html_enclose</span><span class="p">(</span><span class="s1">&#39;h2&#39;</span><span class="p">,</span><span class="s1">&#39;Author Index&#39;</span><span class="p">)]</span>
+    <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">string_ls</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">html_enclose</span><span class="p">(</span><span class="s1">&#39;h3&#39;</span><span class="p">,</span><span class="n">alphabet_order</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span>
+    <span class="k">for</span> <span class="n">author</span><span class="p">,</span><span class="n">citation_keys</span> <span class="ow">in</span> <span class="n">index</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">author</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="n">alphabet_order</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
+            <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="n">string_ls</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">html_enclose</span><span class="p">(</span><span class="s1">&#39;h3&#39;</span><span class="p">,</span><span class="n">alphabet_order</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span>
+        <span class="n">citation_keys_str</span> <span class="o">=</span> <span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">citation_keys</span><span class="p">)</span>
+        <span class="n">string_ls</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">html_enclose</span><span class="p">(</span><span class="s1">&#39;p&#39;</span><span class="p">,</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">author</span><span class="si">}</span><span class="s1">, </span><span class="si">{</span><span class="n">citation_keys_str</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">))</span>
+    <span class="k">return</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">string_ls</span><span class="p">)</span>
+</pre></div>
+
+<p>Parte do <em>HTML</em> gerado:</p>
+<p><img src="auth_ind.png" /></p>
+<h2 id="execução-pela-linha-de-comandos">Execução pela linha de comandos</h2>
+<p>Este bloco é utilizado para executar o programa pela linha de comandos.</p>
+
+
+<div class="highlight"><pre><span></span><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">sys</span>
+    <span class="kn">import</span> <span class="nn">os.path</span>
+</pre></div>
+
+<p>Para facilitar a realização de testes deixamos o valor <em>standard</em> do <code>filename</code> para o ficheiro exemplo.</p>
+
+
+<div class="highlight"><pre><span></span>    <span class="n">filename</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="k">else</span> <span class="n">BIB_EXAMPLE_FILENAME</span>
+    <span class="k">assert</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+</pre></div>
+
+<p>Novamente, para facilitar a realização de testes (executar sem passar o argumento com o nome do autor) escolhemos a autora Daniela da Cruz que está presente no ficheiro <code>exemplo-utf8.bib</code> com o intuito de gerar o grafo conforme <a href="#R5">(R5)</a>.</p>
+
+
+<div class="highlight"><pre><span></span>    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="p">:</span>
+        <span class="n">author_name</span> <span class="o">=</span> <span class="s1">&#39;Daniela da Cruz&#39;</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">author_name</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+    <span class="n">solve</span><span class="p">(</span><span class="n">author_name</span><span class="p">,</span><span class="n">filename</span><span class="p">)</span>
+</pre></div>
+
+<h2 id="conclusão">Conclusão</h2>
+<p>Através deste projeto foi possível expandir as nossas competências intelectuais sobre o tópico de estudo: Expressões Regulares (ER) que nos possibilitou desenvolver um processador <span class="math inline">\(Bib\TeX\)</span> utilizando a linguagem <em>Pyhton</em> para extrair informações relavantes. Além disso, aumentamos a nossa familiaridade com <em>HTML</em> pois dispusemos as informações coletadas numa página <em>web</em>, onde inserimos um grafo gerado usando a linguagem <em>Dot</em>.</p>
+<p>Consideramos que o produto final cumpre os <a href="#req">requisitos</a>.</p>
+<p>Este projeto foi desafiante (pela complexidade do <span class="math inline">\(La\TeX\)</span>) e enriquecedor (pela variedade de linguagens usadas) para cada um de nós, uma vez que tivemos a oportunidade de expandir, aprofundar e aperfeiçoar os nossos conhecimentos.</p>
+<h3 id="pontos-que-podemos-melhorar">Pontos que podemos melhorar</h3>
+<ul>
+<li>estruturação do programa</li>
+</ul>
+<h2 id="apêndices">Apêndices</h2>
+<h3 id="source-code"><em>Source Code</em></h3>
+<pre><code class=language-py>#!/usr/bin/python
+
+import regex as re
+
+MATHJAX = &#39;&#39;&#39;
+            &lt;script type=&quot;text/x-mathjax-config&quot;&gt;
+                MathJax.Hub.Config({
+                    &quot;extensions&quot;:[&quot;tex2jax.js&quot;],
+                    &quot;jax&quot;:[&quot;input/TeX&quot;,
+                           &quot;output/HTML-CSS&quot;],
+                    &quot;messageStyle&quot;:&quot;none&quot;,
+                    &quot;tex2jax&quot;:{
+                        &quot;processEnvironments&quot;:false,
+                        &quot;processEscapes&quot;:true,
+                        &quot;inlineMath&quot;:[[&quot;$&quot;,&quot;$&quot;]],
+                        &quot;displayMath&quot;:[]
+                    },
+                    &quot;TeX&quot;:{
+                        &quot;extensions&quot;:[&quot;AMSmath.js&quot;,
+                                      &quot;AMSsymbols.js&quot;,
+                                      &quot;noErrors.js&quot;,
+                                      &quot;noUndefined.js&quot;]
+                    },
+                    &quot;HTML-CSS&quot;:{
+                        &quot;availableFonts&quot;:[&quot;TeX&quot;]
+                    }
+                });
+            &lt;/script&gt;
+
+            &lt;script type=&quot;text/javascript&quot; async
+                src=&quot;https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js&quot;&gt;
+            &lt;/script&gt;
+&#39;&#39;&#39;
+
+HTML_PROLOGUE = f&#39;&#39;&#39;&lt;!DOCTYPE  html&gt;
+    &lt;HTML lang=&quot;en&quot;&gt;
+        &lt;HEAD&gt;
+            &lt;meta charset=&quot;utf-8&quot;&gt;
+            &lt;TITLE&gt;Categories in BibTeX&lt;/TITLE&gt;
+            {MATHJAX}
+        &lt;/HEAD&gt;&#39;&#39;&#39;
+
+HTML_EPILOGUE = &#39;&lt;/HTML&gt;&#39;
+
+BIB_EXAMPLE_FILENAME = &quot;exemplo-utf8.bib&quot;
+
+OUTPUT_FILENAME = &#39;output.html&#39;
+
+def solve(author_name,INPUT_FILENAME=BIB_EXAMPLE_FILENAME):
+    html_str_ls = [HTML_PROLOGUE]
+    bib_str = get_bib_str(INPUT_FILENAME)
+
+    entries = get_entries(bib_str)
+    format_authors(entries)
+    fix_repeated_authors(entries)
+
+    html_str_ls.append(
+        html_enclose(&#39;body&#39;,
+            get_html_pub_type_counts(entries)
+            + get_html_common_pub_author(author_name,entries)
+            + get_html_pub_type_index(entries)
+            + get_html_author_index(entries)))
+
+    html_str_ls.append(HTML_EPILOGUE)
+    with open(OUTPUT_FILENAME,&#39;w&#39;) as file:
+        file.write(&#39;\n&#39;.join(html_str_ls))
+
+def get_bib_str(filename):
+    with open(filename,&#39;r&#39;) as file:
+        return file.read()
+
+def get_entries(string):
+    d = {}
+
+    RELEVANT_FIELDS = {&#39;author&#39;,&#39;title&#39;}
+
+    SPECIAL_TYPES = {&#39;comment&#39;,&#39;string&#39;,&#39;preamble&#39;}
+
+    between_cbrace_ex = r&#39;(?:(?&lt;rec&gt;{(?:[^{}]+|(?P&gt;rec))*+}))&#39;
+
+    field_match = re.compile(
+        rf&quot;(?&lt;name&gt;\w+)\s*=\s*(&quot;
+        rf&quot;(?&lt;value&gt;{between_cbrace_ex})&quot;
+        rf&#39;|&quot;(?&lt;value&gt;[^&quot;]+)&quot;&#39;
+        rf&quot;|(?&lt;value&gt;\d+))&quot;
+    )
+    entry_match = re.compile(rf&#39;@(?&lt;type&gt;\w+)(?&lt;value&gt;{between_cbrace_ex})&#39;)
+    key_match = re.compile(r&#39;([^{},~#%\\]+),&#39;)
+
+    for entry in entry_match.finditer(string):
+        entry_type = entry[&#39;type&#39;].lower()
+        if entry_type not in SPECIAL_TYPES:
+            key = key_match.search(entry[&#39;value&#39;])[1]
+            d[entry_type, key] = {
+                field[&#39;name&#39;].lower(): field[&#39;value&#39;]
+                for field in field_match.finditer(entry[&#39;value&#39;])
+                if field[&#39;name&#39;].lower() in RELEVANT_FIELDS
+            }
+
+    return d
+
+def unbrace(expression):
+    string_ls = []
+    is_between_dollar_sign = False
+    is_previous_backslash = False
+    for c in expression:
+        if c == &#39;$&#39; and not is_previous_backslash:
+            if is_between_dollar_sign:
+                is_between_dollar_sign = False
+            else:
+                is_between_dollar_sign = True
+        if c == &#39;\\&#39;:
+            is_previous_backslash = True
+        else:
+            is_previous_backslash = False
+        if c in &#39;{}&#39; and not is_between_dollar_sign:
+            continue
+        string_ls.append(c)
+    return &#39;&#39;.join(string_ls)
+
+def html_enclose(tag,string):
+    return rf&#39;&lt;{tag.upper()}&gt;{string}&lt;/{tag.upper()}&gt;&#39;
+
+def html_create_span(expression):
+    return html_enclose(&#39;span&#39;,expression)
+
+def html_add_attr(attr, val, html_expression):
+    return re.sub(
+        r&quot;&lt;(\w+)([^&gt;]*)\s*&gt;(.*)&lt;/\1&gt;&quot;,
+        rf&#39;&lt;\1\2 {attr.upper()}=&quot;{val}&quot;&gt;\3&lt;/\1&gt;&#39;,
+        html_expression,
+    )
+
+def mult_replace(string, replacement_list):
+    for old, new in replacement_list:
+        string = re.sub(old, new, string)
+    return string
+
+def format_authors(data):
+    for d in data.values():
+        if &quot;author&quot; in d:
+            author_lst = [ remove_consecutive_spaces(
+                           str.strip(
+                           invert_name(
+                           unbrace(
+                           remove_accents(name)))))
+
+                           for name in re.split(r&quot;\band\b&quot;,
+                                                d[&quot;author&quot;].replace(&quot;\n&quot;, &quot; &quot;))]
+            d[&#39;author&#39;] = [author for author in author_lst if author]
+
+def remove_consecutive_spaces(name):
+    return re.sub(r&#39;\s+&#39;,&#39; &#39;,name)
+
+def invert_name(author_name):
+    return re.sub(r&quot;([^,]+),\s*([^,]+)&quot;, r&quot;\2 \1&quot;, author_name)
+
+def remove_accents(name):
+    return remove_latex_accent(remove_normal_accent(name))
+
+def remove_latex_accent(name):
+    return re.sub(r&#39;\\\W(?:{(.*)})?&#39;,
+                  &#39;\1&#39;,
+                  name)
+
+def remove_normal_accent(name):
+    import unicodedata
+
+    return &quot;&quot;.join(
+        (
+            c
+            for c in unicodedata.normalize(&quot;NFD&quot;, name)
+            if unicodedata.category(c) != &quot;Mn&quot;
+        )
+    )
+
+def fix_repeated_authors(data):
+    author_blocks = fix_block_func(
+                        block_authors_with_two_common_names_v2(
+                            get_author_list(data)))
+
+    author_dict = {author_name:max(s,key=len)
+                   for s in author_blocks
+                   for author_name in s}
+
+    for d in data.values():
+        d[&#39;author&#39;] = [author_dict[author]
+                       for author in d[&#39;author&#39;]]
+
+def get_author_list(data):
+    return sorted(set([a
+                       for s in data.values()
+                       for a in s.get(&quot;author&quot;, [])]))
+
+def block_authors_with_two_common_names_v2(authors):
+    res = set()
+    for author in authors:
+        fs = set()
+        for author2 in authors:
+            a1 = set(re.findall(r&#39;\w\w+&#39;,author))
+            a2 = set(re.findall(r&#39;\w\w+&#39;,author2))
+
+            if len(a1.intersection(a2)) &gt; 1:
+                fs.add(author2)
+
+            elif (
+                len(a1) == 1
+                and len(a1.intersection(a2)) == 1
+                and is_a_first_last_match(author, author2)
+            ):
+                fs.add(author2)
+        res.add(frozenset(fs))
+    return res
+
+def get_crude_abbrev(name):
+    return &#39;&#39;.join(c for c in name if c.isupper())
+
+def is_a_first_last_match(author1,author2):
+    a1 = get_crude_abbrev(author1)
+    a2 = get_crude_abbrev(author2)
+    return a1[0] == a2[0] and a1[-1] == a2[-1]
+
+def fix_block_func(data):
+    res = set()
+    for q in data:
+        for s2 in data:
+            if q.intersection(s2) != set():
+                q = q.union(s2)
+        res.add(frozenset(q))
+    return res
+
+def get_pub_type_counts(data):
+    pub_types_occur = [x[0] for x in data.keys()]
+    pub_types = set(pub_types_occur)
+    return [(pub_type, pub_types_occur.count(pub_type)) for pub_type in pub_types]
+
+def get_html_pub_type_counts(data):
+    string_ls = [
+        html_enclose(
+            &quot;h2&quot;,
+            &quot;Number of Occurrences of Publication Types&quot;,
+        )
+    ]
+    pub_counts = sorted(
+        get_pub_type_counts(data),
+        key=lambda x: x[1],
+        reverse=True,
+    )
+
+    time = lambda v: &quot;s&quot; if v &gt; 1 else &quot;&quot;
+    for pub_type, count in pub_counts:
+        string_ls.append(
+            html_enclose(
+                &quot;p&quot;,
+                f&quot;Type {pub_type} appears {count} time{time(count)}&quot;,
+            )
+        )
+
+    return &quot;\n&quot;.join(string_ls)
+
+def get_author_pub_graph(author,data):
+    pub_partners = []
+    for entry in data.values():
+        if &#39;author&#39; in entry and author in entry[&#39;author&#39;]:
+            for partner in entry[&#39;author&#39;]:
+                if partner != author:
+                    pub_partners.append(partner)
+    return [(author_name,pub_partners.count(author_name))
+            for author_name in set(pub_partners)]
+
+def get_dot_graph(author,data):
+    import textwrap
+    g = sorted(get_author_pub_graph(author,data),key = lambda x: x[1])
+    string_ls = [&#39;graph{&#39;]
+    string_ls2 = []
+    for partner_author,no_joint_pub in g[-3:]:
+        string_ls2.append(f&#39;&quot;{author}&quot; -- &quot;{partner_author}&quot; [label=&quot;{no_joint_pub}&quot;]&#39;)
+    string_ls.append(textwrap.indent(&#39;\n&#39;.join(string_ls2),&#39;  &#39;))
+    string_ls.append(&#39;}&#39;)
+    return &#39;\n&#39;.join(string_ls)
+
+def get_html_dot_svg(author,data):
+    import os
+    DOT_INPUT_FILENAME = &#39;dot_input&#39;
+    with open(DOT_INPUT_FILENAME,&#39;w&#39;) as file:
+        file.write(get_dot_graph(author,data))
+    os.system(f&#39;dot -T svg -O {DOT_INPUT_FILENAME}&#39;)
+    with open(DOT_INPUT_FILENAME + &#39;.svg&#39;,&#39;r&#39;) as file:
+        return re.search(r&#39;&lt;svg(?:.|\n)+&lt;/svg&gt;&#39;,file.read()).group()
+
+def get_html_common_pub_author(author,data):
+    string_ls = [html_enclose(&#39;h2&#39;,&#39;Author Graph&#39;)]
+    string_ls.append(get_html_dot_svg(author,data))
+    return &#39;&#39;.join(string_ls)
+
+def fix_title(title):
+    substitutions = [(r&#39;\\textsc{((?:\\{|[^{])+)}&#39;,
+                      lambda m: f&#39;{html_to_small_caps(html_create_span(m.group(1)))}&#39;),
+                     (r&#39;\\textsf{((?:\\{|[^{])+)}&#39;,
+                      lambda m: f&#39;{html_to_sans_serif(html_create_span(m.group(1)))}&#39;),
+                     (r&#39;(\$(?:.|\\\$)+\$)&#39;,
+                      lambda m: f&#39;{str_to_html_math(m.group(1))}&#39;)]
+
+
+    replace = lambda x: mult_replace(x,substitutions)
+
+    return   html_create_span(
+             single_quote_latex(
+             double_quote_latex(
+             unbrace(
+             replace(
+             remove_latex_accent(
+             unscape_latex(
+             &#39; &#39;.join(s.strip() for s in title.split(&#39;\n&#39;)))))))))
+
+def double_quote_latex(expression):
+    return re.sub(r&quot;``(.*[^\\])&#39;&#39;&quot;,r&#39;&quot;\1&quot;&#39;,expression)
+
+def single_quote_latex (expression):
+    return re.sub(r&quot;[^`]`([^`].*[^&#39;])&#39;[^`]&quot;,r&quot;&#39;\1&#39;&quot;,expression)
+
+def unscape_latex(latex_expression):
+    return re.sub(r&#39;\\([&amp;%$#_{}\\])&#39;,r&#39;\1&#39;,latex_expression)
+
+def html_to_small_caps(html_expression):
+    return html_add_attr(&#39;style&#39;,&#39;font-variant:small-caps&#39;,html_expression)
+
+def str_to_html_small_caps(expression):
+    return html_to_small_caps(html_create_span(expression))
+
+def html_to_sans_serif(html_expression):
+    return html_add_attr(&#39;style&#39;,&#39;font-family:sans-serif&#39;,html_expression)
+
+def str_to_html_math(string):
+    return html_add_attr(&#39;class&#39;,&#39;math inline&#39;,html_create_span(string))
+
+def get_html_pub_type_index(data):
+    string_ls = [html_enclose(&#39;h2&#39;,&#39;Publication Type Index&#39;)]
+    for entry_type in sorted(set(x[0] for x in data)):
+        string_ls.append(html_enclose(&#39;h3&#39;,entry_type))
+        for citation_key in [x[1] for x in data if x[0]==entry_type]:
+            title = data[entry_type,citation_key].get(&#39;title&#39;,&#39;&#39;)
+            authors = &#39;, &#39;.join((sorted(data[entry_type,citation_key].get(&#39;author&#39;,&#39;&#39;))))
+            string_ls.append(
+                html_enclose(&#39;p&#39;,
+                             f&quot;Key = {citation_key}&quot;
+                             f&quot;\n&lt;br&gt;Title = {fix_title(title)}&quot;
+                             f&quot;\n&lt;br&gt;Autores = {authors}&quot;
+                )
+            )
+    return &#39;\n&#39;.join(string_ls)
+
+def last_name_first(name):
+    initials =  &#39;. &#39;.join(get_crude_abbrev(name))[:-2]
+    last_name = name.split()[-1]
+    return f&#39;{last_name}, {initials}&#39;
+
+def get_author_index_dict(data):
+    index = {}
+    for key, e in data.items():
+        if &#39;author&#39; in e:
+            for author in e[&#39;author&#39;]:
+                author_name = last_name_first(author)
+                if author_name not in index:
+                    index[author_name] = set()
+                index[author_name].add(key[1])
+    return index
+
+def get_html_author_index(data):
+    index = sorted(get_author_index_dict(data).items())
+    alphabet_order = sorted(set(c[0][0] for c in index))
+    string_ls = [html_enclose(&#39;h2&#39;,&#39;Author Index&#39;)]
+    i = 0
+    string_ls.append(html_enclose(&#39;h3&#39;,alphabet_order[i]))
+    for author,citation_keys in index:
+        if author[0] != alphabet_order[i]:
+            i += 1
+            string_ls.append(html_enclose(&#39;h3&#39;,alphabet_order[i]))
+        citation_keys_str = &#39;, &#39;.join(citation_keys)
+        string_ls.append(html_enclose(&#39;p&#39;,f&#39;{author}, {citation_keys_str}&#39;))
+    return &#39;\n&#39;.join(string_ls)
+
+if __name__ == &#39;__main__&#39;:
+    import sys
+    import os.path
+
+    filename = sys.argv[1] if len(sys.argv) &gt; 1 else BIB_EXAMPLE_FILENAME
+    assert os.path.isfile(filename)
+
+    if len(sys.argv) &lt; 3:
+        author_name = &#39;Daniela da Cruz&#39;
+    else:
+        author_name = sys.argv[2]
+    solve(author_name,filename)</code></pre>
+<h3 id="código-usado-para-gerar-esse-documento-e-outros">Código usado para gerar esse documento (e outros)</h3>
+<pre><code class=language-sh>#!/usr/bin/sh
+
+original=&#39;relatorio&#39;
+file=&#39;tmp&#39;
+extra=&#39;fontfaces&#39;
+ADD_TO_HEAD=&#39;add_to_head&#39;
+cp $original.pmd $file.pmd
+
+# generate source
+ptangle $original.pmd
+sed -i &#39;1d&#39; $original.py
+python $original.py
+
+# add to file
+T=&quot;\`\`\`&quot;
+
+# code() {
+#     echo &quot;$T$1
+# $(cat $2)
+# $T&quot;
+# }
+
+escape() {
+    sed &#39;s/&amp;/\&amp;amp;/g; s/&lt;/\&amp;lt;/g; s/&gt;/\&amp;gt;/g; s/&quot;/\&amp;quot;/g; s/&#39;&quot;&#39;&quot;&#39;/\&amp;#39;/g&#39; $1
+}
+
+code() {
+    echo &quot;&lt;pre&gt;&lt;code class=&quot;language-$1&quot;&gt;$(escape $2)&lt;/code&gt;&lt;/pre&gt;&quot;
+}
+
+high() {
+    echo &quot;&lt;pre&gt;$(highlight --inline-css -I -f -O html -S $1 -i $2)&lt;/pre&gt;&quot;
+}
+
+echo &quot;
+
+## Apêndices
+
+### _Source Code_
+
+$(code py $original.py)
+
+### Código usado para gerar esse documento (e outros)
+
+$(code sh tanrel)
+
+### _Dot_ Output
+
+$(high dot dot_input)
+
+### _HTML_ Output
+
+$(code html output.html)
+
+&quot; &gt;&gt; $file.pmd
+
+# html
+pweave -f pandoc2html $file.pmd
+# sed -i &#39;/&lt;HEAD&gt;/a &lt;link rel=&quot;stylesheet&quot; href=&quot;highlight.css&quot;&gt;&#39;
+sed -i &quot;/&lt;HEAD&gt;/ r $ADD_TO_HEAD&quot; $file.html
+sed -i -E &#39;s/(font-size: )(13)(px;)/\19.5\3/g&#39; $file.html
+gawk -i inplace -vf=&quot;$(cat $extra)&quot; &#39;{print} /&lt;style&gt;/ &amp;&amp; ++x ==1 {print f}&#39; $file.html
+# python -c &quot;import re
+# with open(&#39;$file.html&#39;,&#39;r&#39;) as f:
+#     data = f.read()
+
+# with open(&#39;$extra&#39;,&#39;r&#39;) as ff, open(&#39;$file.html&#39;,&#39;w&#39;) as f:
+#     f.write(re.sub(r&#39;(&lt;style&gt;)&#39;,rf&#39;\1\n{ff.read()}&#39;,data,1))
+# &quot;
+sed -i &#39;s/Menlo, Monaco, Consolas, &quot;Courier New&quot;, monospace/&quot;jetbrains mono&quot;/&#39; $file.html
+sed -i &#39;s/&quot;Raleway&quot;, &quot;HelveticaNeue&quot;, &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif/news-gothic-std, sans-serif/&#39; $file.html
+
+# clean directory
+mv $file.html $original.html
+kioclient5 --platform offscreen move $file.pmd trash:/</code></pre>
+<h3 id="dot-output"><em>Dot</em> Output</h3>
+<pre><span style="color:#000000; font-weight:bold">graph</span>{
+  <span style="color:#bf0303">&quot;Daniela da Cruz&quot;</span> <span style="color:#000000">--</span> <span style="color:#bf0303">&quot;Nuno Oliveira&quot;</span> [<span style="color:#0057ae">label</span>=<span style="color:#bf0303">&quot;11&quot;</span>]
+  <span style="color:#bf0303">&quot;Daniela da Cruz&quot;</span> <span style="color:#000000">--</span> <span style="color:#bf0303">&quot;Maria Joao Varanda Pereira&quot;</span> [<span style="color:#0057ae">label</span>=<span style="color:#bf0303">&quot;25&quot;</span>]
+  <span style="color:#bf0303">&quot;Daniela da Cruz&quot;</span> <span style="color:#000000">--</span> <span style="color:#bf0303">&quot;Pedro Rangel Henriques&quot;</span> [<span style="color:#0057ae">label</span>=<span style="color:#bf0303">&quot;39&quot;</span>]
+}</pre>
+<h3 id="html-output"><em>HTML</em> Output</h3>
+<pre><code class=language-html>&lt;!DOCTYPE  html&gt;
+    &lt;HTML lang=&quot;en&quot;&gt;
+        &lt;HEAD&gt;
+            &lt;meta charset=&quot;utf-8&quot;&gt;
+            &lt;TITLE&gt;Categories in BibTeX&lt;/TITLE&gt;
+            
+            &lt;script type=&quot;text/x-mathjax-config&quot;&gt;
+                MathJax.Hub.Config({
+                    &quot;extensions&quot;:[&quot;tex2jax.js&quot;],
+                    &quot;jax&quot;:[&quot;input/TeX&quot;,
+                           &quot;output/HTML-CSS&quot;],
+                    &quot;messageStyle&quot;:&quot;none&quot;,
+                    &quot;tex2jax&quot;:{
+                        &quot;processEnvironments&quot;:false,
+                        &quot;processEscapes&quot;:true,
+                        &quot;inlineMath&quot;:[[&quot;$&quot;,&quot;$&quot;]],
+                        &quot;displayMath&quot;:[]
+                    },
+                    &quot;TeX&quot;:{
+                        &quot;extensions&quot;:[&quot;AMSmath.js&quot;,
+                                      &quot;AMSsymbols.js&quot;,
+                                      &quot;noErrors.js&quot;,
+                                      &quot;noUndefined.js&quot;]
+                    },
+                    &quot;HTML-CSS&quot;:{
+                        &quot;availableFonts&quot;:[&quot;TeX&quot;]
+                    }
+                });
+            &lt;/script&gt;
+
+            &lt;script type=&quot;text/javascript&quot; async
+                src=&quot;https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js&quot;&gt;
+            &lt;/script&gt;
+
+        &lt;/HEAD&gt;
+&lt;BODY&gt;&lt;H2&gt;Number of Occurrences of Publication Types&lt;/H2&gt;
+&lt;P&gt;Type inproceedings appears 111 times&lt;/P&gt;
+&lt;P&gt;Type article appears 33 times&lt;/P&gt;
+&lt;P&gt;Type techreport appears 11 times&lt;/P&gt;
+&lt;P&gt;Type incollection appears 5 times&lt;/P&gt;
+&lt;P&gt;Type misc appears 1 time&lt;/P&gt;
+&lt;P&gt;Type phdthesis appears 1 time&lt;/P&gt;
+&lt;P&gt;Type mastersthesis appears 1 time&lt;/P&gt;
+&lt;P&gt;Type book appears 1 time&lt;/P&gt;&lt;H2&gt;Author Graph&lt;/H2&gt;&lt;svg width=&quot;601pt&quot; height=&quot;131pt&quot;
+ viewBox=&quot;0.00 0.00 601.39 131.00&quot; xmlns=&quot;http://www.w3.org/2000/svg&quot; xmlns:xlink=&quot;http://www.w3.org/1999/xlink&quot;&gt;
+&lt;g id=&quot;graph0&quot; class=&quot;graph&quot; transform=&quot;scale(1 1) rotate(0) translate(4 127)&quot;&gt;
+&lt;polygon fill=&quot;white&quot; stroke=&quot;transparent&quot; points=&quot;-4,4 -4,-127 597.39,-127 597.39,4 -4,4&quot;/&gt;
+&lt;!-- Daniela da Cruz --&gt;
+&lt;g id=&quot;node1&quot; class=&quot;node&quot;&gt;
+&lt;title&gt;Daniela da Cruz&lt;/title&gt;
+&lt;ellipse fill=&quot;none&quot; stroke=&quot;black&quot; cx=&quot;259.34&quot; cy=&quot;-105&quot; rx=&quot;70.69&quot; ry=&quot;18&quot;/&gt;
+&lt;text text-anchor=&quot;middle&quot; x=&quot;259.34&quot; y=&quot;-101.3&quot; font-family=&quot;Times,serif&quot; font-size=&quot;14.00&quot;&gt;Daniela da Cruz&lt;/text&gt;
+&lt;/g&gt;
+&lt;!-- Nuno Oliveira --&gt;
+&lt;g id=&quot;node2&quot; class=&quot;node&quot;&gt;
+&lt;title&gt;Nuno Oliveira&lt;/title&gt;
+&lt;ellipse fill=&quot;none&quot; stroke=&quot;black&quot; cx=&quot;64.34&quot; cy=&quot;-18&quot; rx=&quot;64.19&quot; ry=&quot;18&quot;/&gt;
+&lt;text text-anchor=&quot;middle&quot; x=&quot;64.34&quot; y=&quot;-14.3&quot; font-family=&quot;Times,serif&quot; font-size=&quot;14.00&quot;&gt;Nuno Oliveira&lt;/text&gt;
+&lt;/g&gt;
+&lt;!-- Daniela da Cruz&amp;#45;&amp;#45;Nuno Oliveira --&gt;
+&lt;g id=&quot;edge1&quot; class=&quot;edge&quot;&gt;
+&lt;title&gt;Daniela da Cruz&amp;#45;&amp;#45;Nuno Oliveira&lt;/title&gt;
+&lt;path fill=&quot;none&quot; stroke=&quot;black&quot; d=&quot;M225.38,-89.19C189.48,-73.55 133.22,-49.02 97.6,-33.49&quot;/&gt;
+&lt;text text-anchor=&quot;middle&quot; x=&quot;182.34&quot; y=&quot;-57.8&quot; font-family=&quot;Times,serif&quot; font-size=&quot;14.00&quot;&gt;11&lt;/text&gt;
+&lt;/g&gt;
+&lt;!-- Maria Joao Varanda Pereira --&gt;
+&lt;g id=&quot;node3&quot; class=&quot;node&quot;&gt;
+&lt;title&gt;Maria Joao Varanda Pereira&lt;/title&gt;
+&lt;ellipse fill=&quot;none&quot; stroke=&quot;black&quot; cx=&quot;259.34&quot; cy=&quot;-18&quot; rx=&quot;112.38&quot; ry=&quot;18&quot;/&gt;
+&lt;text text-anchor=&quot;middle&quot; x=&quot;259.34&quot; y=&quot;-14.3&quot; font-family=&quot;Times,serif&quot; font-size=&quot;14.00&quot;&gt;Maria Joao Varanda Pereira&lt;/text&gt;
+&lt;/g&gt;
+&lt;!-- Daniela da Cruz&amp;#45;&amp;#45;Maria Joao Varanda Pereira --&gt;
+&lt;g id=&quot;edge2&quot; class=&quot;edge&quot;&gt;
+&lt;title&gt;Daniela da Cruz&amp;#45;&amp;#45;Maria Joao Varanda Pereira&lt;/title&gt;
+&lt;path fill=&quot;none&quot; stroke=&quot;black&quot; d=&quot;M259.34,-86.8C259.34,-72.05 259.34,-50.92 259.34,-36.18&quot;/&gt;
+&lt;text text-anchor=&quot;middle&quot; x=&quot;267.34&quot; y=&quot;-57.8&quot; font-family=&quot;Times,serif&quot; font-size=&quot;14.00&quot;&gt;25&lt;/text&gt;
+&lt;/g&gt;
+&lt;!-- Pedro Rangel Henriques --&gt;
+&lt;g id=&quot;node4&quot; class=&quot;node&quot;&gt;
+&lt;title&gt;Pedro Rangel Henriques&lt;/title&gt;
+&lt;ellipse fill=&quot;none&quot; stroke=&quot;black&quot; cx=&quot;491.34&quot; cy=&quot;-18&quot; rx=&quot;102.08&quot; ry=&quot;18&quot;/&gt;
+&lt;text text-anchor=&quot;middle&quot; x=&quot;491.34&quot; y=&quot;-14.3&quot; font-family=&quot;Times,serif&quot; font-size=&quot;14.00&quot;&gt;Pedro Rangel Henriques&lt;/text&gt;
+&lt;/g&gt;
+&lt;!-- Daniela da Cruz&amp;#45;&amp;#45;Pedro Rangel Henriques --&gt;
+&lt;g id=&quot;edge3&quot; class=&quot;edge&quot;&gt;
+&lt;title&gt;Daniela da Cruz&amp;#45;&amp;#45;Pedro Rangel Henriques&lt;/title&gt;
+&lt;path fill=&quot;none&quot; stroke=&quot;black&quot; d=&quot;M297.91,-89.87C339.66,-74.57 406.03,-50.26 449.14,-34.46&quot;/&gt;
+&lt;text text-anchor=&quot;middle&quot; x=&quot;397.34&quot; y=&quot;-57.8&quot; font-family=&quot;Times,serif&quot; font-size=&quot;14.00&quot;&gt;39&lt;/text&gt;
+&lt;/g&gt;
+&lt;/g&gt;
+&lt;/svg&gt;&lt;H2&gt;Publication Type Index&lt;/H2&gt;
+&lt;H3&gt;article&lt;/H3&gt;
+&lt;P&gt;Key = jj96
+&lt;br&gt;Title = &lt;SPAN&gt;NLlex -- a tool to generate lexical analysers for natural language&lt;/SPAN&gt;
+&lt;br&gt;Autores = Jose Joao Dias de Almeida&lt;/P&gt;
+&lt;P&gt;Key = Ramalho98
+&lt;br&gt;Title = &lt;SPAN&gt;Algebraic specification of documents&lt;/SPAN&gt;
+&lt;br&gt;Autores = Jose Carlos Ramalho, Jose Joao Dias de Almeida, Pedro Rangel Henriques&lt;/P&gt;
+&lt;P&gt;Key = RRAH99
+&lt;br&gt;Title = &lt;SPAN&gt;SGML documents: Where does quality go?&lt;/SPAN&gt;
+&lt;br&gt;Autores = Jorge Gustavo Rocha, Jose Carlos Ramalho, Jose Joao Dias de Almeida, Pedro Rangel Henriques&lt;/P&gt;
+&lt;P&gt;Key = speaker:sepln2001
+&lt;br&gt;Title = &lt;SPAN&gt;Text to speech -- a rewriting system approach&lt;/SPAN&gt;
+&lt;br&gt;Autores = Alberto Manuel Brandao Simoes, Jose Joao Dias de Almeida&lt;/P&gt;
+&lt;P&gt;Key = parguess2002
+&lt;br&gt;Title = &lt;SPAN&gt;Grabbing parallel corpora from the web&lt;/SPAN&gt;
+&lt;br&gt;Autores = Alberto Manuel Brandao Simoes, J. Alves de Castro, Jose Joao Dias de Almeida&lt;/P&gt;
+&lt;P&gt;Key = sepln2003
+&lt;br&gt;Title = &lt;SPAN&gt;NATools -- A Statistical Word Aligner Workbench&lt;/SPAN&gt;
+&lt;br&gt;Autores = Alberto Manuel Brandao Simoes, Jose Joao Dias de Almeida&lt;/P&gt;
+&lt;P&gt;Key = xmldt2
+&lt;br&gt;Title = &lt;SPAN&gt;XML::DT - Down-Translating XML&lt;/SPAN&gt;
+&lt;br&gt;Autores = Alberto Manuel Brandao Simoes&lt;/P&gt;
+&lt;P&gt;Key = sepln2004
+&lt;br&gt;Title = &lt;SPAN&gt;Distributed Translation Memories implementation using WebServices&lt;/SPAN&gt;
+&lt;br&gt;Autores = Alberto Manuel Brandao Simoes, Jose Joao Dias de Almeida, Xavier Gomez Guinovart&lt;/P&gt;
+&lt;P&gt;Key = sepln06
+&lt;br&gt;Title = &lt;SPAN&gt;NatServer: A Client-Server Architecture for building Parallel Corpora applications&lt;/SPAN&gt;
+&lt;br&gt;Autores = Alberto Manuel Brandao Simoes, Jose Joao Dias de Almeida&lt;/P&gt;
+&lt;P&gt;Key = KMHVZ04
+&lt;br&gt;Title = &lt;SPAN&gt;Grammatical Approach to Problem Solving&lt;/SPAN&gt;
+&lt;br&gt;Autores = Maria Joao Varanda Pereira, Marjan Mernik, Pedro Rangel Henriques, Tomaz Kosar, Viljem Zumer&lt;/P&gt;
+&lt;P&gt;Key = HVMLGW05
+&lt;br&gt;Title = &lt;SPAN&gt;Automatic Generation of Language-based Tools using LISA System&lt;/SPAN&gt;
+&lt;br&gt;Autores = Hui Wu, Jeff Gray, Maria Joao Varanda Pereira, Marjan Mernik, Mitja Lenic, Pedro Rangel Henriques&lt;/P&gt;
+&lt;P&gt;Key = RMHV06
+&lt;br&gt;Title = &lt;SPAN&gt;AspectLISA: an aspect-oriented compiler construction system based on attribute grammars&lt;/SPAN&gt;
+&lt;br&gt;Autores = Damijan Rebernak, Maria Joao Varanda Pereira, Marjan Mernik, Pedro Rangel Henriques&lt;/P&gt;
+&lt;P&gt;Key = RMHCV06
+&lt;br&gt;Title = &lt;SPAN&gt;Specifying Languages using aspect-oriented approach: AspectLISA&lt;/SPAN&gt;
+&lt;br&gt;Autores = Damijan Rebernak, Daniela da Cruz, Maria Joao Varanda Pereira, Marjan Mernik, Pedro Rangel Henriques&lt;/P&gt;
+&lt;P&gt;Key = GDH06
+&lt;br&gt;Title = &lt;SPAN&gt;AG-based interactive system to retrieve information from XML documents&lt;/SPAN&gt;
+&lt;br&gt;Autores = Alda Lopes Gancarski, Anne Doucet, Pedro Rangel Henriques&lt;/P&gt;
+&lt;P&gt;Key = BH98
+&lt;br&gt;Title = &lt;SPAN&gt;A Framework and Patterns for the   Specification of Reactive Systems&lt;/SPAN&gt;
+&lt;br&gt;Autores = Leonor Barroca, Pedro Rangel Henriques&lt;/P&gt;
+&lt;P&gt;Key = RAH98
+&lt;br&gt;Title = &lt;SPAN&gt;Algebraic Specification of Documents&lt;/SPAN&gt;
+&lt;br&gt;Autores = Jose Carlos Ramalho, Jose Joao Dias de Almeida, Pedro Rangel Henriques&lt;/P&gt;
+&lt;P&gt;Key = RARH98
+&lt;br&gt;Title = &lt;SPAN&gt;SGML Documents: Where does quality go?&lt;/SPAN&gt;
+&lt;br&gt;Autores = Jorge Gustavo Rocha, Jose Carlos Ramalho, Jose Joao Dias de Almeida, Pedro Rangel Henriques&lt;/P&gt;
+&lt;P&gt;Key = GRH06
+&lt;br&gt;Title = &lt;SPAN&gt;Metamorphosis - A Topic Maps Based Environment to Handle Heterogeneous Information Resources&lt;/SPAN&gt;
+&lt;br&gt;Autores = Giovani Rubert Librelotto, Jose Carlos Ramalho, Pedro Rangel Henriques&lt;/P&gt;
+&lt;P&gt;Key = JGRH04
+&lt;br&gt;Title = &lt;SPAN&gt;XCSL Tutorial&lt;/SPAN&gt;
+&lt;br&gt;Autores = Giovani Rubert Librelotto, Jose Carlos Ramalho, Marta Jacinto, Pedro Rangel Henriques&lt;/P&gt;
+&lt;P&gt;Key = JGRH03
+&lt;br&gt;Title = &lt;SPAN&gt;XCSL: XML Constraint Specification Language&lt;/SPAN&gt;
+&lt;br&gt;Autores = Giovani Rubert Librelotto, Jose Carlos Ramalho, Marta Jacinto, Pedro Rangel Henriques&lt;/P&gt;
+&lt;P&gt;Key = GRH04
+&lt;br&gt;Title = &lt;SPAN&gt;TM-Builder: An Ontology Builder based on XML Topic Maps&lt;/SPAN&gt;
+&lt;br&gt;Autores = Giovani Rubert Librelotto, Jose Carlos Ramalho, Pedro Rangel Henriques&lt;/P&gt;
+&lt;P&gt;Key = GRH05a
+&lt;br&gt;Title = &lt;SPAN&gt;Geração automática de interfaces Web para Sistemas de Informação: Metamorphosis&lt;/SPAN&gt;
+&lt;br&gt;Autores = Giovani Rubert Librelotto, Jose Carlos Ramalho, Pedro Rangel Henriques&lt;/P&gt;
+&lt;P&gt;Key = RH98a
+&lt;br&gt;Title = &lt;SPAN&gt;Qualidade na Publicação Electrónica: como controlá-la?&lt;/SPAN&gt;
+&lt;br&gt;Autores = Jose Carlos Ramalho, Pedro Rangel Henriques&lt;/P&gt;
+&lt;P&gt;Key = MSH05
+&lt;br&gt;Title = &lt;SPAN&gt;Utilizando uma Base de Dados XML Nativa aplicada ao tratamento de erros num sistema de logs&lt;/SPAN&gt;
+&lt;br&gt;Autores = Giovana Mendes, Nuno Alberto Silva, Pedro Rangel Henriques&lt;/P&gt;
+&lt;P&gt;Key = ALHF02
+&lt;br&gt;Title = &lt;SPAN&gt;O Uso da Linguagem RS em Robótica&lt;/SPAN&gt;
+&lt;br&gt;Autores = Giovani Rubert Librelotto, Gustavo Arnold, Jaime Fonseca, Pedro Rangel Henriques&lt;/P&gt;
+&lt;P&gt;Key = CHV08ja
+&lt;br&gt;Title = &lt;SPAN&gt;Alma versus DDD&lt;/SPAN&gt;
+&lt;br&gt;Autores = Daniela da Cruz, Maria Joao Varanda Pereira, Pedro Rangel Henriques&lt;/P&gt;
+&lt;P&gt;Key = FPCH08jb
+&lt;br&gt;Title = &lt;SPAN&gt;Integration of the ST Language in a Model-Based Engineering Environment for Control Systems -- An Approach for Compiler Implementation&lt;/SPAN&gt;
+&lt;br&gt;Autores = Daniela da Cruz, Elisabete Ferreira, Pedro Rangel Henriques, Rogerio Paulo&lt;/P&gt;
+&lt;P&gt;Key = PMCH08j
+&lt;br&gt;Title = &lt;SPAN&gt;Program Comprehension for Domain-Specific Languages (invited paper)&lt;/SPAN&gt;
+&lt;br&gt;Autores = Daniela da Cruz, Maria Joao Varanda Pereira, Marjan Mernik, Pedro Rangel Henriques&lt;/P&gt;
+&lt;P&gt;Key = CHV07
+&lt;br&gt;Title = &lt;SPAN&gt;Constructing program animations using a pattern-based approach&lt;/SPAN&gt;
+&lt;br&gt;Autores = Daniela da Cruz, Maria Joao Varanda Pereira, Pedro Rangel Henriques&lt;/P&gt;
+&lt;P&gt;Key = LARH09
+&lt;br&gt;Title = &lt;SPAN&gt;Topic Maps Constraint Languages: understanding and comparing&lt;/SPAN&gt;
+&lt;br&gt;Autores = Giovani Rubert Librelotto, Jose Carlos Ramalho, Pedro Rangel Henriques, Renato Preigschadt de Azevedo&lt;/P&gt;
+&lt;P&gt;Key = CBHP09
+&lt;br&gt;Title = &lt;SPAN&gt;Code Inspection Approaches for Program Visualization&lt;/SPAN&gt;
+&lt;br&gt;Autores = Daniela da Cruz, Maria Joao Varanda Pereira, Mario Beron, Pedro Rangel Henriques&lt;/P&gt;
+&lt;P&gt;Key = OPHCC2010
+&lt;br&gt;Title = &lt;SPAN&gt;VisualLISA: A Visual Environment to Develop Attribute Grammars&lt;/SPAN&gt;
+&lt;br&gt;Autores = Bastian Cramer, Daniela da Cruz, Maria Joao Varanda Pereira, Nuno Oliveira, Pedro Rangel Henriques&lt;/P&gt;
+&lt;P&gt;Key = KOMPCCH2010
+&lt;br&gt;Title = &lt;SPAN&gt;Comparing General-Purpose and Domain-Specific Languages: An Empirical Study&lt;/SPAN&gt;
+&lt;br&gt;Autores = Daniela da Cruz, Maria Joao Varanda Pereira, Marjan Mernik, Matej Crepinsek, Nuno Oliveira, Pedro Rangel Henriques, Tomaz Kosar&lt;/P&gt;
+&lt;H3&gt;book&lt;/H3&gt;
+&lt;P&gt;Key = RH02
+&lt;br&gt;Title = &lt;SPAN&gt;XML &amp; XSL: da teoria à prática&lt;/SPAN&gt;
+&lt;br&gt;Autores = Jose Carlos Ramalho, Pedro Rangel Henriques&lt;/P&gt;
+&lt;H3&gt;incollection&lt;/H3&gt;
+&lt;P&gt;Key = avalon:jspell
+&lt;br&gt;Title = &lt;SPAN&gt;Jspellando nas morfolimpíadas: Sobre a participação do Jspell nas Morfolimpíadas&lt;/SPAN&gt;
+&lt;br&gt;Autores = Alberto Manuel Brandao Simoes, Jose Joao Dias de Almeida&lt;/P&gt;
+&lt;P&gt;Key = avalon:avalinha
+&lt;br&gt;Title = &lt;SPAN&gt;Avaliação de alinhadores&lt;/SPAN&gt;
+&lt;br&gt;Autores = Alberto Manuel Brandao Simoes, Jose Joao Dias de Almeida&lt;/P&gt;
+&lt;P&gt;Key = harem:rena
+&lt;br&gt;Title = &lt;SPAN&gt;RENA - Reconhecedor de Entidades&lt;/SPAN&gt;
+&lt;br&gt;Autores = Jose Joao Dias de Almeida&lt;/P&gt;
+&lt;P&gt;Key = RRH02
+&lt;br&gt;Title = &lt;SPAN&gt;Data Reduction to Improve Knowledge Extraction&lt;/SPAN&gt;
+&lt;br&gt;Autores = Carlos Ramos, Fatima Rodrigues, Pedro Rangel Henriques&lt;/P&gt;
+&lt;P&gt;Key = ORH06
+&lt;br&gt;Title = &lt;SPAN&gt;Data Cleaning by Reusing Domain Knowledge&lt;/SPAN&gt;
+&lt;br&gt;Autores = Fatima Rodrigues, Paulo Oliveira, Pedro Rangel Henriques&lt;/P&gt;
+&lt;H3&gt;inproceedings&lt;/H3&gt;
+&lt;P&gt;Key = graminteractivas1990
+&lt;br&gt;Title = &lt;SPAN&gt;Mecanismos para Especificação e Prototipagem de Interfaces Utilizador-Sistema&lt;/SPAN&gt;
+&lt;br&gt;Autores = F. Mario Martins, Jose Joao Dias de Almeida, Pedro Rangel Henriques&lt;/P&gt;
+&lt;P&gt;Key = Almeida94b
+&lt;br&gt;Title = &lt;SPAN&gt;GPC -- a Tool for higher-order grammar specification&lt;/SPAN&gt;
+&lt;br&gt;Autores = Jose Joao Dias de Almeida&lt;/P&gt;
+&lt;P&gt;Key = Almeida95a
+&lt;br&gt;Title = &lt;SPAN&gt;YaLG -- extending DCG for natural language processing&lt;/SPAN&gt;
+&lt;br&gt;Autores = Jose Joao Dias de Almeida&lt;/P&gt;
+&lt;P&gt;Key = Almeida94c
+&lt;br&gt;Title = &lt;SPAN&gt;Jspell -- um módulo para análise léxica genérica de linguagem natural&lt;/SPAN&gt;
+&lt;br&gt;Autores = Jose Joao Dias de Almeida, Ulisses Pinto&lt;/P&gt;
+&lt;P&gt;Key = Ramalho95
+&lt;br&gt;Title = &lt;SPAN&gt;Algebraic Specification of Documents&lt;/SPAN&gt;
+&lt;br&gt;Autores = Jose Carlos Ramalho, Jose Joao Dias de Almeida, Pedro Rangel Henriques&lt;/P&gt;
+&lt;P&gt;Key = Almeida96a
+&lt;br&gt;Title = &lt;SPAN&gt;Especificação e tratamento de Dicionários&lt;/SPAN&gt;
+&lt;br&gt;Autores = Jose Joao Dias de Almeida&lt;/P&gt;
+&lt;P&gt;Key = Ulisses96
+&lt;br&gt;Title = &lt;SPAN&gt;Tratamento automático de termos compostos&lt;/SPAN&gt;
+&lt;br&gt;Autores = Jose Joao Dias de Almeida, Ulisses Pinto&lt;/P&gt;
+&lt;P&gt;Key = Almeida96b
+&lt;br&gt;Title = &lt;SPAN&gt;YaLG a tool for higher-order grammar specification&lt;/SPAN&gt;
+&lt;br&gt;Autores = J.B. Barros, Jose Joao Dias de Almeida&lt;/P&gt;
+&lt;P&gt;Key = Ramalho96
+&lt;br&gt;Title = &lt;SPAN&gt;Document Semantics: two approaches&lt;/SPAN&gt;
+&lt;br&gt;Autores = Jose Carlos Ramalho, Jose Joao Dias de Almeida, Pedro Rangel Henriques&lt;/P&gt;
+&lt;P&gt;Key = SGML97
+&lt;br&gt;Title = &lt;SPAN&gt;SGML Documents: where does quality go?&lt;/SPAN&gt;
+&lt;br&gt;Autores = Jorge Gustavo Rocha, Jose Carlos Ramalho, Jose Joao Dias de Almeida, Pedro Rangel Henriques&lt;/P&gt;
+&lt;P&gt;Key = Almeida98
+&lt;br&gt;Title = &lt;SPAN&gt;Programação de dicionários&lt;/SPAN&gt;
+&lt;br&gt;Autores = Jose Joao Dias de Almeida&lt;/P&gt;
+&lt;P&gt;Key = Reis98
+&lt;br&gt;Title = &lt;SPAN&gt;Etiquetador morfo-sintáctico para o Português&lt;/SPAN&gt;
+&lt;br&gt;Autores = Jose Joao Dias de Almeida, Ricardo Reis&lt;/P&gt;
+&lt;P&gt;Key = ABNO97a
+&lt;br&gt;Title = &lt;SPAN&gt;&lt;SPAN STYLE=&quot;font-variant:small-caps&quot;&gt;Camila&lt;/SPAN&gt;: Formal Software Engineering Supported by Functional Programming&lt;/SPAN&gt;
+&lt;br&gt;Autores = F.L. Neves, J.N. Oliveira, Jose Joao Dias de Almeida, L.S. Barbosa&lt;/P&gt;
+&lt;P&gt;Key = ABNO97b
+&lt;br&gt;Title = &lt;SPAN&gt;&lt;SPAN STYLE=&quot;font-variant:small-caps&quot;&gt;Camila&lt;/SPAN&gt;: Prototyping and Refinement of Constructive Specifications&lt;/SPAN&gt;
+&lt;br&gt;Autores = F.L. Neves, J.N. Oliveira, Jose Joao Dias de Almeida, L.S. Barbosa&lt;/P&gt;
+&lt;P&gt;Key = AH97
+&lt;br&gt;Title = &lt;SPAN&gt;Dynamic Dictionary = cooperative information sources&lt;/SPAN&gt;
+&lt;br&gt;Autores = Jose Joao Dias de Almeida, Pedro Rangel Henriques&lt;/P&gt;
+&lt;P&gt;Key = museums98
+&lt;br&gt;Title = &lt;SPAN&gt;Adapting Museum Structures for the Web: No Changes Needed!&lt;/SPAN&gt;
+&lt;br&gt;Autores = J.L. Faria, Jorge Gustavo Rocha, Jose Carlos Ramalho, Jose Joao Dias de Almeida, Mario Ricardo Henriques, Pedro Rangel Henriques&lt;/P&gt;
+&lt;P&gt;Key = ABBN98
+&lt;br&gt;Title = &lt;SPAN&gt;On The Development of &lt;SPAN STYLE=&quot;font-variant:small-caps&quot;&gt;Camila&lt;/SPAN&gt;&lt;/SPAN&gt;
+&lt;br&gt;Autores = J.B. Barros, Jose Joao Dias de Almeida, L.F. Neves, L.S. Barbosa&lt;/P&gt;
+&lt;P&gt;Key = Gis99
+&lt;br&gt;Title = &lt;SPAN&gt;Formal Methods for GI Systems Development&lt;/SPAN&gt;
+&lt;br&gt;Autores = Ana Silva, Jorge Gustavo Rocha, Jose Joao Dias de Almeida, Mario Ricardo Henriques, Pedro Rangel Henriques&lt;/P&gt;
+&lt;P&gt;Key = RPA99
+&lt;br&gt;Title = &lt;SPAN&gt;MAPit - A tool set for automatically generation of HTML Maps&lt;/SPAN&gt;
+&lt;br&gt;Autores = Jorge Gustavo Rocha, Jose Joao Dias de Almeida, Tiago Pedroso&lt;/P&gt;
+&lt;P&gt;Key = RSea99
+&lt;br&gt;Title = &lt;SPAN&gt;Sobre a Utilização de Metodologias Formais no Desenvolvimento de SIG&lt;/SPAN&gt;
+&lt;br&gt;Autores = Ana Silva, Jorge Gustavo Rocha, Jose Joao Dias de Almeida, Mario Ricardo Henriques, Pedro Rangel Henriques&lt;/P&gt;
+&lt;P&gt;Key = xmldt99
+&lt;br&gt;Title = &lt;SPAN&gt;XML::DT a Perl Down-Translation module&lt;/SPAN&gt;
+&lt;br&gt;Autores = Jose Carlos Ramalho, Jose Joao Dias de Almeida&lt;/P&gt;
+&lt;P&gt;Key = Barbosa2000
+&lt;br&gt;Title = &lt;SPAN&gt;Polytypic Recursion Patterns&lt;/SPAN&gt;
+&lt;br&gt;Autores = J.B. Barros, Jose Joao Dias de Almeida, L.S. Barbosa&lt;/P&gt;
+&lt;P&gt;Key = jj2001x
+&lt;br&gt;Title = &lt;SPAN&gt;Smallbook -- comando para produção de livros em pequena escala&lt;/SPAN&gt;
+&lt;br&gt;Autores = Jose Joao Dias de Almeida&lt;/P&gt;
+&lt;P&gt;Key = mp2001
+&lt;br&gt;Title = &lt;SPAN&gt;Museu da Pessoa -- Arquitectura&lt;/SPAN&gt;
+&lt;br&gt;Autores = Alberto Manuel Brandao Simoes, Jorge Gustavo Rocha, Jose Joao Dias de Almeida, Pedro Rangel Henriques, Sonia Moreira&lt;/P&gt;
+&lt;P&gt;Key = alfarrabio2001
+&lt;br&gt;Title = &lt;SPAN&gt;Alfarrábio: Adding value to an Heterogeneous Site Collection&lt;/SPAN&gt;
+&lt;br&gt;Autores = Alberto Manuel Brandao Simoes, Jorge Gustavo Rocha, Jose Joao Dias de Almeida, Pedro Rangel Henriques&lt;/P&gt;
+&lt;P&gt;Key = freq2002
+&lt;br&gt;Title = &lt;SPAN&gt; Cálculo de frequências de palavras para entradas de dicionários através do uso conjunto de analisadores morfológicos, taggers e corpora&lt;/SPAN&gt;
+&lt;br&gt;Autores = Alberto Manuel Brandao Simoes, Jose Joao Dias de Almeida, Paulo A. Rocha&lt;/P&gt;
+&lt;P&gt;Key = jspell2002
+&lt;br&gt;Title = &lt;SPAN&gt; Jspell.pm -- um módulo de análise morfológica para uso em processamento de linguagem natural&lt;/SPAN&gt;
+&lt;br&gt;Autores = Alberto Manuel Brandao Simoes, Jose Joao Dias de Almeida&lt;/P&gt;
+&lt;P&gt;Key = dag2002
+&lt;br&gt;Title = &lt;SPAN&gt;Directory Attribute Grammars&lt;/SPAN&gt;
+&lt;br&gt;Autores = Alberto Manuel Brandao Simoes, Jose Joao Dias de Almeida, Pedro Rangel Henriques&lt;/P&gt;
+&lt;P&gt;Key = elpub2002
+&lt;br&gt;Title = &lt;SPAN&gt;Library::* -- a toolkit for digital libraries&lt;/SPAN&gt;
+&lt;br&gt;Autores = Alberto Manuel Brandao Simoes, Jose Joao Dias de Almeida&lt;/P&gt;
+&lt;P&gt;Key = APL2k2.Parguess
+&lt;br&gt;Title = &lt;SPAN&gt;Extracção de corpora paralelo a partir da web: construção e disponibilização&lt;/SPAN&gt;
+&lt;br&gt;Autores = Alberto Manuel Brandao Simoes, J. Alves de Castro, Jose Joao Dias de Almeida&lt;/P&gt;
+&lt;P&gt;Key = APL2k2.Synthesis
+&lt;br&gt;Title = &lt;SPAN&gt;Geração de voz com sotaque&lt;/SPAN&gt;
+&lt;br&gt;Autores = Alberto Manuel Brandao Simoes, Jose Joao Dias de Almeida&lt;/P&gt;
+&lt;P&gt;Key = xata:xmldt
+&lt;br&gt;Title = &lt;SPAN&gt;Engenharia reversa de HTML usando tecnologia XML&lt;/SPAN&gt;
+&lt;br&gt;Autores = Alberto Manuel Brandao Simoes, Jose Joao Dias de Almeida&lt;/P&gt;
+&lt;P&gt;Key = xata:museudapessoa
+&lt;br&gt;Title = &lt;SPAN&gt;Histórias de Vida + Processamento Estrutural = Museu da Pessoa&lt;/SPAN&gt;
+&lt;br&gt;Autores = Alberto Manuel Brandao Simoes, Jose Joao Dias de Almeida&lt;/P&gt;
+&lt;P&gt;Key = elpub2003
+&lt;br&gt;Title = &lt;SPAN&gt;Music publishing&lt;/SPAN&gt;
+&lt;br&gt;Autores = Alberto Manuel Brandao Simoes, Jose Joao Dias de Almeida&lt;/P&gt;
+&lt;P&gt;Key = cp3a:terminum2003
+&lt;br&gt;Title = &lt;SPAN&gt;Projecto TerminUM&lt;/SPAN&gt;
+&lt;br&gt;Autores = Alberto Manuel Brandao Simoes, Bruno Martins, J. Alves de Castro, Jose Joao Dias de Almeida, Paulo Silva&lt;/P&gt;
+&lt;P&gt;Key = cp3a:kvec2003
+&lt;br&gt;Title = &lt;SPAN&gt;Lingua-Biterm: um módulo Perl para extracção de terminologia bilingue&lt;/SPAN&gt;
+&lt;br&gt;Autores = Bruno Martins&lt;/P&gt;
+&lt;P&gt;Key = cp3a:natools2003
+&lt;br&gt;Title = &lt;SPAN&gt;Alinhamento de corpora paralelos&lt;/SPAN&gt;
+&lt;br&gt;Autores = Alberto Manuel Brandao Simoes&lt;/P&gt;
+&lt;P&gt;Key = xata04:tx
+&lt;br&gt;Title = &lt;SPAN&gt;TX --- Validação de XML baseada em tipos dinâmicos&lt;/SPAN&gt;
+&lt;br&gt;Autores = Alberto Manuel Brandao Simoes, Jose Joao Dias de Almeida&lt;/P&gt;
+&lt;P&gt;Key = xata04:mtd
+&lt;br&gt;Title = &lt;SPAN&gt;Memórias de Tradução Distribuídas&lt;/SPAN&gt;
+&lt;br&gt;Autores = Alberto Manuel Brandao Simoes, Jose Joao Dias de Almeida, Xavier Gomez Guinovart&lt;/P&gt;
+&lt;P&gt;Key = linguateca
+&lt;br&gt;Title = &lt;SPAN&gt;Linguateca: um centro de recursos distribuído para o processamento computacional da língua portuguesa&lt;/SPAN&gt;
+&lt;br&gt;Autores = Alberto Manuel Brandao Simoes, Ana Frankenberg-Garcia, Ana Pinto, Anabela Barreiro, Belinda Maia, Cristina Mota, Debora Oliveira, Diana Santos, Eckhard Bick, Elisabete Ranchhod, Jose Joao Dias de Almeida, Luis Cabral, Luis Costa, Luis Sarmento, Marcirio Chaves, Nuno Cardoso, Paulo A. Rocha, Rachel Aires, Rosario Silva, Rui Vilela, Susana Afonso&lt;/P&gt;
+&lt;P&gt;Key = xata05:fs
+&lt;br&gt;Title = &lt;SPAN&gt;Representação em XML da Floresta Sintáctica&lt;/SPAN&gt;
+&lt;br&gt;Autores = Alberto Manuel Brandao Simoes, Eckhard Bick, Jose Joao Dias de Almeida, Rui Vilela&lt;/P&gt;
+&lt;P&gt;Key = xata05:tdt
+&lt;br&gt;Title = &lt;SPAN&gt;Inferência de tipos em documentos XML&lt;/SPAN&gt;
+&lt;br&gt;Autores = Alberto Manuel Brandao Simoes, Jose Joao Dias de Almeida&lt;/P&gt;
+&lt;P&gt;Key = xata06:navegante
+&lt;br&gt;Title = &lt;SPAN&gt;Navegante: um proxy de ordem superior para navegação intusiva&lt;/SPAN&gt;
+&lt;br&gt;Autores = Alberto Manuel Brandao Simoes, Jose Joao Dias de Almeida&lt;/P&gt;
+&lt;P&gt;Key = xata06:xmlauto
+&lt;br&gt;Title = &lt;SPAN&gt;Geração dinâmica de APIs Perl para criação de XML&lt;/SPAN&gt;
+&lt;br&gt;Autores = Alberto Manuel Brandao Simoes, Jose Joao Dias de Almeida&lt;/P&gt;
+&lt;P&gt;Key = eamt06
+&lt;br&gt;Title = &lt;SPAN&gt;Combinatory Examples Extraction for Machine Translation&lt;/SPAN&gt;
+&lt;br&gt;Autores = Alberto Manuel Brandao Simoes, Jose Joao Dias de Almeida&lt;/P&gt;
+&lt;P&gt;Key = lrec06
+&lt;br&gt;Title = &lt;SPAN&gt;&lt;SPAN CLASS=&quot;math inline&quot;&gt;$T_2O$&lt;/SPAN&gt; --- Recycling Thesauri into a Multilingual Ontology&lt;/SPAN&gt;
+&lt;br&gt;Autores = Alberto Manuel Brandao Simoes, Jose Joao Dias de Almeida&lt;/P&gt;
+&lt;P&gt;Key = elpub06-t2o
+&lt;br&gt;Title = &lt;SPAN&gt;Publishing multilingual ontologies: a quick way of obtaining feedback&lt;/SPAN&gt;
+&lt;br&gt;Autores = Alberto Manuel Brandao Simoes, Jose Joao Dias de Almeida&lt;/P&gt;
+&lt;P&gt;Key = elpub06-blind
+&lt;br&gt;Title = &lt;SPAN&gt;Transcoding for Web Accessibility for the Blind: Semantics from Structure&lt;/SPAN&gt;
+&lt;br&gt;Autores = Alberto Manuel Brandao Simoes, Alexandre Carvalho, Antonio R. Fernandes, Jose Joao Dias de Almeida&lt;/P&gt;
+&lt;P&gt;Key = xata07:xmltmx
+&lt;br&gt;Title = &lt;SPAN&gt;XML::TMX --- Processamento de Memórias de Tradução de Grandes Dimensões&lt;/SPAN&gt;
+&lt;br&gt;Autores = Alberto Manuel Brandao Simoes, Jose Joao Dias de Almeida&lt;/P&gt;
+&lt;P&gt;Key = MP07
+&lt;br&gt;Title = &lt;SPAN&gt;Makefile::Parallel Dependency Specification Language&lt;/SPAN&gt;
+&lt;br&gt;Autores = Alberto Manuel Brandao Simoes, Jose Joao Dias de Almeida, Ruben Fonseca&lt;/P&gt;
+&lt;P&gt;Key = epia-music-2007
+&lt;br&gt;Title = &lt;SPAN&gt;Using Text Mining Techniques for Classical Music Scores Analysis&lt;/SPAN&gt;
+&lt;br&gt;Autores = Alberto Manuel Brandao Simoes, Analia Lourenco, Jose Joao Dias de Almeida&lt;/P&gt;
+&lt;P&gt;Key = HKMVZ03
+&lt;br&gt;Title = &lt;SPAN&gt;Grammatical Approach to Problem Solving&lt;/SPAN&gt;
+&lt;br&gt;Autores = Maria Joao Varanda Pereira, Marjan Mernik, Pedro Rangel Henriques, Tomaz Kosar, Viljem Zumer&lt;/P&gt;
+&lt;P&gt;Key = VH01
+&lt;br&gt;Title = &lt;SPAN&gt;Visualization / Animation of Programs based on Abstract Representations and Formal Mappings&lt;/SPAN&gt;
+&lt;br&gt;Autores = Maria Joao Varanda Pereira, Pedro Rangel Henriques&lt;/P&gt;
+&lt;P&gt;Key = VH02
+&lt;br&gt;Title = &lt;SPAN&gt;Automatic Generation of Language-based Tools&lt;/SPAN&gt;
+&lt;br&gt;Autores = Maria Joao Varanda Pereira, Marjan Mernik, Mitja Lenic, Pedro Rangel Henriques&lt;/P&gt;
+&lt;P&gt;Key = VH03
+&lt;br&gt;Title = &lt;SPAN&gt;Visualization / Animation of Programs in Alma: obtaining different results&lt;/SPAN&gt;
+&lt;br&gt;Autores = Maria Joao Varanda Pereira, Pedro Rangel Henriques&lt;/P&gt;
+&lt;P&gt;Key = RMHVC06
+&lt;br&gt;Title = &lt;SPAN&gt; Specifying Languages using Aspect-oriented Approach: AspectLISA&lt;/SPAN&gt;
+&lt;br&gt;Autores = Damijan Rebernak, Daniela da Cruz, Maria Joao Varanda Pereira, Marjan Mernik, Pedro Rangel Henriques&lt;/P&gt;
+&lt;P&gt;Key = BHVU07d
+&lt;br&gt;Title = &lt;SPAN&gt;PICS una Herramienta para la Comprensión e Inspección de Programas&lt;/SPAN&gt;
+&lt;br&gt;Autores = Maria Joao Varanda Pereira, Mario Beron, Pedro Rangel Henriques, Roberto Uzal&lt;/P&gt;
+&lt;P&gt;Key = BHVU07c
+&lt;br&gt;Title = &lt;SPAN&gt;Program Inspection to Incerconnect Behavioral and Operational View for Program Comprehension&lt;/SPAN&gt;
+&lt;br&gt;Autores = Maria Joao Varanda Pereira, Mario Beron, Pedro Rangel Henriques, Roberto Uzal&lt;/P&gt;
+&lt;P&gt;Key = BHVU07b
+&lt;br&gt;Title = &lt;SPAN&gt;Comprension de Programas por Inspeccion Visual y Animacion&lt;/SPAN&gt;
+&lt;br&gt;Autores = Maria Joao Varanda Pereira, Mario Beron, Pedro Rangel Henriques, Roberto Uzal&lt;/P&gt;
+&lt;P&gt;Key = BHVU07a
+&lt;br&gt;Title = &lt;SPAN&gt;Static and Dynamic Strategies to Understand C Programs by Code Annotation&lt;/SPAN&gt;
+&lt;br&gt;Autores = Maria Joao Varanda Pereira, Mario Beron, Pedro Rangel Henriques, Roberto Uzal&lt;/P&gt;
+&lt;P&gt;Key = CHLB07a
+&lt;br&gt;Title = &lt;SPAN&gt;O Sitio de Pico, Software Educativo para Crianças con Paralisia Cerebral&lt;/SPAN&gt;
+&lt;br&gt;Autores = Elisabete Cunha, Mario Beron, Pedro Rangel Henriques, Sandra Cristina Lopes&lt;/P&gt;
+&lt;P&gt;Key = BHVU06a
+&lt;br&gt;Title = &lt;SPAN&gt;Herramientas para la compresión de programas&lt;/SPAN&gt;
+&lt;br&gt;Autores = Maria Joao Varanda Pereira, Mario Beron, Pedro Rangel Henriques, Roberto Uzal&lt;/P&gt;
+&lt;P&gt;Key = BHVU06b
+&lt;br&gt;Title = &lt;SPAN&gt;Comprensión de Algoritmos de Ruteo&lt;/SPAN&gt;
+&lt;br&gt;Autores = Maria Joao Varanda Pereira, Mario Beron, Pedro Rangel Henriques, Roberto Uzal&lt;/P&gt;
+&lt;P&gt;Key = BHVUM06
+&lt;br&gt;Title = &lt;SPAN&gt;A Language Processing Tool for Program Comprehension&lt;/SPAN&gt;
+&lt;br&gt;Autores = G. Montejano, Maria Joao Varanda Pereira, Mario Beron, Pedro Rangel Henriques, Roberto Uzal&lt;/P&gt;
+&lt;P&gt;Key = BHVU08
+&lt;br&gt;Title = &lt;SPAN&gt;Simplificando la Comprensión de Programas a través de la Interconnexión de Dominios&lt;/SPAN&gt;
+&lt;br&gt;Autores = Maria Joao Varanda Pereira, Mario Beron, Pedro Rangel Henriques, Roberto Uzal&lt;/P&gt;
+&lt;P&gt;Key = BHV06
+&lt;br&gt;Title = &lt;SPAN&gt;A System for Evaluate and Understand Routing Algorithms&lt;/SPAN&gt;
+&lt;br&gt;Autores = Maria Joao Varanda Pereira, Mario Beron, Pedro Rangel Henriques&lt;/P&gt;
+&lt;P&gt;Key = BCVHU08
+&lt;br&gt;Title = &lt;SPAN&gt;Evaluation Criteria of Software Visualization Systems used for Program Comprehension&lt;/SPAN&gt;
+&lt;br&gt;Autores = Daniela da Cruz, Maria Joao Varanda Pereira, Mario Beron, Pedro Rangel Henriques, Roberto Uzal&lt;/P&gt;
+&lt;P&gt;Key = BUHV08
+&lt;br&gt;Title = &lt;SPAN&gt;Inspección de Código para relacionar los Dominios del Problema y Programa para la Comprensión de Programas&lt;/SPAN&gt;
+&lt;br&gt;Autores = Maria Joao Varanda Pereira, Mario Beron, Pedro Rangel Henriques, Roberto Uzal&lt;/P&gt;
+&lt;P&gt;Key = OVH05
+&lt;br&gt;Title = &lt;SPAN&gt;Compreensão de Aplicações Web: O Processo e as Ferramentas&lt;/SPAN&gt;
+&lt;br&gt;Autores = Eva Oliveira, Maria Joao Varanda Pereira, Pedro Rangel Henriques&lt;/P&gt;
+&lt;P&gt;Key = OHV06
+&lt;br&gt;Title = &lt;SPAN&gt;Proposta de um Sistema para Compreensão de Aplicações Web&lt;/SPAN&gt;
+&lt;br&gt;Autores = Eva Oliveira, Maria Joao Varanda Pereira, Pedro Rangel Henriques&lt;/P&gt;
+&lt;P&gt;Key = GH07b
+&lt;br&gt;Title = &lt;SPAN&gt;Analyzing the structure of scientific articles to improve information retrieval&lt;/SPAN&gt;
+&lt;br&gt;Autores = Alda Lopes Gancarski, Pedro Rangel Henriques&lt;/P&gt;
+&lt;P&gt;Key = GH07a
+&lt;br&gt;Title = &lt;SPAN&gt;Using data together with metadata to improve XML information access&lt;/SPAN&gt;
+&lt;br&gt;Autores = Alda Lopes Gancarski, Pedro Rangel Henriques&lt;/P&gt;
+&lt;P&gt;Key = GFH08
+&lt;br&gt;Title = &lt;SPAN&gt;Using data together with metadata to improve XML information access&lt;/SPAN&gt;
+&lt;br&gt;Autores = Alda Lopes Gancarski, Flavio Xavier Ferreira, Pedro Rangel Henriques&lt;/P&gt;
+&lt;P&gt;Key = FGH08
+&lt;br&gt;Title = &lt;SPAN&gt;Information access from XML using semantics and context: application to the Portuguese Emigration Museum&lt;/SPAN&gt;
+&lt;br&gt;Autores = Alda Lopes Gancarski, Flavio Xavier Ferreira, Pedro Rangel Henriques&lt;/P&gt;
+&lt;P&gt;Key = FH08
+&lt;br&gt;Title = &lt;SPAN&gt;Using OWL to specify and build different views over the Emigration Museum resources&lt;/SPAN&gt;
+&lt;br&gt;Autores = Flavio Xavier Ferreira, Pedro Rangel Henriques&lt;/P&gt;
+&lt;P&gt;Key = LPRH07
+&lt;br&gt;Title = &lt;SPAN&gt;Navegando na Rede Semântica dos Topic Maps com o Ulisses&lt;/SPAN&gt;
+&lt;br&gt;Autores = Giovani Rubert Librelotto, Jose Carlos Ramalho, Pedro Rangel Henriques, Renato Preigschadt de Azevedo&lt;/P&gt;
+&lt;P&gt;Key = LPRH07-TM
+&lt;br&gt;Title = &lt;SPAN&gt;Topic Maps Constraint Specification Languages: comparing AsTMa!, OSL, and XTche&lt;/SPAN&gt;
+&lt;br&gt;Autores = Giovani Rubert Librelotto, Jose Carlos Ramalho, Pedro Rangel Henriques, Renato Preigschadt de Azevedo&lt;/P&gt;
+&lt;P&gt;Key = LRHGT08
+&lt;br&gt;Title = &lt;SPAN&gt;A Framework to specify, extract and manage Topic Maps driven by ontologie&lt;/SPAN&gt;
+&lt;br&gt;Autores = Giovani Rubert Librelotto, Jonas Bulegon Gassen, Jose Carlos Ramalho, Pedro Rangel Henriques, Rogerio Correa Turchetti&lt;/P&gt;
+&lt;P&gt;Key = LGFSSAH08
+&lt;br&gt;Title = &lt;SPAN&gt;Uma Ontologia aplicada a um Ambiente Pervasivo Hospitalar&lt;/SPAN&gt;
+&lt;br&gt;Autores = Fabio L. Silva, Giovani Rubert Librelotto, Iara Augustin, Jonas Bulegon Gassen, Leandro O. Freitas, Matheus C. Silveira, Pedro Rangel Henriques&lt;/P&gt;
+&lt;P&gt;Key = LMMVRH08
+&lt;br&gt;Title = &lt;SPAN&gt;Generating a Semantic Network for PubMed&lt;/SPAN&gt;
+&lt;br&gt;Autores = Giovani Rubert Librelotto, Henrique Machado, Jose Carlos Ramalho, Juliana Vizzotto, Mirkos Martins, Pedro Rangel Henriques&lt;/P&gt;
+&lt;P&gt;Key = CPH07f
+&lt;br&gt;Title = &lt;SPAN&gt;Pattern-based Program Visualization&lt;/SPAN&gt;
+&lt;br&gt;Autores = Daniela da Cruz, Maria Joao Varanda Pereira, Pedro Rangel Henriques&lt;/P&gt;
+&lt;P&gt;Key = CH07g
+&lt;br&gt;Title = &lt;SPAN&gt;Slicing wxHaskell modules to derive the User Interface Abstract Model (short paper and poster)&lt;/SPAN&gt;
+&lt;br&gt;Autores = Daniela da Cruz, Pedro Rangel Henriques&lt;/P&gt;
+&lt;P&gt;Key = CH07h
+&lt;br&gt;Title = &lt;SPAN&gt;XLS --- XTDL Laboratory Site (poster)&lt;/SPAN&gt;
+&lt;br&gt;Autores = Daniela da Cruz, Pedro Rangel Henriques&lt;/P&gt;
+&lt;P&gt;Key = FCHV08
+&lt;br&gt;Title = &lt;SPAN&gt;How to interconnect operational and behavioral views of web applications&lt;/SPAN&gt;
+&lt;br&gt;Autores = Daniela da Cruz, Maria Joao Varanda Pereira, Pedro Rangel Henriques, Ruben Fonseca&lt;/P&gt;
+&lt;P&gt;Key = CHP08i
+&lt;br&gt;Title = &lt;SPAN&gt;Strategies for Program Inspection and Visualization&lt;/SPAN&gt;
+&lt;br&gt;Autores = Daniela da Cruz, Maria Joao Varanda Pereira, Pedro Rangel Henriques&lt;/P&gt;
+&lt;P&gt;Key = CH07a
+&lt;br&gt;Title = &lt;SPAN&gt;XTDL - XML Tool Definition Language&lt;/SPAN&gt;
+&lt;br&gt;Autores = Daniela da Cruz, Pedro Rangel Henriques&lt;/P&gt;
+&lt;P&gt;Key = CLH07c
+&lt;br&gt;Title = &lt;SPAN&gt;Como ensinar com Mapas de Conceitos: duas abordagens complementares&lt;/SPAN&gt;
+&lt;br&gt;Autores = Daniela da Cruz, Pedro Rangel Henriques, Sandra Cristina Lopes&lt;/P&gt;
+&lt;P&gt;Key = CH07d
+&lt;br&gt;Title = &lt;SPAN&gt;LISS --- The language and the compiler&lt;/SPAN&gt;
+&lt;br&gt;Autores = Daniela da Cruz, Pedro Rangel Henriques&lt;/P&gt;
+&lt;P&gt;Key = CFPBH07d
+&lt;br&gt;Title = &lt;SPAN&gt;Comparing Generators for Language-based Tools&lt;/SPAN&gt;
+&lt;br&gt;Autores = Daniela da Cruz, Maria Joao Varanda Pereira, Mario Beron, Pedro Rangel Henriques, Ruben Fonseca&lt;/P&gt;
+&lt;P&gt;Key = CHP08a
+&lt;br&gt;Title = &lt;SPAN&gt;Exploring and Visualizing the &quot;alma&quot; of XML Documents&lt;/SPAN&gt;
+&lt;br&gt;Autores = Daniela da Cruz, Maria Joao Varanda Pereira, Pedro Rangel Henriques&lt;/P&gt;
+&lt;P&gt;Key = CHP08b
+&lt;br&gt;Title = &lt;SPAN&gt;Alma vs DDD&lt;/SPAN&gt;
+&lt;br&gt;Autores = Daniela da Cruz, Maria Joao Varanda Pereira, Pedro Rangel Henriques&lt;/P&gt;
+&lt;P&gt;Key = CPH08c
+&lt;br&gt;Title = &lt;SPAN&gt;Properties Preservation during Transformation (short paper)&lt;/SPAN&gt;
+&lt;br&gt;Autores = Daniela da Cruz, Jorge Sousa Pinto, Pedro Rangel Henriques&lt;/P&gt;
+&lt;P&gt;Key = FPCH08d
+&lt;br&gt;Title = &lt;SPAN&gt;Integration of the ST Language in a Model-Based Engineering Environment for Control Systems --- An Approach for Compiler Implementation&lt;/SPAN&gt;
+&lt;br&gt;Autores = Daniela da Cruz, Elisabete Ferreira, Pedro Rangel Henriques, Rogerio Paulo&lt;/P&gt;
+&lt;P&gt;Key = PMCH08e
+&lt;br&gt;Title = &lt;SPAN&gt;VisualLISA: a Visual Interface for an Attribute Grammar based Compiler-Compiler (short paper)&lt;/SPAN&gt;
+&lt;br&gt;Autores = Daniela da Cruz, Maria Joao Varanda Pereira, Marjan Mernik, Pedro Rangel Henriques&lt;/P&gt;
+&lt;P&gt;Key = PMCH08f
+&lt;br&gt;Title = &lt;SPAN&gt;Program Comprehension for Domain-Specific Languages&lt;/SPAN&gt;
+&lt;br&gt;Autores = Daniela da Cruz, Maria Joao Varanda Pereira, Marjan Mernik, Pedro Rangel Henriques&lt;/P&gt;
+&lt;P&gt;Key = CHP09a
+&lt;br&gt;Title = &lt;SPAN&gt;Code Analysis: Past and Present&lt;/SPAN&gt;
+&lt;br&gt;Autores = Daniela da Cruz, Jorge Sousa Pinto, Pedro Rangel Henriques&lt;/P&gt;
+&lt;P&gt;Key = OPCH09a
+&lt;br&gt;Title = &lt;SPAN&gt;Visualization of Domain-Specific Programs&#39; Behavior&lt;/SPAN&gt;
+&lt;br&gt;Autores = Daniela da Cruz, Maria Joao Varanda Pereira, Nuno Oliveira, Pedro Rangel Henriques&lt;/P&gt;
+&lt;P&gt;Key = oliveira09b
+&lt;br&gt;Title = &lt;SPAN&gt;Applying Program Comprehension Techniques to Karel Robot Programs&lt;/SPAN&gt;
+&lt;br&gt;Autores = Daniela da Cruz, Maria Joao Varanda Pereira, Marjan Mernik, Matej Crepinsek, Nuno Oliveira, Pedro Rangel Henriques, Tomaz Kosar&lt;/P&gt;
+&lt;P&gt;Key = oliveira09c
+&lt;br&gt;Title = &lt;SPAN&gt;VisualLISA: Visual Programming Environment for Attribute Grammars Specification&lt;/SPAN&gt;
+&lt;br&gt;Autores = Daniela da Cruz, Maria Joao Varanda Pereira, Nuno Oliveira, Pedro Rangel Henriques&lt;/P&gt;
+&lt;P&gt;Key = kosar09
+&lt;br&gt;Title = &lt;SPAN&gt;Influence of domain-specific notation to program understanding&lt;/SPAN&gt;
+&lt;br&gt;Autores = Daniela da Cruz, Maria Joao Varanda Pereira, Marjan Mernik, Nuno Oliveira, Pedro Rangel Henriques, Tomaz Kosar&lt;/P&gt;
+&lt;P&gt;Key = FCHGD09a
+&lt;br&gt;Title = &lt;SPAN&gt;A Query-by-Example Approach for XML Querying&lt;/SPAN&gt;
+&lt;br&gt;Autores = Alda Lopes Gancarski, Bruno Defude, Daniela da Cruz, Flavio Xavier Ferreira, Pedro Rangel Henriques&lt;/P&gt;
+&lt;P&gt;Key = ORH09a
+&lt;br&gt;Title = &lt;SPAN&gt;SMARTCLEAN: uma ferramenta para a limpeza incremental de dados&lt;/SPAN&gt;
+&lt;br&gt;Autores = Maria de Fatima Rodrigues, Paulo Jorge Oliveria, Pedro Rangel Henriques&lt;/P&gt;
+&lt;P&gt;Key = LPH09a
+&lt;br&gt;Title = &lt;SPAN&gt;Uma metodologia para Consultas aos Bancos de Dados do NCBI&lt;/SPAN&gt;
+&lt;br&gt;Autores = Giovani Rubert Librelotto, Pedro Rangel Henriques, Rafael Teodosio Pereira&lt;/P&gt;
+&lt;P&gt;Key = OPHC09a
+&lt;br&gt;Title = &lt;SPAN&gt;Domain Specific Languages: A Theoretical Survey&lt;/SPAN&gt;
+&lt;br&gt;Autores = Daniela da Cruz, Maria Joao Varanda Pereira, Nuno Oliveira, Pedro Rangel Henriques&lt;/P&gt;
+&lt;P&gt;Key = OPHCC09
+&lt;br&gt;Title = &lt;SPAN&gt;VisualLISA: A Domain Specific Visual Language for Attribute Grammars&lt;/SPAN&gt;
+&lt;br&gt;Autores = Bastian Cramer, Daniela da Cruz, Maria Joao Varanda Pereira, Nuno Oliveira, Pedro Rangel Henriques&lt;/P&gt;
+&lt;P&gt;Key = MKCHCPO09
+&lt;br&gt;Title = &lt;SPAN&gt;Comparison of XAML and C# Forms using Cognitive Dimensions Framework&lt;/SPAN&gt;
+&lt;br&gt;Autores = Daniela da Cruz, Maria Joao Varanda Pereira, Marjan Mernik, Nuno Oliveira, Pedro Rangel Henriques, Tomaz Kosar&lt;/P&gt;
+&lt;P&gt;Key = OHCP09
+&lt;br&gt;Title = &lt;SPAN&gt;XAGra - An XML Dialect for Attribute Grammars&lt;/SPAN&gt;
+&lt;br&gt;Autores = Daniela da Cruz, Maria Joao Varanda Pereira, Nuno Oliveira, Pedro Rangel Henriques&lt;/P&gt;
+&lt;P&gt;Key = FCHGD09b
+&lt;br&gt;Title = &lt;SPAN&gt;GuessXQ, an inference Web-engine for querying XML Documents&lt;/SPAN&gt;
+&lt;br&gt;Autores = Alda Lopes Gancarski, Bruno Defude, Daniela da Cruz, Flavio Xavier Ferreira, Pedro Rangel Henriques&lt;/P&gt;
+&lt;P&gt;Key = BHVU09
+&lt;br&gt;Title = &lt;SPAN&gt;Instrumentaciones de Programas Escritos en C para Interrelacionar las Vistas Comportamental y Operacional de los Sistemas de Software&lt;/SPAN&gt;
+&lt;br&gt;Autores = Maria Joao Varanda Pereira, Mario Beron, Pedro Rangel Henriques, Roberto Uzal&lt;/P&gt;
+&lt;P&gt;Key = CH09d
+&lt;br&gt;Title = &lt;SPAN&gt;Assessing Databases in .Net: comparing approaches&lt;/SPAN&gt;
+&lt;br&gt;Autores = Daniela da Cruz, Pedro Rangel Henriques&lt;/P&gt;
+&lt;P&gt;Key = CH2010a
+&lt;br&gt;Title = &lt;SPAN&gt;Exploring, Visualizing and Slicing the Soul of XML Documents&lt;/SPAN&gt;
+&lt;br&gt;Autores = Daniela da Cruz, Pedro Rangel Henriques&lt;/P&gt;
+&lt;H3&gt;mastersthesis&lt;/H3&gt;
+&lt;P&gt;Key = teseambs
+&lt;br&gt;Title = &lt;SPAN&gt;Parallel Corpora word alignment and applications&lt;/SPAN&gt;
+&lt;br&gt;Autores = Alberto Manuel Brandao Simoes&lt;/P&gt;
+&lt;H3&gt;misc&lt;/H3&gt;
+&lt;P&gt;Key = cruz09
+&lt;br&gt;Title = &lt;SPAN&gt;GraAL - A Grammar Analyzer&lt;/SPAN&gt;
+&lt;br&gt;Autores = Daniela da Cruz, Nuno Oliveira, Pedro Rangel Henriques&lt;/P&gt;
+&lt;H3&gt;phdthesis&lt;/H3&gt;
+&lt;P&gt;Key = tesejj
+&lt;br&gt;Title = &lt;SPAN&gt;Dicionários dinâmicos multi-fonte&lt;/SPAN&gt;
+&lt;br&gt;Autores = Jose Joao Dias de Almeida&lt;/P&gt;
+&lt;H3&gt;techreport&lt;/H3&gt;
+&lt;P&gt;Key = tlc89
+&lt;br&gt;Title = &lt;SPAN&gt;Teoria das Linguagens &lt;/SPAN&gt;
+&lt;br&gt;Autores = J.B. Barros, Jose Joao Dias de Almeida&lt;/P&gt;
+&lt;P&gt;Key = estruturasdedados90
+&lt;br&gt;Title = &lt;SPAN&gt;Estruturas de Dados&lt;/SPAN&gt;
+&lt;br&gt;Autores = J.B. Barros, Jose Joao Dias de Almeida&lt;/P&gt;
+&lt;P&gt;Key = Camila
+&lt;br&gt;Title = &lt;SPAN&gt;&lt;SPAN STYLE=&quot;font-variant:small-caps&quot;&gt;Camila&lt;/SPAN&gt; - A Platform for Software Mathematical Development&lt;/SPAN&gt;
+&lt;br&gt;Autores = projecto Camila&lt;/P&gt;
+&lt;P&gt;Key = Natura
+&lt;br&gt;Title = &lt;SPAN&gt;Natura - Natural language processing&lt;/SPAN&gt;
+&lt;br&gt;Autores = Jose Joao Dias de Almeida&lt;/P&gt;
+&lt;P&gt;Key = jspell1
+&lt;br&gt;Title = &lt;SPAN&gt;Manual de Utilizador do JSpell&lt;/SPAN&gt;
+&lt;br&gt;Autores = Jose Joao Dias de Almeida, Ulisses Pinto&lt;/P&gt;
+&lt;P&gt;Key = jj95
+&lt;br&gt;Title = &lt;SPAN&gt;NLlex -- a tool to generate lexical analysers for natural language&lt;/SPAN&gt;
+&lt;br&gt;Autores = Jose Joao Dias de Almeida&lt;/P&gt;
+&lt;P&gt;Key = Barbosa95
+&lt;br&gt;Title = &lt;SPAN&gt;System Prototyping in &lt;SPAN STYLE=&quot;font-variant:small-caps&quot;&gt;Camila&lt;/SPAN&gt;&lt;/SPAN&gt;
+&lt;br&gt;Autores = Jose Joao Dias de Almeida, L.S. Barbosa&lt;/P&gt;
+&lt;P&gt;Key = Barbosa95a
+&lt;br&gt;Title = &lt;SPAN&gt;&lt;SPAN STYLE=&quot;font-variant:small-caps&quot;&gt;Camila&lt;/SPAN&gt;: A reference Manual&lt;/SPAN&gt;
+&lt;br&gt;Autores = Jose Joao Dias de Almeida, L.S. Barbosa&lt;/P&gt;
+&lt;P&gt;Key = BA97a
+&lt;br&gt;Title = &lt;SPAN&gt;Systems Prototyping in &lt;SPAN STYLE=&quot;font-variant:small-caps&quot;&gt;Camila&lt;/SPAN&gt;&lt;/SPAN&gt;
+&lt;br&gt;Autores = Jose Joao Dias de Almeida, L.S. Barbosa&lt;/P&gt;
+&lt;P&gt;Key = Barbosa95b
+&lt;br&gt;Title = &lt;SPAN&gt;Growing Up With &lt;SPAN STYLE=&quot;font-variant:small-caps&quot;&gt;Camila&lt;/SPAN&gt;&lt;/SPAN&gt;
+&lt;br&gt;Autores = Jose Joao Dias de Almeida, L.S. Barbosa&lt;/P&gt;
+&lt;P&gt;Key = Almeida96c
+&lt;br&gt;Title = &lt;SPAN&gt;From BiBTeX to HTML semantic nets&lt;/SPAN&gt;
+&lt;br&gt;Autores = Jose Carlos Ramalho, Jose Joao Dias de Almeida&lt;/P&gt;&lt;H2&gt;Author Index&lt;/H2&gt;
+&lt;H3&gt;A&lt;/H3&gt;
+&lt;P&gt;Afonso, S., linguateca&lt;/P&gt;
+&lt;P&gt;Aires, R., linguateca&lt;/P&gt;
+&lt;P&gt;Almeida, J. J. D., jspell1, xata05:fs, jj96, Barbosa2000, APL2k2.Parguess, epia-music-2007, Almeida96a, elpub2002, elpub06-t2o, RPA99, xata:museudapessoa, Almeida98, jspell2002, Reis98, MP07, lrec06, xata06:xmlauto, eamt06, xata04:tx, xata04:mtd, SGML97, mp2001, cp3a:terminum2003, Barbosa95a, avalon:jspell, graminteractivas1990, xata:xmldt, Ramalho95, estruturasdedados90, xata06:navegante, sepln06, ABNO97b, Ramalho96, Natura, sepln2003, BA97a, xata07:xmltmx, Ulisses96, Almeida95a, ABNO97a, jj95, RRAH99, avalon:avalinha, RAH98, Almeida96b, sepln2004, AH97, linguateca, Almeida94c, speaker:sepln2001, tesejj, harem:rena, RARH98, xmldt99, RSea99, elpub2003, Barbosa95, Barbosa95b, Ramalho98, museums98, dag2002, xata05:tdt, tlc89, parguess2002, elpub06-blind, APL2k2.Synthesis, ABBN98, freq2002, Almeida96c, jj2001x, Gis99, alfarrabio2001, Almeida94b&lt;/P&gt;
+&lt;P&gt;Arnold, G., ALHF02&lt;/P&gt;
+&lt;P&gt;Augustin, I., LGFSSAH08&lt;/P&gt;
+&lt;P&gt;Azevedo, R. P., LPRH07, LPRH07-TM, LARH09&lt;/P&gt;
+&lt;H3&gt;B&lt;/H3&gt;
+&lt;P&gt;Barbosa, L. S., Barbosa95a, Barbosa95, Barbosa2000, Barbosa95b, ABNO97b, ABBN98, BA97a, ABNO97a&lt;/P&gt;
+&lt;P&gt;Barreiro, A., linguateca&lt;/P&gt;
+&lt;P&gt;Barroca, L., BH98&lt;/P&gt;
+&lt;P&gt;Barros, J. B., Barbosa2000, estruturasdedados90, Almeida96b, tlc89, ABBN98&lt;/P&gt;
+&lt;P&gt;Beron, M., BHVU07b, BHVU07c, BHVU07d, BHVU07a&lt;/P&gt;
+&lt;P&gt;Beron, M., CHLB07a, CFPBH07d, BCVHU08, BHVU06b, BHVU08, CBHP09, BHVU09, BHVUM06, BHV06, BUHV08, BHVU06a&lt;/P&gt;
+&lt;P&gt;Bick, E., xata05:fs, linguateca&lt;/P&gt;
+&lt;H3&gt;C&lt;/H3&gt;
+&lt;P&gt;Cabral, L., linguateca&lt;/P&gt;
+&lt;P&gt;Camila, , Camila&lt;/P&gt;
+&lt;P&gt;Cardoso, N., linguateca&lt;/P&gt;
+&lt;P&gt;Carvalho, A., elpub06-blind&lt;/P&gt;
+&lt;P&gt;Castro, J. A., cp3a:terminum2003, parguess2002, APL2k2.Parguess&lt;/P&gt;
+&lt;P&gt;Chaves, M., linguateca&lt;/P&gt;
+&lt;P&gt;Costa, L., linguateca&lt;/P&gt;
+&lt;P&gt;Cramer, B., OPHCC09, OPHCC2010&lt;/P&gt;
+&lt;P&gt;Crepinsek, M., KOMPCCH2010, oliveira09b&lt;/P&gt;
+&lt;P&gt;Cruz, D., CLH07c, RMHVC06, CHP08b, oliveira09c, CHP08i, CFPBH07d, MKCHCPO09, CBHP09, CPH07f, OPHCC09, RMHCV06, FPCH08d, PMCH08e, PMCH08f, FCHGD09a, OPHCC2010, OHCP09, FPCH08jb, BCVHU08, CHP08a, CH07a, CHP09a, CHV07, kosar09, CH07d, CH07h, cruz09, CH07g, CH2010a, FCHV08, CPH08c, PMCH08j, FCHGD09b, CHV08ja, OPHC09a, KOMPCCH2010, CH09d, OPCH09a, oliveira09b&lt;/P&gt;
+&lt;P&gt;Cunha, E., CHLB07a&lt;/P&gt;
+&lt;H3&gt;D&lt;/H3&gt;
+&lt;P&gt;Defude, B., FCHGD09a, FCHGD09b&lt;/P&gt;
+&lt;P&gt;Doucet, A., GDH06&lt;/P&gt;
+&lt;H3&gt;F&lt;/H3&gt;
+&lt;P&gt;Faria, J. L., museums98&lt;/P&gt;
+&lt;P&gt;Fernandes, A. R., elpub06-blind&lt;/P&gt;
+&lt;P&gt;Ferreira, E., FPCH08jb, FPCH08d&lt;/P&gt;
+&lt;P&gt;Ferreira, F. X., GFH08, FGH08, FH08, FCHGD09b, FCHGD09a&lt;/P&gt;
+&lt;P&gt;Fonseca, J., ALHF02&lt;/P&gt;
+&lt;P&gt;Fonseca, R., MP07, CFPBH07d, FCHV08&lt;/P&gt;
+&lt;P&gt;Frankenberg-Garcia, A. F., linguateca&lt;/P&gt;
+&lt;P&gt;Freitas, L. O., LGFSSAH08&lt;/P&gt;
+&lt;H3&gt;G&lt;/H3&gt;
+&lt;P&gt;Gancarski, A. L., GFH08, FGH08, FCHGD09b, GH07b, FCHGD09a, GH07a, GDH06&lt;/P&gt;
+&lt;P&gt;Gassen, J. B., LRHGT08, LGFSSAH08&lt;/P&gt;
+&lt;P&gt;Gray, J., HVMLGW05&lt;/P&gt;
+&lt;P&gt;Guinovart, X. G., sepln2004, xata04:mtd&lt;/P&gt;
+&lt;H3&gt;H&lt;/H3&gt;
+&lt;P&gt;Henriques, M. R., Gis99, museums98, RSea99&lt;/P&gt;
+&lt;P&gt;Henriques, P. R., BHVU07a, BHVU07b, oliveira09c, ORH09a, GDH06, Ramalho95, FH08, CBHP09, KMHVZ04, RMHCV06, OVH05, OPHCC2010, OHCP09, CHLB07a, RMHV06, FPCH08jb, CHP08a, JGRH04, CH07d, CH07g, RARH98, GH07a, CH2010a, RSea99, CPH08c, dag2002, FGH08, LPRH07-TM, KOMPCCH2010, OHV06, oliveira09b, BH98, GH07b, RRH02, FPCH08d, PMCH08f, RRAH99, GRH05a, GRH06, AH97, CHV07, BHVU09, BHV06, cruz09, CH07h, Ramalho98, PMCH08j, FCHGD09b, BHVU08, LARH09, RH02, GRH04, VH03, Gis99, CH09d, OPCH09a, LRHGT08, VH01, graminteractivas1990, CFPBH07d, MKCHCPO09, Ramalho96, BHVUM06, CPH07f, OPHCC09, FCHGD09a, RAH98, kosar09, BHVU06a, FCHV08, LPH09a, museums98, BHVU06b, CHV08ja, alfarrabio2001, GFH08, RH98a, CLH07c, LGFSSAH08, RMHVC06, CHP08b, mp2001, SGML97, CHP08i, ORH06, HVMLGW05, LMMVRH08, BHVU07d, BUHV08, PMCH08e, JGRH03, VH02, BCVHU08, LPRH07, CH07a, CHP09a, BHVU07c, HKMVZ03, MSH05, ALHF02, OPHC09a&lt;/P&gt;
+&lt;H3&gt;J&lt;/H3&gt;
+&lt;P&gt;Jacinto, M., JGRH04, JGRH03&lt;/P&gt;
+&lt;H3&gt;K&lt;/H3&gt;
+&lt;P&gt;Kosar, T., MKCHCPO09, KMHVZ04, kosar09, HKMVZ03, KOMPCCH2010, oliveira09b&lt;/P&gt;
+&lt;H3&gt;L&lt;/H3&gt;
+&lt;P&gt;Lenic, M., VH02, HVMLGW05&lt;/P&gt;
+&lt;P&gt;Librelotto, G. R., JGRH03, GRH05a, LPH09a, GRH06, LPRH07, LRHGT08, LGFSSAH08, ALHF02, JGRH04, LMMVRH08, LPRH07-TM, GRH04, LARH09&lt;/P&gt;
+&lt;P&gt;Lopes, S. C., CHLB07a, CLH07c&lt;/P&gt;
+&lt;P&gt;Lourenco, A., epia-music-2007&lt;/P&gt;
+&lt;H3&gt;M&lt;/H3&gt;
+&lt;P&gt;Machado, H., LMMVRH08&lt;/P&gt;
+&lt;P&gt;Maia, B., linguateca&lt;/P&gt;
+&lt;P&gt;Martins, B., cp3a:kvec2003, cp3a:terminum2003&lt;/P&gt;
+&lt;P&gt;Martins, F. M., graminteractivas1990&lt;/P&gt;
+&lt;P&gt;Martins, M., LMMVRH08&lt;/P&gt;
+&lt;P&gt;Mendes, G., MSH05&lt;/P&gt;
+&lt;P&gt;Mernik, M., RMHV06, HVMLGW05, VH02, PMCH08j, PMCH08f, MKCHCPO09, KMHVZ04, RMHVC06, HKMVZ03, RMHCV06, PMCH08e, kosar09, KOMPCCH2010, oliveira09b&lt;/P&gt;
+&lt;P&gt;Montejano, G., BHVUM06&lt;/P&gt;
+&lt;P&gt;Moreira, S., mp2001&lt;/P&gt;
+&lt;P&gt;Mota, C., linguateca&lt;/P&gt;
+&lt;H3&gt;N&lt;/H3&gt;
+&lt;P&gt;Neves, F. L., ABNO97b, ABNO97a&lt;/P&gt;
+&lt;P&gt;Neves, L. F., ABBN98&lt;/P&gt;
+&lt;H3&gt;O&lt;/H3&gt;
+&lt;P&gt;Oliveira, D., linguateca&lt;/P&gt;
+&lt;P&gt;Oliveira, E., OVH05, OHV06&lt;/P&gt;
+&lt;P&gt;Oliveira, J. N., ABNO97b, ABNO97a&lt;/P&gt;
+&lt;P&gt;Oliveira, N., MKCHCPO09, oliveira09c, OPHCC09, OHCP09, kosar09, cruz09, OPHC09a, KOMPCCH2010, OPHCC2010, OPCH09a, oliveira09b&lt;/P&gt;
+&lt;P&gt;Oliveira, P., ORH06&lt;/P&gt;
+&lt;P&gt;Oliveria, P. J., ORH09a&lt;/P&gt;
+&lt;H3&gt;P&lt;/H3&gt;
+&lt;P&gt;Paulo, R., FPCH08jb, FPCH08d&lt;/P&gt;
+&lt;P&gt;Pedroso, T., RPA99&lt;/P&gt;
+&lt;P&gt;Pereira, M. J. V., BHVU07a, RMHVC06, BHVU07b, CHP08b, VH01, oliveira09c, CHP08i, HVMLGW05, CFPBH07d, MKCHCPO09, CBHP09, KMHVZ04, CPH07f, BHVUM06, OPHCC09, RMHCV06, BHVU07d, BUHV08, PMCH08e, PMCH08f, OVH05, OPHCC2010, OHCP09, RMHV06, VH02, BCVHU08, CHP08a, CHV07, BHVU07c, BHV06, BHVU09, HKMVZ03, kosar09, BHVU06a, FCHV08, PMCH08j, BHVU06b, BHVU08, VH03, CHV08ja, OPHC09a, KOMPCCH2010, OHV06, OPCH09a, oliveira09b&lt;/P&gt;
+&lt;P&gt;Pereira, R. T., LPH09a&lt;/P&gt;
+&lt;P&gt;Pinto, A., linguateca&lt;/P&gt;
+&lt;P&gt;Pinto, J. S., CPH08c, CHP09a&lt;/P&gt;
+&lt;P&gt;Pinto, U., jspell1, Almeida94c, Ulisses96&lt;/P&gt;
+&lt;H3&gt;R&lt;/H3&gt;
+&lt;P&gt;Ramalho, J. C., RH98a, LRHGT08, SGML97, Ramalho95, LMMVRH08, Ramalho96, RRAH99, JGRH03, GRH05a, RAH98, GRH06, LPRH07, JGRH04, RARH98, xmldt99, Ramalho98, museums98, LARH09, RH02, GRH04, Almeida96c, LPRH07-TM&lt;/P&gt;
+&lt;P&gt;Ramos, C., RRH02&lt;/P&gt;
+&lt;P&gt;Ranchhod, E., linguateca&lt;/P&gt;
+&lt;P&gt;Rebernak, D., RMHCV06, RMHV06, RMHVC06&lt;/P&gt;
+&lt;P&gt;Reis, R., Reis98&lt;/P&gt;
+&lt;P&gt;Rocha, J. G., RSea99, mp2001, museums98, RPA99, Gis99, RARH98, alfarrabio2001, RRAH99, SGML97&lt;/P&gt;
+&lt;P&gt;Rocha, P. A., linguateca, freq2002&lt;/P&gt;
+&lt;P&gt;Rodrigues, F., RRH02, ORH06&lt;/P&gt;
+&lt;P&gt;Rodrigues, M. F., ORH09a&lt;/P&gt;
+&lt;H3&gt;S&lt;/H3&gt;
+&lt;P&gt;Santos, D., linguateca&lt;/P&gt;
+&lt;P&gt;Sarmento, L., linguateca&lt;/P&gt;
+&lt;P&gt;Silva, A., Gis99, RSea99&lt;/P&gt;
+&lt;P&gt;Silva, F. L., LGFSSAH08&lt;/P&gt;
+&lt;P&gt;Silva, N. A., MSH05&lt;/P&gt;
+&lt;P&gt;Silva, P., cp3a:terminum2003&lt;/P&gt;
+&lt;P&gt;Silva, R., linguateca&lt;/P&gt;
+&lt;P&gt;Silveira, M. C., LGFSSAH08&lt;/P&gt;
+&lt;P&gt;Simoes, A. M. B., xata05:fs, epia-music-2007, APL2k2.Parguess, elpub2002, xmldt2, xata:museudapessoa, elpub06-t2o, jspell2002, MP07, lrec06, eamt06, xata04:tx, xata04:mtd, cp3a:terminum2003, mp2001, avalon:jspell, xata:xmldt, xata06:navegante, sepln06, sepln2003, xata07:xmltmx, cp3a:natools2003, teseambs, avalon:avalinha, sepln2004, linguateca, speaker:sepln2001, elpub2003, dag2002, xata05:tdt, parguess2002, elpub06-blind, APL2k2.Synthesis, freq2002, alfarrabio2001, xata06:xmlauto&lt;/P&gt;
+&lt;H3&gt;T&lt;/H3&gt;
+&lt;P&gt;Turchetti, R. C., LRHGT08&lt;/P&gt;
+&lt;H3&gt;U&lt;/H3&gt;
+&lt;P&gt;Uzal, R., BCVHU08, BHVU06b, BHVU07a, BHVU08, BHVU07b, BHVU07c, BHVUM06, BHVU09, BHVU07d, BUHV08, BHVU06a&lt;/P&gt;
+&lt;H3&gt;V&lt;/H3&gt;
+&lt;P&gt;Vilela, R., xata05:fs, linguateca&lt;/P&gt;
+&lt;P&gt;Vizzotto, J., LMMVRH08&lt;/P&gt;
+&lt;H3&gt;W&lt;/H3&gt;
+&lt;P&gt;Wu, H., HVMLGW05&lt;/P&gt;
+&lt;H3&gt;Z&lt;/H3&gt;
+&lt;P&gt;Zumer, V., HKMVZ03, KMHVZ04&lt;/P&gt;&lt;/BODY&gt;
+&lt;/HTML&gt;</code></pre>
+
+    <HR/>
+    <div class="footer">
+      <p>Published from <a href="tmp.pmd">tmp.pmd</a>
+    using <a href="http://mpastell.com/pweave">Pweave</a> 0.30.3
+    on 21-01-2022.<p></div>
+
+            </div>
+        </div>
+    </div>
+  </BODY>
+</HTML>

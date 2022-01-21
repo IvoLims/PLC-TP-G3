@@ -1,0 +1,5 @@
+graph{
+  "Daniela da Cruz" -- "Nuno Oliveira" [label="11"]
+  "Daniela da Cruz" -- "Maria Joao Varanda Pereira" [label="21"]
+  "Daniela da Cruz" -- "Pedro Rangel Henriques" [label="39"]
+}

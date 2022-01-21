@@ -2,15 +2,42 @@
 
 import regex as re
 
-HTML_PROLOGUE = '''<!DOCTYPE  html>
+MATHJAX = '''
+            <script type="text/x-mathjax-config">
+                MathJax.Hub.Config({
+                    "extensions":["tex2jax.js"],
+                    "jax":["input/TeX",
+                           "output/HTML-CSS"],
+                    "messageStyle":"none",
+                    "tex2jax":{
+                        "processEnvironments":false,
+                        "processEscapes":true,
+                        "inlineMath":[["$","$"]],
+                        "displayMath":[]
+                    },
+                    "TeX":{
+                        "extensions":["AMSmath.js",
+                                      "AMSsymbols.js",
+                                      "noErrors.js",
+                                      "noUndefined.js"]
+                    },
+                    "HTML-CSS":{
+                        "availableFonts":["TeX"]
+                    }
+                });
+            </script>
+
+            <script type="text/javascript" async
+                src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js">
+            </script>
+'''
+
+HTML_PROLOGUE = f'''<!DOCTYPE  html>
     <HTML lang="en">
         <HEAD>
             <meta charset="utf-8">
             <TITLE>Categories in BibTeX</TITLE>
-
-            <script type="text/x-mathjax-config"> MathJax.Hub.Config({"extensions":["tex2jax.js"],"jax":["input/TeX","output/HTML-CSS"],"messageStyle":"none","tex2jax":{"processEnvironments":false,"processEscapes":true,"inlineMath":[["$","$"]],"displayMath":[]},"TeX":{"extensions":["AMSmath.js","AMSsymbols.js","noErrors.js","noUndefined.js"]},"HTML-CSS":{"availableFonts":["TeX"]}}); </script>
-
-            <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js"></script>
+            {MATHJAX}
         </HEAD>'''
 
 HTML_EPILOGUE = '</HTML>'
@@ -27,7 +54,12 @@ def solve(author_name,INPUT_FILENAME=BIB_EXAMPLE_FILENAME):
     format_authors(entries)
     fix_repeated_authors(entries)
 
-    html_str_ls.append(html_enclose('body',f'{get_html_pub_type_counts(entries)}{get_html_common_pub_author(author_name,entries)}{get_html_pub_type_index(entries)}{get_html_author_index(entries)}'))
+    html_str_ls.append(
+        html_enclose('body',
+            get_html_pub_type_counts(entries)
+            + get_html_common_pub_author(author_name,entries)
+            + get_html_pub_type_index(entries)
+            + get_html_author_index(entries)))
 
     html_str_ls.append(HTML_EPILOGUE)
     with open(OUTPUT_FILENAME,'w') as file:
@@ -41,11 +73,17 @@ def get_entries(string):
     d = {}
 
     RELEVANT_FIELDS = {'author','title'}
+
     SPECIAL_TYPES = {'comment','string','preamble'}
 
-    between_cbrace_ex = r'(?:(?<rec>{(?<value>[^{}]+|(?P>rec))*+}))'
+    between_cbrace_ex = r'(?:(?<rec>{(?:[^{}]+|(?P>rec))*+}))'
 
-    field_match = re.compile(rf'(?<name>\w+)\s*=\s*({between_cbrace_ex}|"(?<value>[^"]+)"|(?<value>\d+))')
+    field_match = re.compile(
+        rf"(?<name>\w+)\s*=\s*("
+        rf"(?<value>{between_cbrace_ex})"
+        rf'|"(?<value>[^"]+)"'
+        rf"|(?<value>\d+))"
+    )
     entry_match = re.compile(rf'@(?<type>\w+)(?<value>{between_cbrace_ex})')
     key_match = re.compile(r'([^{},~#%\\]+),')
 
@@ -55,7 +93,10 @@ def get_entries(string):
             key = key_match.search(entry['value'])[1]
             d[entry_type, key] = {
                 field['name'].lower(): field['value']
-                for field in field_match.finditer(entry['value']) if field['name'].lower() in RELEVANT_FIELDS}
+                for field in field_match.finditer(entry['value'])
+                if field['name'].lower() in RELEVANT_FIELDS
+            }
+
     return d
 
 def unbrace(expression):
@@ -83,8 +124,12 @@ def html_enclose(tag,string):
 def html_create_span(expression):
     return html_enclose('span',expression)
 
-def html_add_attr(attr,val,html_expression):
-    return re.sub(r'<(\w+)([^>]*)\s*>(.*)</\1>',rf'<\1\2 {attr.upper()}="{val}">\3</\1>',html_expression)
+def html_add_attr(attr, val, html_expression):
+    return re.sub(
+        r"<(\w+)([^>]*)\s*>(.*)</\1>",
+        rf'<\1\2 {attr.upper()}="{val}">\3</\1>',
+        html_expression,
+    )
 
 def mult_replace(string, replacement_list):
     for old, new in replacement_list:
@@ -99,7 +144,9 @@ def format_authors(data):
                            invert_name(
                            unbrace(
                            remove_accents(name)))))
-                           for name in re.split(r"\band\b", d["author"].replace("\n", " "))]
+
+                           for name in re.split(r"\band\b",
+                                                d["author"].replace("\n", " "))]
             d['author'] = [author for author in author_lst if author]
 
 def remove_consecutive_spaces(name):
@@ -112,20 +159,38 @@ def remove_accents(name):
     return remove_latex_accent(remove_normal_accent(name))
 
 def remove_latex_accent(name):
-    return re.sub(r'\\\W','',name)
+    return re.sub(r'\\\W(?:{(.*)})?',
+                  '\1',
+                  name)
 
 def remove_normal_accent(name):
     import unicodedata
-    return ''.join((c for c in unicodedata.normalize('NFD', name) if unicodedata.category(c) != 'Mn'))
+
+    return "".join(
+        (
+            c
+            for c in unicodedata.normalize("NFD", name)
+            if unicodedata.category(c) != "Mn"
+        )
+    )
 
 def fix_repeated_authors(data):
-    author_blocks = fix_block_func(block_authors_with_two_common_names_v2(get_author_list(data)))
-    author_dict = {author_name:max(s,key=len) for s in author_blocks for author_name in s}
+    author_blocks = fix_block_func(
+                        block_authors_with_two_common_names_v2(
+                            get_author_list(data)))
+
+    author_dict = {author_name:max(s,key=len)
+                   for s in author_blocks
+                   for author_name in s}
+
     for d in data.values():
-        d['author'] = [author_dict[author] for author in d['author']]
+        d['author'] = [author_dict[author]
+                       for author in d['author']]
 
 def get_author_list(data):
-    return sorted(set([a for s in data.values() for a in s.get("author", [])]))
+    return sorted(set([a
+                       for s in data.values()
+                       for a in s.get("author", [])]))
 
 def block_authors_with_two_common_names_v2(authors):
     res = set()
@@ -138,7 +203,11 @@ def block_authors_with_two_common_names_v2(authors):
             if len(a1.intersection(a2)) > 1:
                 fs.add(author2)
 
-            elif len(a1) == 1 and len(a1.intersection(a2)) == 1 and is_a_first_last_match(author,author2):
+            elif (
+                len(a1) == 1
+                and len(a1.intersection(a2)) == 1
+                and is_a_first_last_match(author, author2)
+            ):
                 fs.add(author2)
         res.add(frozenset(fs))
     return res
@@ -166,13 +235,28 @@ def get_pub_type_counts(data):
     return [(pub_type, pub_types_occur.count(pub_type)) for pub_type in pub_types]
 
 def get_html_pub_type_counts(data):
-    string_ls = [html_enclose('h2','Number of Occurrences of Publication Types')]
-    pub_counts = sorted(get_pub_type_counts(data),key=lambda x: x[1],reverse=True)
-    time = lambda v: 's' if v > 1 else ''
-    for pub_type, count in pub_counts:
-        string_ls.append(html_enclose('p',f'Type {pub_type} appears {count} time{time(count)}'))
-    return ''.join(string_ls)
+    string_ls = [
+        html_enclose(
+            "h2",
+            "Number of Occurrences of Publication Types",
+        )
+    ]
+    pub_counts = sorted(
+        get_pub_type_counts(data),
+        key=lambda x: x[1],
+        reverse=True,
+    )
 
+    time = lambda v: "s" if v > 1 else ""
+    for pub_type, count in pub_counts:
+        string_ls.append(
+            html_enclose(
+                "p",
+                f"Type {pub_type} appears {count} time{time(count)}",
+            )
+        )
+
+    return "\n".join(string_ls)
 
 def get_author_pub_graph(author,data):
     pub_partners = []
@@ -210,9 +294,12 @@ def get_html_common_pub_author(author,data):
     return ''.join(string_ls)
 
 def fix_title(title):
-    substitutions = [(r'\\textsc{((?:\\{|[^{])+)}',lambda m: f'{html_to_small_caps(html_create_span(m.group(1)))}'),
-                     (r'\\textsf{((?:\\{|[^{])+)}',lambda m: f'{html_to_sans_serif(html_create_span(m.group(1)))}'),
-                     (r'(\$(?:.|\\\$)+\$)', lambda m: f'{str_to_html_math(m.group(1))}')]
+    substitutions = [(r'\\textsc{((?:\\{|[^{])+)}',
+                      lambda m: f'{html_to_small_caps(html_create_span(m.group(1)))}'),
+                     (r'\\textsf{((?:\\{|[^{])+)}',
+                      lambda m: f'{html_to_sans_serif(html_create_span(m.group(1)))}'),
+                     (r'(\$(?:.|\\\$)+\$)',
+                      lambda m: f'{str_to_html_math(m.group(1))}')]
 
 
     replace = lambda x: mult_replace(x,substitutions)
@@ -222,8 +309,9 @@ def fix_title(title):
              double_quote_latex(
              unbrace(
              replace(
-             remove_latex_special_chars(
-             ' '.join(s.strip() for s in title.split('\n'))))))))
+             remove_latex_accent(
+             unscape_latex(
+             ' '.join(s.strip() for s in title.split('\n')))))))))
 
 def double_quote_latex(expression):
     return re.sub(r"``(.*[^\\])''",r'"\1"',expression)
@@ -231,8 +319,8 @@ def double_quote_latex(expression):
 def single_quote_latex (expression):
     return re.sub(r"[^`]`([^`].*[^'])'[^`]",r"'\1'",expression)
 
-def remove_latex_special_chars(latex_expression):
-    return re.sub(r'\\({|[^{])\b',r'\1',latex_expression)
+def unscape_latex(latex_expression):
+    return re.sub(r'\\([&%$#_{}\\])',r'\1',latex_expression)
 
 def html_to_small_caps(html_expression):
     return html_add_attr('style','font-variant:small-caps',html_expression)
@@ -253,7 +341,13 @@ def get_html_pub_type_index(data):
         for citation_key in [x[1] for x in data if x[0]==entry_type]:
             title = data[entry_type,citation_key].get('title','')
             authors = ', '.join((sorted(data[entry_type,citation_key].get('author',''))))
-            string_ls.append(html_enclose('p',f"Key = {citation_key}<br>Title = {fix_title(title)}<br>Autores = {authors}"))
+            string_ls.append(
+                html_enclose('p',
+                             f"Key = {citation_key}"
+                             f"\n<br>Title = {fix_title(title)}"
+                             f"\n<br>Autores = {authors}"
+                )
+            )
     return '\n'.join(string_ls)
 
 def last_name_first(name):
@@ -284,13 +378,15 @@ def get_html_author_index(data):
             string_ls.append(html_enclose('h3',alphabet_order[i]))
         citation_keys_str = ', '.join(citation_keys)
         string_ls.append(html_enclose('p',f'{author}, {citation_keys_str}'))
-    return ''.join(string_ls)
+    return '\n'.join(string_ls)
 
 if __name__ == '__main__':
     import sys
     import os.path
+
     filename = sys.argv[1] if len(sys.argv) > 1 else BIB_EXAMPLE_FILENAME
     assert os.path.isfile(filename)
+
     if len(sys.argv) < 3:
         author_name = 'Daniela da Cruz'
     else:
