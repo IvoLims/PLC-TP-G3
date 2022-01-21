@@ -1,0 +1,9 @@
+START
+la0:
+PUSHI 1
+JZ la1
+READ
+JUMP la0
+la1:
+WRITE
+STOP
