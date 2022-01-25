@@ -4,3 +4,5 @@
 - [tp2 report](https://alef-keuffer.github.io/PLC-TP-G3/tp2/relatorio.html)
   - [tp2 parser](tp2/Code/yacc7.py)
   - [tp2 lexer](tp2/Code/lex7.py)
+
+Classificação Final: 20
